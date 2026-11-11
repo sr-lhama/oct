@@ -137,3 +137,73 @@ body.oct-reference-home{font-family:Arial,'Segoe UI',sans-serif;background:#fff;
  .oct-reference-home .oct-art-carousel .slider-controls{bottom:14px}
 }
 @media(max-width:390px){.oct-reference-home .oct-art-mobile-actions .btn{width:100%;justify-content:center}}
+
+
+/* OCT semantic hero with real SEO text, responsive artwork, gentle parallax */
+.oct-reference-home .oct-semantic-carousel {position:relative;isolation:isolate;background:#fff}
+.oct-reference-home .oct-semantic-slide {display:block!important;position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;z-index:0;animation:none;transition:opacity .7s ease,visibility .7s ease}
+.oct-reference-home .oct-semantic-slide:first-of-type {position:relative;inset:auto}
+.oct-reference-home .oct-semantic-slide.active {opacity:1;visibility:visible;pointer-events:auto;z-index:2}
+.oct-reference-home .oct-semantic-layout {display:grid;grid-template-columns:49.5% 50.5%;min-height:clamp(485px,41vw,620px);overflow:hidden;background:linear-gradient(105deg,#fff 5%,#f3f9ff 61%,#f3faff)}
+.oct-reference-home .oct-semantic-copy {z-index:2;position:relative;padding:clamp(28px,4vw,68px) clamp(22px,3.2vw,60px) clamp(58px,4vw,68px) max(28px,calc((100vw - 1460px)/2));display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.oct-reference-home .oct-semantic-copy:after {content:"";position:absolute;right:-17px;top:-14%;bottom:-14%;width:40px;background:#ffdf00;transform:rotate(-9deg);border-radius:90% 50% 35% 70%;z-index:-1;pointer-events:none}
+.oct-reference-home .oct-semantic-kicker {font-size:.72rem;font-weight:900;letter-spacing:.13em;color:#0079aa;margin-bottom:15px}
+.oct-reference-home .oct-semantic-copy h1,.oct-reference-home .oct-semantic-copy h2 {font-size:clamp(2.3rem,3.7vw,4.6rem);letter-spacing:-.045em;line-height:1.025;font-weight:950;max-width:700px;margin:0;color:#081c3d}
+.oct-reference-home .oct-semantic-copy h1 em,.oct-reference-home .oct-semantic-copy h2 em {font-style:normal;color:#e90087}
+.oct-reference-home .oct-semantic-sub {font-size:clamp(.99rem,1.27vw,1.26rem);font-weight:550;line-height:1.38;color:#173451;max-width:620px;margin:20px 0 0}
+.oct-reference-home .oct-semantic-perks {list-style:none;display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding:0;margin:25px 0 25px}
+.oct-reference-home .oct-semantic-perks li {display:flex;align-items:center;gap:7px;max-width:160px;font-size:.82rem;font-weight:850;line-height:1.12;color:#082447}
+.oct-reference-home .oct-semantic-perks li:not(:last-child) {border-right:1px solid #cad6e5;padding-right:13px}
+.oct-reference-home .oct-perk-symbol {color:#e90087;font-size:1.5rem;font-weight:950;white-space:nowrap;letter-spacing:-.07em}
+.oct-reference-home .oct-semantic-actions {display:flex;gap:12px;flex-wrap:wrap}
+.oct-reference-home .oct-semantic-actions .btn {min-height:50px;padding:12px 19px;font-weight:850;font-size:clamp(.83rem,1vw,1rem);display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:13px}
+.oct-reference-home .oct-semantic-media {position:relative;min-height:100%;overflow:hidden;background:#112442}
+.oct-reference-home .oct-semantic-scene {position:absolute;inset:-18px;transform:translate3d(0,var(--oct-scroll-shift,0px),0);will-change:transform}
+.oct-reference-home .oct-semantic-picture {position:absolute;right:0;top:0;width:205%;max-width:none;height:100%;object-fit:cover;object-position:center 7%;transform-origin:65% 40%;filter:saturate(1.04)}
+.oct-reference-home .oct-semantic-slide.active .oct-semantic-picture {animation:octHeroKenBurns 12s ease-out both}
+.oct-reference-home .oct-semantic-slide.active .oct-semantic-copy > * {animation:octHeroTextIn .7s both}
+.oct-reference-home .oct-semantic-slide.active .oct-semantic-sub {animation-delay:.12s}
+.oct-reference-home .oct-semantic-slide.active .oct-semantic-perks {animation-delay:.2s}
+.oct-reference-home .oct-semantic-slide.active .oct-semantic-actions {animation-delay:.27s}
+.oct-reference-home .oct-semantic-carousel .slider-controls {bottom:13px;z-index:5}
+@keyframes octHeroKenBurns {from{transform:scale(1.09) translate3d(-8px,5px,0)}to{transform:scale(1.025) translate3d(2px,-6px,0)}}
+@keyframes octHeroTextIn {from{opacity:0;transform:translate3d(0,14px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@media(max-width:1100px){
+ .oct-reference-home .oct-semantic-copy{padding-left:28px;padding-right:20px}
+ .oct-reference-home .oct-semantic-copy h1,.oct-reference-home .oct-semantic-copy h2{font-size:clamp(2rem,3.9vw,3.5rem)}
+ .oct-reference-home .oct-semantic-perks{gap:8px;margin:20px 0}
+ .oct-reference-home .oct-semantic-perks li{font-size:.72rem;max-width:140px}
+ .oct-reference-home .oct-semantic-actions .btn{padding:11px 13px}
+}
+@media(max-width:850px){
+ .oct-reference-home .oct-semantic-layout{grid-template-columns:1fr;grid-template-rows:auto 310px;min-height:0}
+ .oct-reference-home .oct-semantic-copy{padding:26px 24px 28px;text-align:center;align-items:center}
+ .oct-reference-home .oct-semantic-copy:after{display:none}
+ .oct-reference-home .oct-semantic-copy h1,.oct-reference-home .oct-semantic-copy h2{font-size:clamp(2.1rem,6.5vw,3.2rem);max-width:680px}
+ .oct-reference-home .oct-semantic-sub{font-size:1.04rem;max-width:660px;margin-top:12px}
+ .oct-reference-home .oct-semantic-perks{justify-content:center;gap:7px;margin:18px 0 20px}
+ .oct-reference-home .oct-semantic-actions{justify-content:center}
+ .oct-reference-home .oct-semantic-media{height:310px}
+ .oct-reference-home .oct-semantic-picture{width:205%;object-position:center 8%}
+ .oct-reference-home .oct-semantic-carousel .slider-controls{bottom:12px}
+}
+@media(max-width:510px){
+ .oct-reference-home .oct-semantic-layout{grid-template-rows:auto 265px}
+ .oct-reference-home .oct-semantic-copy{padding:19px 17px 19px}
+ .oct-reference-home .oct-semantic-kicker{font-size:.63rem;margin-bottom:10px}
+ .oct-reference-home .oct-semantic-copy h1,.oct-reference-home .oct-semantic-copy h2{font-size:clamp(1.9rem,8vw,2.6rem);line-height:1.04}
+ .oct-reference-home .oct-semantic-sub{font-size:.9rem;line-height:1.34;margin-top:12px}
+ .oct-reference-home .oct-semantic-perks{gap:7px;margin:15px 0}
+ .oct-reference-home .oct-semantic-perks li{font-size:.66rem;max-width:112px;padding-right:0!important;border-right:0!important;gap:3px}
+ .oct-reference-home .oct-perk-symbol{font-size:1.03rem}
+ .oct-reference-home .oct-semantic-actions{gap:8px;width:100%}
+ .oct-reference-home .oct-semantic-actions .btn{font-size:.77rem;min-height:43px;flex:1 1 140px;padding:9px 9px}
+ .oct-reference-home .oct-semantic-media{height:265px}
+ .oct-reference-home .oct-semantic-carousel .slider-controls{bottom:8px}
+}
+@media(prefers-reduced-motion:reduce){
+ .oct-reference-home .oct-semantic-slide{transition:none!important}
+ .oct-reference-home .oct-semantic-slide.active .oct-semantic-picture,
+ .oct-reference-home .oct-semantic-slide.active .oct-semantic-copy > * {animation:none!important;transform:none!important}
+ .oct-reference-home .oct-semantic-scene{transform:none!important}
+}
