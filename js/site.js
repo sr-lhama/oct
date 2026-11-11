@@ -28,6 +28,24 @@ window.OCT_PREVIEW_ONLY=true;
     const car=document.querySelector('[data-carousel]');if(car){car.addEventListener('mouseenter',()=>clearInterval(timer));car.addEventListener('mouseleave',reset);car.addEventListener('focusin',()=>clearInterval(timer));car.addEventListener('focusout',reset);}
     reset();
   }
+  // Gentle scroll parallax on the active hero scene, without impairing reduced-motion users.
+  const semanticCarousel=document.querySelector('.oct-semantic-carousel');
+  if(semanticCarousel && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    let frame=0;
+    const updateHeroOffset=()=>{
+      if(frame)return;
+      frame=window.requestAnimationFrame(()=>{
+        frame=0;
+        const rect=semanticCarousel.getBoundingClientRect();
+        if(rect.bottom<0 || rect.top>window.innerHeight)return;
+        const scrollDrift=Math.max(-18,Math.min(18,(window.innerHeight*.5-(rect.top+rect.height*.5))*.045));
+        semanticCarousel.style.setProperty('--oct-scroll-shift',scrollDrift.toFixed(1)+'px');
+      });
+    };
+    window.addEventListener('scroll',updateHeroOffset,{passive:true});
+    window.addEventListener('resize',updateHeroOffset,{passive:true});
+    updateHeroOffset();
+  }
   const filters=document.querySelectorAll('[data-filter]');
   if(filters.length){filters.forEach(b=>b.addEventListener('click',()=>{filters.forEach(x=>x.classList.toggle('active',x===b));const category=b.dataset.filter;document.querySelectorAll('[data-card-category]').forEach(card=>{card.hidden=category!=='all'&&card.dataset.cardCategory!==category;});}));}
   if(location.hash){const key=location.hash.slice(1);const chosen=document.querySelector('[data-filter="'+key+'"]');if(chosen){chosen.click();document.querySelector('.filters')?.scrollIntoView({block:'start'});}}
