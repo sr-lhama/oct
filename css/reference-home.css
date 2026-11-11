@@ -113,3 +113,27 @@ body.oct-reference-home{font-family:Arial,'Segoe UI',sans-serif;background:#fff;
 @media(max-width:1240px){.oct-reference-home .benefitbar span{padding:0 10px;font-size:.67rem}.oct-reference-home .mainnav{gap:12px;font-size:.8rem}.oct-reference-home .header-inner .logo{width:185px}.oct-reference-home .header-phone{display:none}.oct-reference-home .hero-copy{padding-left:30px}}
 @media(max-width:920px){.oct-reference-home .header-inner{height:72px}.oct-reference-home .hero-layout{grid-template-columns:1fr;min-height:unset}.oct-reference-home .hero-copy{padding:34px 25px 25px;text-align:center;align-items:center}.oct-reference-home .hero-copy::after{display:none}.oct-reference-home .hero-photo{height:450px}.oct-reference-home .hero-actions{justify-content:center}.oct-reference-home .hero-trust{justify-content:center}.oct-reference-home .category-grid{grid-template-columns:repeat(3,1fr)}.oct-reference-home #best-sellers .container{display:block}.oct-reference-home #best-sellers .section-heading{display:block;margin-bottom:16px}.oct-reference-home #best-sellers .section-heading .btn{display:inline-flex;margin-top:9px}.oct-reference-home .product-grid{grid-template-columns:repeat(3,1fr)}.oct-reference-home #process .container{display:block}.oct-reference-home #process .center{text-align:center}.oct-reference-home #process h2{max-width:none}.oct-reference-home #process .steps{margin-top:18px;grid-template-columns:repeat(2,1fr)}.oct-reference-home .industry-grid{grid-template-columns:repeat(3,1fr)}.oct-reference-home .review-area{grid-template-columns:1fr}}
 @media(max-width:620px){.oct-reference-home .container{width:calc(100% - 28px)}.oct-reference-home .benefitbar .inner{justify-content:center}.oct-reference-home .benefitbar span{font-size:.62rem}.oct-reference-home .benefitbar span:nth-child(n+3){display:none}.oct-reference-home .hero-copy{padding:28px 15px 25px}.oct-reference-home .hero-copy h1{font-size:clamp(2.2rem,9vw,3.6rem)}.oct-reference-home .hero-copy .lead{font-size:.98rem}.oct-reference-home .hero-photo{height:360px;margin:0}.oct-reference-home .hero-trust{gap:8px}.oct-reference-home .hero-proof{font-size:.69rem;max-width:135px}.oct-reference-home .hero-proof strong{font-size:1.1rem}.oct-reference-home .hero-actions{width:100%}.oct-reference-home .hero-actions .btn{width:100%;max-width:390px}.oct-reference-home .section{padding:32px 0}.oct-reference-home .category-grid{grid-template-columns:repeat(2,1fr)}.oct-reference-home .category img{height:150px}.oct-reference-home .category .cat-name{font-size:.83rem}.oct-reference-home .product-grid{grid-template-columns:repeat(2,1fr)}.oct-reference-home .product-card .photo img{height:155px}.oct-reference-home .feature-row{grid-template-columns:1fr;gap:18px}.oct-reference-home .feature-row img{height:225px}.oct-reference-home .checkgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.oct-reference-home #process .steps{grid-template-columns:1fr 1fr;gap:2px}.oct-reference-home #process .step{padding:7px 5px 9px 35px}.oct-reference-home .industry-grid{grid-template-columns:repeat(2,1fr)}.oct-reference-home .industry-card{min-height:165px}.oct-reference-home .review-area{padding:0}.oct-reference-home .cta-wide{padding:23px;flex-direction:column;align-items:flex-start;gap:15px}.oct-reference-home .cta-wide .btn{width:100%}}
+/* Approved trio of logo-free hero slides, uploaded by the site owner */
+.oct-reference-home .oct-art-carousel{background:#fff;position:relative}
+.oct-reference-home .oct-art-slide{background:#fff}
+.oct-reference-home .oct-art-stage{width:100%;max-width:1648px;margin:0 auto;position:relative;overflow:hidden;background:#f9fcff}
+.oct-reference-home .oct-art-image{display:block;width:100%;height:auto;max-height:none;object-fit:contain}
+.oct-reference-home .oct-art-click-areas{position:absolute;inset:0;pointer-events:none}
+.oct-reference-home .oct-art-click-areas a{position:absolute;display:block;pointer-events:auto;top:79.5%;height:12%;border-radius:12px}
+.oct-reference-home .oct-art-click-areas a:first-child{left:1.5%;width:23.5%}
+.oct-reference-home .oct-art-click-areas a:nth-child(2){left:25.5%;width:23%}
+.oct-reference-home .oct-art-click-areas a:focus-visible{outline:4px solid #0753bb;outline-offset:-4px}
+.oct-reference-home .oct-art-mobile-content{display:none}
+.oct-reference-home .oct-art-carousel .slider-controls{bottom:12px}
+@media(max-width:760px){
+ .oct-reference-home .oct-art-stage{height:min(92vw,440px);min-height:260px}
+ .oct-reference-home .oct-art-image{width:100%;height:100%;object-fit:cover;object-position:75% 46%}
+ .oct-reference-home .oct-art-click-areas{display:none}
+ .oct-reference-home .oct-art-mobile-content{display:block;background:#fff;padding:20px 22px 66px;text-align:center}
+ .oct-reference-home .oct-art-mobile-content h2{font-size:clamp(1.55rem,6vw,2.3rem);line-height:1.08;color:#071a3b}
+ .oct-reference-home .oct-art-mobile-content p{font-size:.94rem;line-height:1.4;color:#445670;margin:12px auto 17px;max-width:580px}
+ .oct-reference-home .oct-art-mobile-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:9px}
+ .oct-reference-home .oct-art-mobile-actions .btn{font-size:.87rem;padding:12px 14px;min-height:43px}
+ .oct-reference-home .oct-art-carousel .slider-controls{bottom:14px}
+}
+@media(max-width:390px){.oct-reference-home .oct-art-mobile-actions .btn{width:100%;justify-content:center}}
