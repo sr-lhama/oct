@@ -207,3 +207,33 @@ body.oct-reference-home{font-family:Arial,'Segoe UI',sans-serif;background:#fff;
  .oct-reference-home .oct-semantic-slide.active .oct-semantic-copy > * {animation:none!important;transform:none!important}
  .oct-reference-home .oct-semantic-scene{transform:none!important}
 }
+
+
+/* OCT hero art reframe v5: keep full mascot face visible */
+.oct-reference-home .oct-semantic-media {background:#f5faff;isolation:isolate}
+.oct-reference-home .oct-semantic-scene {inset:-8px;overflow:hidden}
+.oct-reference-home .oct-semantic-picture {
+  width:155%;
+  height:100%;
+  right:-9%;
+  top:0;
+  object-fit:cover;
+  object-position:center top;
+  transform-origin:65% 13%;
+}
+/* Blend the source artwork's obsolete embedded text into the clean side of the hero. */
+.oct-reference-home .oct-semantic-media::after {
+  content:"";
+  position:absolute;
+  z-index:1;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(90deg,#f4faff 0%,rgba(244,250,255,.94) 18%,rgba(244,250,255,.44) 28%,transparent 40%);
+}
+@media(max-width:850px){
+ .oct-reference-home .oct-semantic-picture {width:125%;right:-4%;height:100%;object-position:center top;}
+ .oct-reference-home .oct-semantic-media::after {background:linear-gradient(90deg,rgba(244,250,255,.86),transparent 22%);}
+}
+@media(max-width:510px){
+ .oct-reference-home .oct-semantic-picture {width:125%;right:-8%;object-position:center top;}
+}
