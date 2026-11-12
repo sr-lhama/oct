@@ -1,0 +1,29 @@
+.oct-apparel-hero { padding: clamp(24px, 4vw, 56px) 0; }
+.oct-apparel-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(20px, 4vw, 56px);
+}
+.oct-apparel-hero h1 { font-size: clamp(2.4rem, 4.1vw, 4.45rem); }
+.oct-apparel-hero .lead { margin: 15px 0 22px; }
+.oct-apparel-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.oct-apparel-hero-image { width: 100%; height: auto; border-radius: 22px; }
+.oct-apparel-catalog, .oct-apparel-guide { padding: clamp(36px, 5vw, 70px) 0; }
+.oct-apparel-catalog { scroll-margin-top: 100px; }
+.oct-apparel-catalog .p-name { margin: 0 0 6px; min-height: 0; }
+.oct-apparel-catalog .product-info .btn { white-space: normal; }
+.oct-apparel-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.oct-apparel-guide a { color: #005a90; text-decoration: underline; }
+.oct-apparel-guide details { padding: 10px 0; border-top: 1px solid #dce7f0; }
+.oct-apparel-guide summary { font-weight: 700; cursor: pointer; }
+.oct-apparel-guide details p { margin: 6px 0 0; }
+@media (max-width: 700px) {
+  .oct-apparel-hero-grid, .oct-apparel-guide-grid { grid-template-columns: minmax(0, 1fr); }
+  .oct-apparel-hero-image { border-radius: 15px; }
+  .oct-apparel-actions .btn { padding-inline: 14px; }
+}
