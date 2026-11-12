@@ -86,12 +86,8 @@ body.oct-reference-home{font-family:Arial,'Segoe UI',sans-serif;background:#fff;
 /* Industry cards: visual photography is a priority */
 .oct-reference-home .industry-grid{gap:12px}
 .oct-reference-home .industry-card{min-height:195px;border-radius:17px;overflow:hidden;position:relative;padding:17px;color:white;background-size:cover;background-position:center;isolation:isolate;border:0;box-shadow:0 4px 13px rgba(0,0,0,.1)}
-.oct-reference-home .industry-card:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(transparent 25%,rgba(2,17,40,.82))}
-.oct-reference-home .industry-card:nth-child(1){background-image:url('../assets/products/workwear.webp')}
-.oct-reference-home .industry-card:nth-child(2){background-image:url('../assets/products/team365-tt21.webp')}
-.oct-reference-home .industry-card:nth-child(3){background-image:url('../assets/products/team365-tt11.webp')}
-.oct-reference-home .industry-card:nth-child(4){background-image:url('../assets/products/next-level-6210.webp')}
-.oct-reference-home .industry-card:nth-child(5){background-image:url('../assets/products/gildan-64000.webp')}
+.oct-reference-home .industry-card .industry-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;z-index:-2}
+.oct-reference-home .industry-card:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 24%,rgba(2,17,40,.72) 63%,rgba(2,17,40,.94) 100%)}
 .oct-reference-home .industry-card .glyph{font-size:1.35rem;text-shadow:0 2px 5px #000;margin-bottom:10px}
 .oct-reference-home .industry-card b{font-size:1rem;line-height:1.15}
 .oct-reference-home .industry-card small{color:#eff6fc;font-size:.72rem;line-height:1.25}
