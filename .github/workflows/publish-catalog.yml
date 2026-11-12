@@ -1,0 +1,46 @@
+name: Publish OCT garment photo catalog
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.catalog-upload/**'
+      - '.github/workflows/publish-catalog.yml'
+permissions:
+  contents: write
+jobs:
+  unpack-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 1
+      - name: Restore complete catalog from uploaded parts
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .catalog-upload/part-*.bin > /tmp/orlando-photos.zip
+          echo '9cd815a3b6627ddb8f8f39ad6796e667e8b44b177ba624241cd7e5310b28aad2  /tmp/orlando-photos.zip' | sha256sum -c -
+          python3 - <<'PY'
+          import zipfile, json
+          with zipfile.ZipFile('/tmp/orlando-photos.zip') as z:
+              names=z.namelist()
+              assert len(names)==598, f'Unexpected entries: {len(names)}'
+              assert all(n.startswith('assets/catalog/') and '..' not in n.split('/') for n in names)
+              assert sum(n.lower().endswith('.webp') for n in names)==596
+              z.extractall('.')
+          with open('assets/catalog/catalogo_por_modelo.json') as f:
+              data=json.load(f)
+          assert data['image_count']==594
+          print('Verified 594 garment photos, 2 brand images, catalog and README.')
+          PY
+      - name: Commit finished catalog and remove temporary parts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/catalog
+          git rm -r .catalog-upload
+          git commit -m 'Publish official OCT 594 garment photos and catalog metadata'
+          git push origin HEAD:main
