@@ -102,49 +102,6 @@ body.oct-reference-home{font-family:Outfit,Arial,sans-serif;background:#fff;colo
 .oct-reference-home .cta-wide h2{font-size:clamp(1.6rem,2.6vw,2.5rem);color:#fff;max-width:620px}
 .oct-reference-home .cta-wide .btn{background:#ed008b;color:#fff;box-shadow:0 4px 10px rgba(0,0,0,.15)}
 .oct-reference-home .cta-wide p{font-size:.9rem}
-.oct-reference-home .footer{padding:40px 0 19px}
-.oct-reference-home .footer-grid{gap:28px}
-.oct-reference-home .footer img{width:220px;background:transparent;padding:0;border-radius:0}
-.oct-reference-home .footer-review-seals {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 12px;
-}
-.oct-reference-home .footer-review-seal {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin: 0;
-  padding: 6px 8px;
-  min-height: 42px;
-  border: 1px solid #41536c;
-  border-radius: 10px;
-  background: #10223a;
-  color: #f3f7fc;
-  line-height: 1.15;
-}
-.oct-reference-home .footer-review-seal:hover,
-.oct-reference-home .footer-review-seal:focus-visible {
-  background: #1b324e;
-  color: #fff;
-}
-.footer-review-seal strong, .footer-review-seal small { display: block; white-space: nowrap; }
-.footer-review-seal strong { font-size: .72rem; }
-.footer-review-seal small { margin-top: 3px; color: #c4d0df; font-size: .64rem; }
-.footer-review-icon {
-  display: grid;
-  place-items: center;
-  flex: 0 0 24px;
-  height: 24px;
-  border-radius: 6px;
-  background: #20354f;
-  font-size: .92rem;
-  font-weight: 800;
-}
-.footer-review-icon-google { color: #74b3ff; }
-.footer-review-icon-trustpilot { color: #00cf91; }
-.footer-review-icon-bbb { color: #8bd8ff; font-size: .51rem; }
 /* Responsive tablet/mobile */
 @media(max-width:1240px){.oct-reference-home .hero-copy{padding-left:30px}}
 @media(max-width:920px){.oct-reference-home .hero-layout{grid-template-columns:1fr;min-height:unset}.oct-reference-home .hero-copy{padding:34px 25px 25px;text-align:center;align-items:center}.oct-reference-home .hero-copy::after{display:none}.oct-reference-home .hero-photo{height:450px}.oct-reference-home .hero-actions{justify-content:center}.oct-reference-home .hero-trust{justify-content:center}.oct-reference-home .category-grid{grid-template-columns:repeat(3,1fr)}.oct-reference-home #best-sellers .container{display:block}.oct-reference-home #best-sellers .section-heading{display:block;margin-bottom:16px}.oct-reference-home #best-sellers .section-heading .btn{display:inline-flex;margin-top:9px}.oct-reference-home .product-grid{grid-template-columns:repeat(3,1fr)}.oct-reference-home #process .container{display:block}.oct-reference-home #process .center{text-align:center}.oct-reference-home #process h2{max-width:none}.oct-reference-home #process .steps{margin-top:18px;grid-template-columns:repeat(2,1fr)}.oct-reference-home .industry-grid{grid-template-columns:repeat(3,1fr)}.oct-reference-home .review-area{grid-template-columns:1fr}}
