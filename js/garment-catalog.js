@@ -90,7 +90,7 @@
       if (color) showPhoto(card.querySelector('img'), product, color, 'Front');
     }
 
-    if (page) {
+    if (page?.isConnected) {
       const id = params.get('id') || 'gildan-64000';
       const product = byModel.get(modelsByPage[id]);
       if (product) {
