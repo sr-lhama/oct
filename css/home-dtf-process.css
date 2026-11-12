@@ -13,15 +13,6 @@
   height: 100%;
   object-fit: cover;
 }
-.oct-reference-home .feature-row .oct-dtf-apron-logo {
-  position: absolute;
-  left: 21.7%;
-  top: 57%;
-  width: 8.6%;
-  height: auto;
-  border-radius: 0;
-  transform: rotate(-3deg);
-}
 .oct-reference-home #process .container {
   grid-template-columns: minmax(0, 22fr) minmax(0, 78fr);
 }
