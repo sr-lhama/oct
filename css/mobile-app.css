@@ -1,0 +1,91 @@
+/* Orlando Custom Tees | App-inspired mobile homepage, approved desktop is unchanged. */
+@media (max-width:700px){
+  .oct-reference-home{background:#fff;overflow-x:hidden}
+  .oct-reference-home .benefitbar{position:relative;z-index:30;background:#061c3d}
+  .oct-reference-home .benefitbar .inner{width:100%;min-height:30px;padding:0 10px;display:flex;gap:0;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+  .oct-reference-home .benefitbar .inner::-webkit-scrollbar{display:none}
+  .oct-reference-home .benefitbar span{display:inline-flex!important;align-items:center;flex:none;font-size:9px;letter-spacing:-.01em;padding:0 10px;border-right:1px solid #4f627f}
+  .oct-reference-home .benefitbar span:nth-child(n+4){display:none!important}
+  .oct-reference-home .header{position:sticky;top:0;z-index:55;border-radius:0 0 17px 17px;box-shadow:0 4px 18px rgba(10,28,60,.07)}
+  .oct-reference-home .header-inner{width:calc(100% - 20px);min-height:69px;height:69px;gap:6px;justify-content:space-between}
+  .oct-reference-home .header-inner>a{flex:0 1 auto;min-width:0}
+  .oct-reference-home .header-inner .logo{width:clamp(123px,38vw,178px);max-height:57px;object-fit:contain}
+  .oct-reference-home .header-actions{display:flex;align-items:center;gap:6px;flex:none}
+  .oct-reference-home .header-actions .header-phone{display:inline-flex!important;align-items:center;justify-content:center;width:37px;height:39px;border:1px solid #d3e0ed;border-radius:12px;font-size:0;min-width:0;padding:0;background:#fff}
+  .oct-reference-home .header-actions .header-phone::after{content:"☎";font-size:19px;color:#091e44;font-weight:900}
+  .oct-reference-home .header-actions>.btn{display:inline-flex!important;align-items:center;justify-content:center;height:39px;min-height:39px;padding:0 9px;border:0;border-radius:12px;min-width:90px;font-size:0;box-shadow:0 4px 10px rgba(236,0,139,.16)}
+  .oct-reference-home .header-actions>.btn::before{content:"Get a Quote ›";font-family:'Outfit',Arial,sans-serif;font-size:11px;font-weight:900;white-space:nowrap;color:#fff}
+  .oct-reference-home .header-actions>.btn span{display:none}
+  .oct-reference-home .header-actions .menu-btn{display:flex!important;align-items:center;justify-content:center;border:1px solid #d3e0ed;background:white;color:#0a2346;width:37px;height:39px;border-radius:12px;font-size:21px;padding:0}
+  .oct-reference-home .mobile-menu{border-radius:0 0 17px 17px;box-shadow:0 16px 28px rgba(10,30,55,.12)}
+  /* One seamless, portrait hero. Text stays real HTML above artwork. */
+  .oct-reference-home .hero-wrap{background:#fff;padding:9px 9px 0}
+  .oct-reference-home .oct-v6-carousel{border-radius:24px;overflow:hidden;background:#f5f8ff;box-shadow:0 9px 28px rgba(8,27,62,.10)}
+  .oct-reference-home .oct-v6-slide,
+  .oct-reference-home .oct-v6-slide:first-of-type{height:615px!important;min-height:615px!important;max-height:615px}
+  .oct-reference-home .oct-v6-parallax{inset:0!important;top:0!important;bottom:0!important;left:0!important;right:0!important;height:615px!important;min-height:615px;transform:none!important;will-change:auto}
+  .oct-reference-home .oct-v6-art{background-position:60% center!important;background-size:auto 100%!important;height:100%;width:100%;inset:0}
+  .oct-reference-home .oct-v6-parallax::after{content:"";position:absolute;z-index:1;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(248,251,255,.985) 0%,rgba(248,251,255,.98) 27%,rgba(248,251,255,.86) 43%,rgba(248,251,255,.12) 70%,transparent 86%)}
+  .oct-reference-home .oct-v6-copy{position:relative;z-index:3;width:100%!important;min-height:0!important;height:100%;padding:20px 13px 65px 18px!important;display:flex;flex-direction:column;align-items:flex-start!important;text-align:left!important;justify-content:flex-start!important;background:transparent!important}
+  .oct-reference-home .oct-v6-kicker{font-size:10px;letter-spacing:.12em;margin:0 0 12px;color:#007fac;max-width:68%}
+  .oct-reference-home .oct-v6-copy h1,.oct-reference-home .oct-v6-copy h2{font-family:'Outfit',Arial,sans-serif;font-size:clamp(27px,7.15vw,34px);line-height:1.02;letter-spacing:-.055em;max-width:64%;font-weight:900;text-align:left;margin:0}
+  .oct-reference-home .oct-v6-copy .oct-v6-pink{margin-top:0}
+  .oct-reference-home .oct-v6-sub{font-size:12px;line-height:1.34;max-width:54%;margin:14px 0 11px;font-weight:650;color:#0a2345;text-align:left}
+  .oct-reference-home .oct-v6-perks{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:9px!important;margin:7px 0 0!important;padding:0;max-width:58%;font-size:11px;line-height:1.18}
+  .oct-reference-home .oct-v6-perks li,.oct-reference-home .oct-v6-perks li:not(:last-child){border:0!important;padding:0!important;max-width:none;min-width:0;gap:8px}
+  .oct-reference-home .oct-v6-perks svg{width:19px;height:19px;min-width:19px}
+  .oct-reference-home .oct-v6-actions{position:absolute;left:18px;bottom:65px;display:flex;align-items:stretch;flex-direction:column;gap:8px;width:min(70%,245px);max-width:245px;z-index:4}
+  .oct-reference-home .oct-v6-actions a{display:flex;flex:none;width:100%;min-height:43px;padding:10px 12px;border-radius:14px;font-size:12px;gap:7px;white-space:nowrap;box-shadow:0 6px 14px rgba(10,30,60,.1)}
+  .oct-reference-home .oct-v6-actions a span:last-child{margin-left:auto;font-size:19px;line-height:1}
+  .oct-reference-home .oct-v6-actions svg{width:19px;height:19px;flex:none}
+  .oct-reference-home .oct-v6-carousel .slider-controls{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:auto;z-index:6;border-radius:25px;padding:7px 11px;box-shadow:0 5px 16px rgba(10,30,55,.15)}
+  .oct-reference-home .oct-v6-slide.active .oct-v6-art{animation:none}
+  .oct-reference-home .oct-v6-slide.active .oct-v6-copy>*{animation:none}
+  /* App-like tiles and product browsing without changing catalog data. */
+  .oct-reference-home #categories{padding:25px 0 28px}
+  .oct-reference-home #categories .container{width:calc(100% - 28px)}
+  .oct-reference-home #categories .section-heading{display:block;margin-bottom:15px}
+  .oct-reference-home #categories .section-heading h2{font-size:clamp(20px,5.6vw,26px);letter-spacing:-.045em;line-height:1.08}
+  .oct-reference-home #categories .section-heading>.btn{display:inline-flex;border:0;background:none!important;color:#ee0084;box-shadow:none;padding:2px 0;margin-top:6px;min-height:0;font-size:12px;font-weight:850}
+  .oct-reference-home #categories .eyebrow{font-size:11px;letter-spacing:.09em}
+  .oct-reference-home .category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px}
+  .oct-reference-home .category{border-radius:18px;background:#f0f6ff;overflow:hidden;box-shadow:0 3px 12px rgba(16,43,80,.11);min-width:0;border:1px solid #edf2f8}
+  .oct-reference-home .category:nth-child(2n){background:#eaf7ff}
+  .oct-reference-home .category:nth-child(3n){background:#f9f0ff}
+  .oct-reference-home .category img{width:100%;height:112px!important;object-fit:contain!important;object-position:center bottom;padding:6px 4px 0;mix-blend-mode:normal}
+  .oct-reference-home .category .cat-name{min-height:43px;display:flex;align-items:center;gap:2px;padding:6px 4px 6px 7px!important;font-size:clamp(9px,2.45vw,11px)!important;line-height:1.1;font-weight:850;background:#fff;border-radius:20px 20px 0 0}
+  .oct-reference-home .category .cat-name b{height:22px;width:22px;min-width:22px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:15px;color:white;background:#f3008b;margin-left:auto}
+  .oct-reference-home #best-sellers{padding:28px 0 35px}
+  .oct-reference-home #best-sellers .container{width:calc(100% - 28px)}
+  .oct-reference-home #best-sellers .section-heading h2{font-size:25px}
+  .oct-reference-home #best-sellers .product-grid{display:flex!important;gap:12px!important;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding:7px 2px 17px;scrollbar-width:thin}
+  .oct-reference-home #best-sellers .product-card{width:175px;min-width:175px;max-width:175px;flex:0 0 175px;scroll-snap-align:start;border-radius:17px;overflow:hidden}
+  .oct-reference-home #best-sellers .product-card .photo img{height:150px}
+  /* Mobile bottom navigation; current site remains a website, not an installed native app. */
+  .oct-reference-home .oct-app-nav{position:fixed;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:end;bottom:0;left:0;right:0;padding:7px 3px calc(8px + env(safe-area-inset-bottom,0px));height:calc(66px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.975);border-radius:19px 19px 0 0;box-shadow:0 -5px 25px rgba(13,36,73,.12);backdrop-filter:blur(12px);z-index:110}
+  .oct-reference-home .oct-app-nav a{font-family:'Outfit',Arial,sans-serif;color:#10254c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10px;font-weight:750;text-decoration:none;min-width:0;white-space:nowrap;min-height:43px}
+  .oct-reference-home .oct-app-nav a[aria-current="page"]{color:#f1008a}
+  .oct-reference-home .oct-app-nav svg{height:23px;width:23px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .oct-reference-home .oct-app-nav .oct-app-primary{color:#09234a}
+  .oct-reference-home .oct-app-nav .oct-app-primary span{background:#ed0086;display:flex;justify-content:center;align-items:center;width:49px;height:49px;border-radius:50%;box-shadow:0 5px 17px rgba(235,0,135,.25);margin-top:-24px;color:#fff}
+  .oct-reference-home .oct-app-nav .oct-app-primary svg{height:27px;width:27px}
+  .oct-reference-home .floating-quote{display:none!important}
+  .oct-reference-home .footer{padding-bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+  .oct-reference-home{padding-bottom:calc(66px + env(safe-area-inset-bottom,0px))}
+}
+@media(max-width:355px){
+  .oct-reference-home .header-inner .logo{width:120px}
+  .oct-reference-home .header-actions{gap:4px}
+  .oct-reference-home .header-actions .header-phone,.oct-reference-home .header-actions .menu-btn{width:31px;height:36px}
+  .oct-reference-home .header-actions>.btn{min-width:80px;padding:0 5px}
+  .oct-reference-home .header-actions>.btn::before{font-size:10px}
+  .oct-reference-home .oct-v6-slide,.oct-reference-home .oct-v6-slide:first-of-type{height:635px!important;min-height:635px!important}
+  .oct-reference-home .oct-v6-parallax{height:635px!important;min-height:635px}
+  .oct-reference-home .oct-v6-copy h1,.oct-reference-home .oct-v6-copy h2{font-size:25px}
+  .oct-reference-home .oct-v6-sub{font-size:11px}
+  .oct-reference-home .oct-v6-actions{bottom:58px;width:65%}
+  .oct-reference-home .oct-v6-actions a{font-size:11px}
+  .oct-reference-home .category img{height:100px!important}
+  .oct-reference-home .category .cat-name{font-size:9px!important}
+}
+@media(prefers-reduced-motion:reduce){.oct-reference-home .oct-v6-slide{transition:none}}
