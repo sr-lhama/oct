@@ -75,3 +75,39 @@
  .oct-reference-home .oct-v6-slide.active .oct-v6-copy > *{animation:none!important}
  .oct-reference-home .oct-v6-parallax{transform:none!important}
 }
+
+
+/* HERO HEIGHT V8: header untouched; desktop first-fold hero */
+@media (min-width: 901px) {
+  /* Only the slideshow grows. The top utility bar, navigation and all other sections stay as-is. */
+  .oct-reference-home .oct-v6-carousel,
+  .oct-reference-home .oct-v6-slide,
+  .oct-reference-home .oct-v6-slide:first-of-type {
+    min-height: max(740px, calc(100svh - 118px));
+  }
+  .oct-reference-home .oct-v6-copy {
+    min-height: max(740px, calc(100svh - 118px));
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+  /* Show the complete height of the artwork instead of cropping the mascot with a wide cover image. */
+  .oct-reference-home .oct-v6-art {
+    background-size: auto 100%;
+    background-position: right center;
+  }
+}
+@media (min-width: 701px) and (max-width: 900px) {
+  .oct-reference-home .oct-v6-carousel,
+  .oct-reference-home .oct-v6-slide,
+  .oct-reference-home .oct-v6-slide:first-of-type {
+    min-height: max(630px, calc(100svh - 108px));
+  }
+  .oct-reference-home .oct-v6-copy {
+    min-height: max(630px, calc(100svh - 108px));
+  }
+  .oct-reference-home .oct-v6-art {
+    background-size: auto 100%;
+    background-position: right center;
+  }
+}
+/* Existing mobile stacked layout remains unchanged. */
