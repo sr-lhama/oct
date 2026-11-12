@@ -29,7 +29,7 @@ window.OCT_PREVIEW_ONLY=true;
     reset();
   }
   // Gentle scroll parallax on the active hero scene, without impairing reduced-motion users.
-  const semanticCarousel=document.querySelector('.oct-semantic-carousel');
+  const semanticCarousel=document.querySelector('.oct-v6-carousel');
   if(semanticCarousel && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     let frame=0;
     const updateHeroOffset=()=>{
