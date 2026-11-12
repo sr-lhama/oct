@@ -1,0 +1,2153 @@
+{
+  "catalog": "Orlando Custom Tees - Official Garment Photos",
+  "date": "2026-11-12",
+  "note": "Product images supplied by OCT. Color names come from filenames. Not evidence of current stock, price or availability.",
+  "products": [
+    {
+      "brand": "Team 365",
+      "model": "TT11",
+      "product_type": "Performance T-Shirt",
+      "color_count": 30,
+      "photo_count": 60,
+      "colors": [
+        {
+          "code": "White",
+          "name": "White",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_White_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_White_Back_High.webp"
+          }
+        },
+        {
+          "code": "Black",
+          "name": "Black",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Black_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Black_Back_High.webp"
+          }
+        },
+        {
+          "code": "Acid_Green",
+          "name": "Acid Green",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Acid_Green_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Acid_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Bright_Magenta",
+          "name": "Bright Magenta",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Bright_Magenta_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Bright_Magenta_Back_High.webp"
+          }
+        },
+        {
+          "code": "Clear_Teal",
+          "name": "Clear Teal",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Clear_Teal_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Clear_Teal_Back_High.webp"
+          }
+        },
+        {
+          "code": "Coyote_Brown",
+          "name": "Coyote Brown",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Coyote_Brown_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Coyote_Brown_Back_High.webp"
+          }
+        },
+        {
+          "code": "Desert_Khaki",
+          "name": "Desert Khaki",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Desert_Khaki_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Desert_Khaki_Back_High.webp"
+          }
+        },
+        {
+          "code": "Electric_Blue",
+          "name": "Electric Blue",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Electric_Blue_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Electric_Blue_Back_High.webp"
+          }
+        },
+        {
+          "code": "Melon",
+          "name": "Melon",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Melon_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Melon_Back_High.webp"
+          }
+        },
+        {
+          "code": "Olive",
+          "name": "Olive",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Olive_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Olive_Back_High.webp"
+          }
+        },
+        {
+          "code": "Safety_Yellow",
+          "name": "Safety Yellow",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Safety_Yellow_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Safety_Yellow_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Athletic_Gold",
+          "name": "Sport Athletic Gold",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Athletic_Gold_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Athletic_Gold_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Burnt_Orange",
+          "name": "Sport Burnt Orange",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Burnt_Orange_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Burnt_Orange_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Charity_Pink",
+          "name": "Sport Charity Pink",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Charity_Pink_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Charity_Pink_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Dark_Brown",
+          "name": "Sport Dark Brown",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Dark_Brown_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Dark_Brown_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Dark_Green",
+          "name": "Sport Dark Green",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Dark_Green_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Dark_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Dark_Maroon",
+          "name": "Sport Dark Maroon",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Dark_Maroon_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Dark_Maroon_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Dark_Navy",
+          "name": "Sport Dark Navy",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Dark_Navy_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Dark_Navy_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Forest",
+          "name": "Sport Forest",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Forest_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Forest_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Graphite",
+          "name": "Sport Graphite",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Graphite_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Graphite_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Kelly",
+          "name": "Sport Kelly",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Kelly_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Kelly_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Light_Blue",
+          "name": "Sport Light Blue",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Light_Blue_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Light_Blue_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Maroon",
+          "name": "Sport Maroon",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Maroon_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Maroon_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Orange",
+          "name": "Sport Orange",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Orange_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Orange_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Purple",
+          "name": "Sport Purple",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Purple_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Purple_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Red",
+          "name": "Sport Red",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Red_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Royal",
+          "name": "Sport Royal",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Royal_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Royal_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Scarlet_Red",
+          "name": "Sport Scarlet Red",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Scarlet_Red_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Scarlet_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Silver",
+          "name": "Sport Silver",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Silver_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Silver_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Vegas_Gold",
+          "name": "Sport Vegas Gold",
+          "views": {
+            "Front": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Vegas_Gold_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11/Team_365_TT11_Sport_Vegas_Gold_Back_High.webp"
+          }
+        }
+      ]
+    },
+    {
+      "brand": "Team 365",
+      "model": "TT11L",
+      "product_type": "Long Sleeve Performance",
+      "color_count": 17,
+      "photo_count": 34,
+      "colors": [
+        {
+          "code": "White",
+          "name": "White",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_White_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_White_Back_High.webp"
+          }
+        },
+        {
+          "code": "Black",
+          "name": "Black",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Black_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Black_Back_High.webp"
+          }
+        },
+        {
+          "code": "Safety_Yellow",
+          "name": "Safety Yellow",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Safety_Yellow_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Safety_Yellow_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Athletic_Gold",
+          "name": "Sport Athletic Gold",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Athletic_Gold_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Athletic_Gold_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Burnt_Orange",
+          "name": "Sport Burnt Orange",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Burnt_Orange_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Burnt_Orange_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Charity_Pink",
+          "name": "Sport Charity Pink",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Charity_Pink_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Charity_Pink_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Dark_Maroon",
+          "name": "Sport Dark Maroon",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Dark_Maroon_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Dark_Maroon_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Dark_Navy",
+          "name": "Sport Dark Navy",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Dark_Navy_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Dark_Navy_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Forest",
+          "name": "Sport Forest",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Forest_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Forest_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Graphite",
+          "name": "Sport Graphite",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Graphite_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Graphite_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Light_Blue",
+          "name": "Sport Light Blue",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Light_Blue_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Light_Blue_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Maroon",
+          "name": "Sport Maroon",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Maroon_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Maroon_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Orange",
+          "name": "Sport Orange",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Orange_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Orange_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Purple",
+          "name": "Sport Purple",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Purple_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Purple_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Red",
+          "name": "Sport Red",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Red_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Royal",
+          "name": "Sport Royal",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Royal_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Royal_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Vegas_Gold",
+          "name": "Sport Vegas Gold",
+          "views": {
+            "Front": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Vegas_Gold_Front_High.webp",
+            "Back": "Fotos/Team_365/TT11L/Team_365_TT11L_Sport_Vegas_Gold_Back_High.webp"
+          }
+        }
+      ]
+    },
+    {
+      "brand": "Team 365",
+      "model": "TT21",
+      "product_type": "Performance Polo",
+      "color_count": 21,
+      "photo_count": 42,
+      "colors": [
+        {
+          "code": "White",
+          "name": "White",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_White_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_White_Back_High.webp"
+          }
+        },
+        {
+          "code": "Black",
+          "name": "Black",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Black_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Black_Back_High.webp"
+          }
+        },
+        {
+          "code": "Safety_Yellow",
+          "name": "Safety Yellow",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Safety_Yellow_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Safety_Yellow_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Athletic_Gold",
+          "name": "Sport Athletic Gold",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Athletic_Gold_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Athletic_Gold_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Burnt_Orange",
+          "name": "Sport Burnt Orange",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Burnt_Orange_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Burnt_Orange_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Charity_Pink",
+          "name": "Sport Charity Pink",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Charity_Pink_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Charity_Pink_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Dark_Brown",
+          "name": "Sport Dark Brown",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Dark_Brown_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Dark_Brown_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Dark_Green",
+          "name": "Sport Dark Green",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Dark_Green_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Dark_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Dark_Navy",
+          "name": "Sport Dark Navy",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Dark_Navy_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Dark_Navy_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Forest",
+          "name": "Sport Forest",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Forest_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Forest_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Graphite",
+          "name": "Sport Graphite",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Graphite_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Graphite_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Kelly",
+          "name": "Sport Kelly",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Kelly_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Kelly_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Light_Blue",
+          "name": "Sport Light Blue",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Light_Blue_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Light_Blue_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Maroon",
+          "name": "Sport Maroon",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Maroon_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Maroon_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Orange",
+          "name": "Sport Orange",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Orange_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Orange_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Purple",
+          "name": "Sport Purple",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Purple_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Purple_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Red",
+          "name": "Sport Red",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Red_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Royal",
+          "name": "Sport Royal",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Royal_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Royal_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Scarlet_Red",
+          "name": "Sport Scarlet Red",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Scarlet_Red_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Scarlet_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Silver",
+          "name": "Sport Silver",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Silver_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Silver_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Vegas_Gold",
+          "name": "Sport Vegas Gold",
+          "views": {
+            "Front": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Vegas_Gold_Front_High.webp",
+            "Back": "Fotos/Team_365/TT21/Team_365_TT21_Sport_Vegas_Gold_Back_High.webp"
+          }
+        }
+      ]
+    },
+    {
+      "brand": "Flexfit",
+      "model": "110M5",
+      "product_type": "Cap",
+      "color_count": 9,
+      "photo_count": 18,
+      "colors": [
+        {
+          "code": "White",
+          "name": "White",
+          "views": {
+            "Front": "Fotos/Flexfit/110M5/Flexfit_110M5_White_Front_High.webp",
+            "Back": "Fotos/Flexfit/110M5/Flexfit_110M5_White_Back_High.webp"
+          }
+        },
+        {
+          "code": "Black",
+          "name": "Black",
+          "views": {
+            "Front": "Fotos/Flexfit/110M5/Flexfit_110M5_Black_Front_High.webp",
+            "Back": "Fotos/Flexfit/110M5/Flexfit_110M5_Black_Back_High.webp"
+          }
+        },
+        {
+          "code": "Black-_White",
+          "name": "Black/ White",
+          "views": {
+            "Front": "Fotos/Flexfit/110M5/Flexfit_110M5_Black-_White_Front_High.webp",
+            "Back": "Fotos/Flexfit/110M5/Flexfit_110M5_Black-_White_Back_High.webp"
+          }
+        },
+        {
+          "code": "Charcoal",
+          "name": "Charcoal",
+          "views": {
+            "Front": "Fotos/Flexfit/110M5/Flexfit_110M5_Charcoal_Front_High.webp",
+            "Back": "Fotos/Flexfit/110M5/Flexfit_110M5_Charcoal_Back_High.webp"
+          }
+        },
+        {
+          "code": "Charcoal-_Black",
+          "name": "Charcoal/ Black",
+          "views": {
+            "Front": "Fotos/Flexfit/110M5/Flexfit_110M5_Charcoal-_Black_Front_High.webp",
+            "Back": "Fotos/Flexfit/110M5/Flexfit_110M5_Charcoal-_Black_Back_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Grey-_Black",
+          "name": "Heather Grey/ Black",
+          "views": {
+            "Front": "Fotos/Flexfit/110M5/Flexfit_110M5_Heather_Grey-_Black_Front_High.webp",
+            "Back": "Fotos/Flexfit/110M5/Flexfit_110M5_Heather_Grey-_Black_Back_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Grey-_White",
+          "name": "Heather Grey/ White",
+          "views": {
+            "Front": "Fotos/Flexfit/110M5/Flexfit_110M5_Heather_Grey-_White_Front_High.webp",
+            "Back": "Fotos/Flexfit/110M5/Flexfit_110M5_Heather_Grey-_White_Back_High.webp"
+          }
+        },
+        {
+          "code": "Navy",
+          "name": "Navy",
+          "views": {
+            "Front": "Fotos/Flexfit/110M5/Flexfit_110M5_Navy_Front_High.webp",
+            "Back": "Fotos/Flexfit/110M5/Flexfit_110M5_Navy_Back_High.webp"
+          }
+        },
+        {
+          "code": "Navy-_White",
+          "name": "Navy/ White",
+          "views": {
+            "Front": "Fotos/Flexfit/110M5/Flexfit_110M5_Navy-_White_Front_High.webp",
+            "Back": "Fotos/Flexfit/110M5/Flexfit_110M5_Navy-_White_Back_High.webp"
+          }
+        }
+      ]
+    },
+    {
+      "brand": "Gildan",
+      "model": "18500",
+      "product_type": "Heavy Blend Hoodie",
+      "color_count": 47,
+      "photo_count": 106,
+      "colors": [
+        {
+          "code": "White",
+          "name": "White",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_White_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_White_Back_High.webp"
+          }
+        },
+        {
+          "code": "Black",
+          "name": "Black",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Black_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Black_Back_High.webp"
+          }
+        },
+        {
+          "code": "Antique_Cherry_Red",
+          "name": "Antique Cherry Red",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Antique_Cherry_Red_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Antique_Cherry_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Antique_Sapphire",
+          "name": "Antique Sapphire",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Antique_Sapphire_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Antique_Sapphire_Back_High.webp"
+          }
+        },
+        {
+          "code": "Ash",
+          "name": "Ash",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Ash_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Ash_Back_High.webp"
+          }
+        },
+        {
+          "code": "Azalea",
+          "name": "Azalea",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Azalea_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Azalea_Back_High.webp"
+          }
+        },
+        {
+          "code": "Cardinal_Red",
+          "name": "Cardinal Red",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Cardinal_Red_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Cardinal_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Carolina_Blue",
+          "name": "Carolina Blue",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Carolina_Blue_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Carolina_Blue_Back_High.webp"
+          }
+        },
+        {
+          "code": "Charcoal",
+          "name": "Charcoal",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Charcoal_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Charcoal_Back_High.webp"
+          }
+        },
+        {
+          "code": "Cherry_Red",
+          "name": "Cherry Red",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Cherry_Red_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Cherry_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Dark_Chocolate",
+          "name": "Dark Chocolate",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Dark_Chocolate_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Dark_Chocolate_Back_High.webp"
+          }
+        },
+        {
+          "code": "Dark_Heather",
+          "name": "Dark Heather",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Dark_Heather_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Dark_Heather_Back_High.webp"
+          }
+        },
+        {
+          "code": "Fan_Charcoal_Heather",
+          "name": "Fan Charcoal Heather",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Fan_Charcoal_Heather_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Fan_Charcoal_Heather_Back_High.webp"
+          }
+        },
+        {
+          "code": "Fan_Dark_Green",
+          "name": "Fan Dark Green",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Fan_Dark_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Fan_Dark_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Fan_Deep_Royal",
+          "name": "Fan Deep Royal",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Fan_Deep_Royal_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Fan_Deep_Royal_Back_High.webp"
+          }
+        },
+        {
+          "code": "Forest",
+          "name": "Forest",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Forest_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Forest_Back_High.webp"
+          }
+        },
+        {
+          "code": "Garnet",
+          "name": "Garnet",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Garnet_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Garnet_Back_High.webp"
+          }
+        },
+        {
+          "code": "Gold",
+          "name": "Gold",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Gold_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Gold_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Gold_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Graphite_Heather",
+          "name": "Graphite Heather",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Graphite_Heather_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Graphite_Heather_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Graphite_Heather_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Dark_Green",
+          "name": "Heather Dark Green",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Heather_Dark_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Heather_Dark_Green_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Heather_Dark_Green_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Dark_Maroon",
+          "name": "Heather Dark Maroon",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Heather_Dark_Maroon_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Heather_Dark_Maroon_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Heather_Dark_Maroon_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Dark_Navy",
+          "name": "Heather Dark Navy",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Heather_Dark_Navy_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Heather_Dark_Navy_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Heather_Dark_Navy_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Deep_Royal",
+          "name": "Heather Deep Royal",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Heather_Deep_Royal_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Heather_Deep_Royal_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Heather_Deep_Royal_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Scarlet_Red",
+          "name": "Heather Scarlet Red",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Heather_Scarlet_Red_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Heather_Scarlet_Red_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Heather_Scarlet_Red_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heliconia",
+          "name": "Heliconia",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Heliconia_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Heliconia_Back_High.webp"
+          }
+        },
+        {
+          "code": "Indigo_Blue",
+          "name": "Indigo Blue",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Indigo_Blue_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Indigo_Blue_Back_High.webp"
+          }
+        },
+        {
+          "code": "Irish_Green",
+          "name": "Irish Green",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Irish_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Irish_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Light_Blue",
+          "name": "Light Blue",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Light_Blue_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Light_Blue_Back_High.webp"
+          }
+        },
+        {
+          "code": "Light_Pink",
+          "name": "Light Pink",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Light_Pink_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Light_Pink_Back_High.webp"
+          }
+        },
+        {
+          "code": "Maroon",
+          "name": "Maroon",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Maroon_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Maroon_Back_High.webp"
+          }
+        },
+        {
+          "code": "Military_Green",
+          "name": "Military Green",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Military_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Military_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Mint_Green",
+          "name": "Mint Green",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Mint_Green_Front_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Mint_Green_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Navy",
+          "name": "Navy",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Navy_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Navy_Back_High.webp"
+          }
+        },
+        {
+          "code": "Neon_Blue",
+          "name": "Neon Blue",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Neon_Blue_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Neon_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Neon_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Old_Gold",
+          "name": "Old Gold",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Old_Gold_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Old_Gold_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Old_Gold_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Orange",
+          "name": "Orange",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Orange_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Orange_Back_High.webp"
+          }
+        },
+        {
+          "code": "Orchid",
+          "name": "Orchid",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Orchid_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Orchid_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Orchid_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Purple",
+          "name": "Purple",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Purple_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Purple_Back_High.webp"
+          }
+        },
+        {
+          "code": "Red",
+          "name": "Red",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Red_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Royal",
+          "name": "Royal",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Royal_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Royal_Back_High.webp"
+          }
+        },
+        {
+          "code": "Safety_Green",
+          "name": "Safety Green",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Safety_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Safety_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Safety_Orange",
+          "name": "Safety Orange",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Safety_Orange_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Safety_Orange_Back_High.webp"
+          }
+        },
+        {
+          "code": "Safety_Pink",
+          "name": "Safety Pink",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Safety_Pink_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Safety_Pink_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sand",
+          "name": "Sand",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Sand_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Sand_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sapphire",
+          "name": "Sapphire",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Sapphire_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Sapphire_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Grey",
+          "name": "Sport Grey",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Sport_Grey_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Sport_Grey_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Sport_Grey_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Violet",
+          "name": "Violet",
+          "views": {
+            "Front": "Fotos/Gildan/18500/Gildan_18500_Violet_Front_High.webp",
+            "Back": "Fotos/Gildan/18500/Gildan_18500_Violet_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/18500/Gildan_18500_Violet_DirectSide_High.webp"
+          }
+        }
+      ]
+    },
+    {
+      "brand": "Gildan",
+      "model": "64000",
+      "product_type": "Softstyle T-Shirt",
+      "color_count": 75,
+      "photo_count": 202,
+      "colors": [
+        {
+          "code": "White",
+          "name": "White",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_White_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_White_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_White_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Black",
+          "name": "Black",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Black_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Black_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Black_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Antique_Cherry_Red",
+          "name": "Antique Cherry Red",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Antique_Cherry_Red_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Antique_Cherry_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Antique_Heliconia",
+          "name": "Antique Heliconia",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Antique_Heliconia_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Antique_Heliconia_Back_High.webp"
+          }
+        },
+        {
+          "code": "Antique_Sapphire",
+          "name": "Antique Sapphire",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Antique_Sapphire_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Antique_Sapphire_Back_High.webp"
+          }
+        },
+        {
+          "code": "Azalea",
+          "name": "Azalea",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Azalea_Front_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Azalea_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Cardinal_Red",
+          "name": "Cardinal Red",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Cardinal_Red_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Cardinal_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Carolina_Blue",
+          "name": "Carolina Blue",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Carolina_Blue_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Carolina_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Carolina_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Charcoal",
+          "name": "Charcoal",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Charcoal_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Charcoal_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Charcoal_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Cherry_Red",
+          "name": "Cherry Red",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Cherry_Red_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Cherry_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Coral_Silk",
+          "name": "Coral Silk",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Coral_Silk_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Coral_Silk_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Coral_Silk_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Cornsilk",
+          "name": "Cornsilk",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Cornsilk_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Cornsilk_Back_High.webp"
+          }
+        },
+        {
+          "code": "Daisy",
+          "name": "Daisy",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Daisy_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Daisy_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Daisy_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Dark_Chocolate",
+          "name": "Dark Chocolate",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Dark_Chocolate_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Dark_Chocolate_Back_High.webp"
+          }
+        },
+        {
+          "code": "Dark_Heather",
+          "name": "Dark Heather",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Dark_Heather_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Dark_Heather_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Dark_Heather_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Fan_Candy_Pink",
+          "name": "Fan Candy Pink",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Fan_Candy_Pink_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Fan_Candy_Pink_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Fan_Candy_Pink_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Fan_Dark_Green",
+          "name": "Fan Dark Green",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Fan_Dark_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Fan_Dark_Green_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Fan_Dark_Green_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Fan_Deep_Royal",
+          "name": "Fan Deep Royal",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Fan_Deep_Royal_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Fan_Deep_Royal_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Fan_Deep_Royal_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Fan_Marine_Green",
+          "name": "Fan Marine Green",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Fan_Marine_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Fan_Marine_Green_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Fan_Marine_Green_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Fan_Texas_Orange",
+          "name": "Fan Texas Orange",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Fan_Texas_Orange_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Fan_Texas_Orange_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Fan_Texas_Orange_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Forest",
+          "name": "Forest",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Forest_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Forest_Back_High.webp"
+          }
+        },
+        {
+          "code": "Garnet",
+          "name": "Garnet",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Garnet_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Garnet_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Garnet_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Gold",
+          "name": "Gold",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Gold_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Gold_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Gold_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Graphite_Heather",
+          "name": "Graphite Heather",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Graphite_Heather_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Graphite_Heather_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Graphite_Heather_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Berry",
+          "name": "Heather Berry",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Berry_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Berry_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Heather_Berry_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Cardinal_Red",
+          "name": "Heather Cardinal Red",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Cardinal_Red_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Cardinal_Red_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Heather_Cardinal_Red_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Dark_Grey",
+          "name": "Heather Dark Grey",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Dark_Grey_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Dark_Grey_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Heather_Dark_Grey_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Galapagos_Blue",
+          "name": "Heather Galapagos Blue",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Galapagos_Blue_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Galapagos_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Heather_Galapagos_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Heliconia",
+          "name": "Heather Heliconia",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Heliconia_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Heliconia_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Heather_Heliconia_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Indigo",
+          "name": "Heather Indigo",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Indigo_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Indigo_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Heather_Indigo_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Irish_Green",
+          "name": "Heather Irish Green",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Irish_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Irish_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Maroon",
+          "name": "Heather Maroon",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Maroon_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Maroon_Back_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Military_Green",
+          "name": "Heather Military Green",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Military_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Military_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Navy",
+          "name": "Heather Navy",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Navy_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Navy_Back_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Oatmeal",
+          "name": "Heather Oatmeal",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Oatmeal_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Oatmeal_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Heather_Oatmeal_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Orange",
+          "name": "Heather Orange",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Orange_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Orange_Back_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Purple",
+          "name": "Heather Purple",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Purple_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Purple_Back_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Radiant_Orchid",
+          "name": "Heather Radiant Orchid",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Radiant_Orchid_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Radiant_Orchid_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Heather_Radiant_Orchid_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Red",
+          "name": "Heather Red",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Red_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Royal",
+          "name": "Heather Royal",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Royal_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Royal_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Heather_Royal_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Sapphire",
+          "name": "Heather Sapphire",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heather_Sapphire_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heather_Sapphire_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Heather_Sapphire_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heliconia",
+          "name": "Heliconia",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Heliconia_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Heliconia_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Heliconia_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Ice_Grey",
+          "name": "Ice Grey",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Ice_Grey_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Ice_Grey_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Ice_Grey_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Indigo_Blue",
+          "name": "Indigo Blue",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Indigo_Blue_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Indigo_Blue_Back_High.webp"
+          }
+        },
+        {
+          "code": "Iris",
+          "name": "Iris",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Iris_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Iris_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Iris_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Irish_Green",
+          "name": "Irish Green",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Irish_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Irish_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Jade_Dome",
+          "name": "Jade Dome",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Jade_Dome_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Jade_Dome_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Jade_Dome_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Kelly_Green",
+          "name": "Kelly Green",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Kelly_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Kelly_Green_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Kelly_Green_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Kiwi",
+          "name": "Kiwi",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Kiwi_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Kiwi_Back_High.webp"
+          }
+        },
+        {
+          "code": "Light_Blue",
+          "name": "Light Blue",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Light_Blue_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Light_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Light_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Light_Pink",
+          "name": "Light Pink",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Light_Pink_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Light_Pink_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Light_Pink_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Lime",
+          "name": "Lime",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Lime_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Lime_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Lime_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Maroon",
+          "name": "Maroon",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Maroon_Front_High.webp",
+            "Side": "Fotos/Gildan/64000/Gildan_64000_Maroon_Side_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Maroon_Back_High.webp"
+          }
+        },
+        {
+          "code": "Metro_Blue",
+          "name": "Metro Blue",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Metro_Blue_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Metro_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Metro_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Military_Green",
+          "name": "Military Green",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Military_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Military_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Mint_Green",
+          "name": "Mint Green",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Mint_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Mint_Green_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Mint_Green_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Natural",
+          "name": "Natural",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Natural_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Natural_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Natural_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Navy",
+          "name": "Navy",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Navy_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Navy_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Navy_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Neon_Blue",
+          "name": "Neon Blue",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Neon_Blue_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Neon_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Neon_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Off_White",
+          "name": "Off White",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Off_White_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Off_White_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Off_White_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Orange",
+          "name": "Orange",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Orange_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Orange_Back_High.webp"
+          }
+        },
+        {
+          "code": "Paragon",
+          "name": "Paragon",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Paragon_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Paragon_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Paragon_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Pistachio",
+          "name": "Pistachio",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Pistachio_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Pistachio_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Pistachio_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Prairie_Dust",
+          "name": "Prairie Dust",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Prairie_Dust_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Prairie_Dust_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Prairie_Dust_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Purple",
+          "name": "Purple",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Purple_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Purple_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Purple_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Red",
+          "name": "Red",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Red_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Red_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Red_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Royal",
+          "name": "Royal",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Royal_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Royal_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Royal_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Sage",
+          "name": "Sage",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Sage_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Sage_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Sage_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Sand",
+          "name": "Sand",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Sand_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Sand_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sapphire",
+          "name": "Sapphire",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Sapphire_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Sapphire_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sky",
+          "name": "Sky",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Sky_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Sky_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Sky_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Sport_Grey",
+          "name": "Sport Grey",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Sport_Grey_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Sport_Grey_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Sport_Grey_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Stone_Blue",
+          "name": "Stone Blue",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Stone_Blue_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Stone_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Stone_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Tropical_Blue",
+          "name": "Tropical Blue",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Tropical_Blue_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Tropical_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Tropical_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Turf_Green",
+          "name": "Turf Green",
+          "views": {
+            "Front": "Fotos/Gildan/64000/Gildan_64000_Turf_Green_Front_High.webp",
+            "Back": "Fotos/Gildan/64000/Gildan_64000_Turf_Green_Back_High.webp",
+            "DirectSide": "Fotos/Gildan/64000/Gildan_64000_Turf_Green_DirectSide_High.webp"
+          }
+        }
+      ]
+    },
+    {
+      "brand": "Next Level",
+      "model": "6210",
+      "product_type": "CVC T-Shirt",
+      "color_count": 44,
+      "photo_count": 132,
+      "colors": [
+        {
+          "code": "White",
+          "name": "White",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_White_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_White_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_White_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Black",
+          "name": "Black",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Black_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Black_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Black_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Apple_Green",
+          "name": "Apple Green",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Apple_Green_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Apple_Green_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Apple_Green_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Banana_Cream",
+          "name": "Banana Cream",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Banana_Cream_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Banana_Cream_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Banana_Cream_Back_High.webp"
+          }
+        },
+        {
+          "code": "Bondi_Blue",
+          "name": "Bondi Blue",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Bondi_Blue_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Bondi_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Bondi_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Cardinal",
+          "name": "Cardinal",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Cardinal_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Cardinal_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Cardinal_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Charcoal",
+          "name": "Charcoal",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Charcoal_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Charcoal_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Charcoal_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Cream",
+          "name": "Cream",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Cream_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Cream_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Cream_Back_High.webp"
+          }
+        },
+        {
+          "code": "Dark_Heather_Grey",
+          "name": "Dark Heather Grey",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Dark_Heather_Grey_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Dark_Heather_Grey_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Dark_Heather_Grey_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Espresso",
+          "name": "Espresso",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Espresso_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Espresso_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Espresso_Back_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Columbia_Blue",
+          "name": "Heather Columbia Blue",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Columbia_Blue_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Columbia_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Columbia_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Cool_Blue",
+          "name": "Heather Cool Blue",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Cool_Blue_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Cool_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Cool_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Coyote_Brown",
+          "name": "Heather Coyote Brown",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Coyote_Brown_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Coyote_Brown_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Coyote_Brown_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Forest_Green",
+          "name": "Heather Forest Green",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Forest_Green_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Forest_Green_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Forest_Green_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Heavy_Metal",
+          "name": "Heather Heavy Metal",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Heavy_Metal_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Heavy_Metal_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Heavy_Metal_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Light_Pink",
+          "name": "Heather Light Pink",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Light_Pink_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Light_Pink_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Light_Pink_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Maroon",
+          "name": "Heather Maroon",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Maroon_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Maroon_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Maroon_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Mauve",
+          "name": "Heather Mauve",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Mauve_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Mauve_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Mauve_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Redwood",
+          "name": "Heather Redwood",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Redwood_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Redwood_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Redwood_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Seafoam",
+          "name": "Heather Seafoam",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Seafoam_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Seafoam_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Seafoam_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Shiitake",
+          "name": "Heather Shiitake",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Shiitake_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Shiitake_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Shiitake_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Slate_Blue",
+          "name": "Heather Slate Blue",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Slate_Blue_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Slate_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Slate_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Heather_Tan",
+          "name": "Heather Tan",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Tan_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Tan_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Heather_Tan_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Ice_Blue",
+          "name": "Ice Blue",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Ice_Blue_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Ice_Blue_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Ice_Blue_Back_High.webp"
+          }
+        },
+        {
+          "code": "Indigo",
+          "name": "Indigo",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Indigo_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Indigo_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Indigo_Back_High.webp"
+          }
+        },
+        {
+          "code": "Kelly_Green",
+          "name": "Kelly Green",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Kelly_Green_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Kelly_Green_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Kelly_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Light_Olive",
+          "name": "Light Olive",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Light_Olive_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Light_Olive_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Light_Olive_Back_High.webp"
+          }
+        },
+        {
+          "code": "Midnight_Navy",
+          "name": "Midnight Navy",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Midnight_Navy_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Midnight_Navy_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Midnight_Navy_Back_High.webp"
+          }
+        },
+        {
+          "code": "Military_Green",
+          "name": "Military Green",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Military_Green_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Military_Green_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Military_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Mint",
+          "name": "Mint",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Mint_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Mint_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Mint_Back_High.webp"
+          }
+        },
+        {
+          "code": "Neon_Heather_Green",
+          "name": "Neon Heather Green",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Neon_Heather_Green_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Neon_Heather_Green_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Neon_Heather_Green_Back_High.webp"
+          }
+        },
+        {
+          "code": "Neon_Yellow",
+          "name": "Neon Yellow",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Neon_Yellow_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Neon_Yellow_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Neon_Yellow_Back_High.webp"
+          }
+        },
+        {
+          "code": "Orange",
+          "name": "Orange",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Orange_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Orange_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Orange_Back_High.webp"
+          }
+        },
+        {
+          "code": "Purple_Rush",
+          "name": "Purple Rush",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Purple_Rush_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Purple_Rush_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Purple_Rush_Back_High.webp"
+          }
+        },
+        {
+          "code": "Red",
+          "name": "Red",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Red_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Red_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Red_Back_High.webp"
+          }
+        },
+        {
+          "code": "Royal",
+          "name": "Royal",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Royal_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Royal_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Royal_Back_High.webp"
+          }
+        },
+        {
+          "code": "Sand",
+          "name": "Sand",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Sand_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Sand_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Sand_Back_High.webp"
+          }
+        },
+        {
+          "code": "Silk",
+          "name": "Silk",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Silk_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Silk_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Silk_Back_High.webp"
+          }
+        },
+        {
+          "code": "Stone_Grey",
+          "name": "Stone Grey",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Stone_Grey_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Stone_Grey_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Stone_Grey_Back_High.webp"
+          }
+        },
+        {
+          "code": "Storm",
+          "name": "Storm",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Storm_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Storm_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Storm_Back_High.webp"
+          }
+        },
+        {
+          "code": "Tahiti_Blue",
+          "name": "Tahiti Blue",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Tahiti_Blue_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Tahiti_Blue_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Tahiti_Blue_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Teal",
+          "name": "Teal",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Teal_Front_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Teal_Back_High.webp",
+            "DirectSide": "Fotos/Next_Level/6210/Next_Level_6210_Teal_DirectSide_High.webp"
+          }
+        },
+        {
+          "code": "Turquoise",
+          "name": "Turquoise",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Turquoise_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Turquoise_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Turquoise_Back_High.webp"
+          }
+        },
+        {
+          "code": "Warm_Grey",
+          "name": "Warm Grey",
+          "views": {
+            "Front": "Fotos/Next_Level/6210/Next_Level_6210_Warm_Grey_Front_High.webp",
+            "Side": "Fotos/Next_Level/6210/Next_Level_6210_Warm_Grey_Side_High.webp",
+            "Back": "Fotos/Next_Level/6210/Next_Level_6210_Warm_Grey_Back_High.webp"
+          }
+        }
+      ]
+    }
+  ],
+  "brand_images": [
+    {
+      "source_archive": "TT21.zip",
+      "filename": "Team_365_High_Brand.jpg",
+      "path": "Marcas/Team_365_High_Brand.jpg"
+    },
+    {
+      "source_archive": "Flexfit 110M5.zip",
+      "filename": "Flexfit_High_Brand.jpg",
+      "path": "Marcas/Flexfit_High_Brand.jpg"
+    }
+  ],
+  "duplicates": [
+    {
+      "filename": "Gildan_18500_Sapphire_Front_High.jpg",
+      "source_archive": "G18500-1.zip",
+      "sha256": "62f51db206714730aa0c89ffffe00250a8f1b40eb4427cfe065c1073ff13e460",
+      "matches_existing": true
+    },
+    {
+      "filename": "Gildan_18500_Sapphire_Back_High.jpg",
+      "source_archive": "G18500-1.zip",
+      "sha256": "d95faee4591a0f0bf1343a9106d647c75cb89746e1dc76ff3832a32ac97851ac",
+      "matches_existing": true
+    }
+  ],
+  "image_base_path": "assets/catalog/",
+  "image_format": "WebP (optimized 720 x 900 max; original photos kept in OCT library)",
+  "image_count": 594,
+  "original_resolution": "1000 x 1250 JPEG",
+  "usage_note": "Color labels from filenames, not verified live supplier availability. Uploaded product photographs are unbranded garments."
+}
