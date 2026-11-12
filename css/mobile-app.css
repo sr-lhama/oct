@@ -1,3 +1,4 @@
+.oct-reference-home .oct-app-nav{display:none}
 /* Orlando Custom Tees | App-inspired mobile homepage, approved desktop is unchanged. */
 @media (max-width:700px){
   .oct-reference-home{background:#fff;overflow-x:hidden}
