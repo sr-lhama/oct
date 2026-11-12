@@ -1,0 +1,168 @@
+.oct-reference-home .oct-showcase-wrap {
+  width: min(1460px, calc(100% - 44px));
+  margin-inline: auto;
+}
+.oct-reference-home #categories.oct-showcase-categories {
+  padding: 13px 0 9px;
+  background: linear-gradient(#fff, #f6fbff);
+  border-bottom: 1px dashed #1979ff;
+}
+.oct-showcase-category-grid, .oct-showcase-product-grid {
+  display: grid;
+  gap: 10px;
+}
+.oct-showcase-category-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.oct-showcase-card {
+  display: block;
+  overflow: hidden;
+  color: #071638;
+  background: #fff;
+  border-radius: 15px;
+  text-decoration: none;
+  box-shadow: 0 3px 12px #183d5a13;
+}
+.oct-showcase-card:hover, .oct-showcase-card:focus-visible {
+  color: #071638;
+  box-shadow: 0 3px 14px #006fa13a;
+}
+.oct-showcase-photo {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2.25;
+  background: linear-gradient(130deg, #f9fafb, #dceef9);
+}
+.oct-showcase-photo .oct-showcase-garment {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center var(--photo-y, 50%);
+}
+.oct-showcase-photo .oct-showcase-logo {
+  position: absolute;
+  left: var(--logo-x, 50%);
+  top: var(--logo-y, 51%);
+  width: var(--logo-size, 32%);
+  height: auto;
+  transform: translate(-50%, -50%);
+}
+.oct-showcase-category-label {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 6px 9px 6px 15px;
+  font-size: clamp(.79rem, 1.45vw, 1.08rem);
+  font-weight: 850;
+  letter-spacing: -.035em;
+  line-height: 1.03;
+}
+.oct-showcase-arrow {
+  display: grid;
+  flex: 0 0 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 50%;
+  background: #009cde;
+  color: white;
+  font-size: 1.05rem;
+  letter-spacing: 0;
+}
+.oct-reference-home #best-sellers.oct-showcase-popular {
+  padding: 12px 0 14px;
+  background: #fff;
+}
+.oct-showcase-popular-grid {
+  display: grid;
+  grid-template-columns: 27% minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+}
+.oct-showcase-intro { padding: 8px 0 0 10px; }
+.oct-showcase-intro > span {
+  display: block;
+  color: #e50072;
+  font-size: .76rem;
+  font-weight: 850;
+  line-height: 1.1;
+}
+.oct-showcase-intro h2 {
+  margin: 0 0 8px;
+  color: #071638;
+  font-size: clamp(1.6rem, 3.05vw, 2.5rem);
+  line-height: 1.02;
+  font-weight: 900;
+  letter-spacing: -.045em;
+}
+.oct-showcase-intro p {
+  max-width: 245px;
+  margin: 0 0 12px;
+  color: #151b29;
+  font-size: .84rem;
+  line-height: 1.22;
+}
+.oct-showcase-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 35px;
+  padding: 4px 19px;
+  border-radius: 16px;
+  background: #e50072;
+  color: #fff;
+  text-decoration: none;
+  font-size: .85rem;
+  font-weight: 800;
+}
+.oct-showcase-cta:hover, .oct-showcase-cta:focus-visible {
+  background: #be005f;
+  color: #fff;
+}
+.oct-showcase-cta span { font-size: 1.25rem; line-height: 1; }
+.oct-showcase-product-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.oct-showcase-product-grid .oct-showcase-photo {
+  aspect-ratio: 1.18;
+  border-radius: 13px;
+}
+.oct-showcase-product-label {
+  display: flex;
+  min-height: 46px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 3px;
+  text-align: center;
+  font-size: .73rem;
+  line-height: 1.18;
+}
+.oct-showcase-product-label strong { font-weight: 850; }
+@media (max-width: 760px) {
+  .oct-reference-home .oct-showcase-wrap { width: calc(100% - 28px); }
+  .oct-showcase-category-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .oct-showcase-popular-grid { grid-template-columns: minmax(0, 1fr); }
+  .oct-showcase-intro { padding-left: 0; }
+  .oct-showcase-intro p { max-width: none; }
+  .oct-showcase-product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 440px) {
+  .oct-showcase-category-grid, .oct-showcase-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .oct-showcase-category-label { min-height: 44px; }
+}
+
+.oct-showcase-photo.category-shirts { --photo-y: 36%; --logo-x: 36%; --logo-y: 69%; --logo-size: 28%; }
+.oct-showcase-photo.category-polos { --photo-y: 36%; --logo-x: 62%; --logo-y: 70%; --logo-size: 17%; }
+.oct-showcase-photo.category-hoodies { --photo-y: 34%; --logo-x: 61%; --logo-y: 70%; --logo-size: 22%; }
+.oct-showcase-photo.category-performance { --photo-y: 34%; --logo-x: 57%; --logo-y: 58%; --logo-size: 19%; }
+.oct-showcase-photo.category-hats { --logo-x: 55%; --logo-y: 45%; --logo-size: 24%; }
+.oct-showcase-photo.category-hats .oct-showcase-logo { transform: translate(-50%, -50%) rotate(-8deg); }
+.oct-showcase-photo.category-uniforms { --photo-y: 35%; --logo-x: 50%; --logo-y: 56%; --logo-size: 22%; }
+.oct-showcase-photo.popular-gildan, .oct-showcase-photo.popular-next-level {
+  --photo-y: 16%; --logo-y: 39%; --logo-size: 39%;
+}
+.oct-showcase-photo.popular-polo { --photo-y: 16%; --logo-x: 63%; --logo-y: 35%; --logo-size: 13%; }
+.oct-showcase-photo.popular-long-sleeve { --photo-y: 14%; }
+.oct-showcase-photo.popular-hoodie { --photo-y: 17%; --logo-y: 36%; --logo-size: 36%; }
