@@ -1,0 +1,96 @@
+.oct-home-reviews { background: #f3f7fa; }
+.oct-reviews-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.oct-reviews-heading h2 { margin: 4px 0; }
+.oct-reviews-rating { margin: 0; font-size: .85rem; }
+.oct-reviews-rating > span:first-child {
+  color: #9c6400;
+  letter-spacing: .1em;
+  margin-right: 4px;
+}
+.oct-reviews-nav { display: flex; gap: 7px; }
+.oct-reviews-nav[hidden], .oct-review-pages[hidden] { display: none; }
+.oct-reviews-nav button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #c8d6e3;
+  border-radius: 9px;
+  background: #fff;
+  color: #091a35;
+  font: inherit;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.oct-reviews-nav button:disabled { opacity: .45; cursor: default; }
+.oct-review-track {
+  --columns: 3;
+  --review-gap: 14px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - (var(--columns) - 1) * var(--review-gap)) / var(--columns));
+  gap: var(--review-gap);
+  margin: 0;
+  padding: 0 0 6px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  list-style: none;
+}
+.oct-review-card {
+  min-width: 0;
+  min-height: 164px;
+  border: 1px solid #d0dce8;
+  border-radius: 12px;
+  background: #fff;
+  color: #091a35;
+  scroll-snap-align: start;
+  box-shadow: 0 2px 5px #091a3510;
+}
+.oct-review-person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-bottom: 1px solid #dce5ee;
+  font-size: .9rem;
+}
+.oct-review-person > span {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  border-radius: 50%;
+  background: #edf6fc;
+  font-size: .72rem;
+  font-weight: 800;
+}
+.oct-review-body { padding: 10px 14px 16px; }
+.oct-review-body small { color: #435972; }
+.oct-review-body p { margin: 5px 0 0; font-size: .91rem; line-height: 1.48; }
+.oct-review-pages { display: flex; justify-content: center; gap: 1px; margin-top: 4px; }
+.oct-review-pages button {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.oct-review-pages button::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #879bb0;
+}
+.oct-review-pages button[aria-current="true"]::before { background: #007eaf; }
+.oct-review-source { margin-top: 8px; }
+@media (max-width: 850px) { .oct-review-track { --columns: 2; } }
+@media (max-width: 560px) { .oct-review-track { --columns: 1; } }
