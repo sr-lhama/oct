@@ -1,5 +1,4 @@
 /* Orlando Custom Tees | Premium hero only. Other website sections remain unchanged. */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
 .oct-reference-home .oct-v6-carousel{position:relative;isolation:isolate;background:#f8fbff;overflow:hidden}
 .oct-reference-home .oct-v6-slide{display:block!important;position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;z-index:0;animation:none;transition:opacity .72s ease, visibility .72s ease}
 .oct-reference-home .oct-v6-slide:first-of-type{position:relative;inset:auto}

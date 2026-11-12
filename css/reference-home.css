@@ -1,25 +1,25 @@
 /* Orlando Custom Tees — approved bright showroom home design */
 :root{--navy:#071a3b;--sky:#00adea;--pink:#ef008b;--yellow:#ffdf00;--muted:#4e6078;--line:#e5ebef}
-body.oct-reference-home{font-family:Arial,'Segoe UI',sans-serif;background:#fff;color:#071a3b}
+body.oct-reference-home{font-family:Outfit,Arial,sans-serif;background:#fff;color:#071a3b}
 .oct-reference-home .container{width:min(1460px,calc(100% - 56px))}
-.oct-reference-home h1,.oct-reference-home h2,.oct-reference-home h3{font-family:'Arial Rounded MT Bold','Trebuchet MS',Arial,sans-serif;letter-spacing:-.045em;color:#071a3b;font-weight:900}
+.oct-reference-home h1,.oct-reference-home h2,.oct-reference-home h3{font-family:Outfit,Arial,sans-serif;letter-spacing:-.045em;color:#071a3b;font-weight:900}
 .oct-reference-home h2{font-size:clamp(1.55rem,2.55vw,2.45rem);margin-bottom:7px}
 .oct-reference-home h3{font-size:1.12rem}
 .oct-reference-home .eyebrow{font-size:.76rem;letter-spacing:.055em;margin-bottom:4px}
 .oct-reference-home .btn{border-radius:13px}
 .oct-reference-home .btn-pink{background:linear-gradient(105deg,#f60089,#dd0077)}
 .oct-reference-home .btn-outline{border:1.7px solid #0057a6;color:#072551;background:rgba(255,255,255,.93)}
-.oct-reference-home .benefitbar{background:#061b3b;color:#fff;font-size:.72rem}
-.oct-reference-home .benefitbar .inner{justify-content:space-between;min-height:40px}
-.oct-reference-home .benefitbar span{padding:0 17px;white-space:nowrap}
-.oct-reference-home .header{position:sticky;top:0;background:#fff}
-.oct-reference-home .header-inner{height:85px;gap:14px}
-.oct-reference-home .logo{width:215px}
-.oct-reference-home .mainnav{gap:20px;font-size:.89rem}
-.oct-reference-home .mainnav a.active{position:relative}
-.oct-reference-home .mainnav a.active:after{content:'';position:absolute;left:0;right:0;bottom:-13px;height:3px;background:var(--pink);border-radius:4px}
-.oct-reference-home .header-phone{border:2px solid #073b7d;padding:10px 14px}
-.oct-reference-home .header-actions .btn{padding:12px 20px}
+
+
+
+
+
+
+
+
+
+
+
 /* Main hero: bright left panel and photographic print studio on right */
 .oct-reference-home .hero-wrap{background:#fff}
 .oct-reference-home .hero-layout{width:100%;max-width:1750px;min-height:510px;grid-template-columns:48% 52%;gap:0}
@@ -146,9 +146,9 @@ body.oct-reference-home{font-family:Arial,'Segoe UI',sans-serif;background:#fff;
 .footer-review-icon-trustpilot { color: #00cf91; }
 .footer-review-icon-bbb { color: #8bd8ff; font-size: .51rem; }
 /* Responsive tablet/mobile */
-@media(max-width:1240px){.oct-reference-home .benefitbar span{padding:0 10px;font-size:.67rem}.oct-reference-home .mainnav{gap:12px;font-size:.8rem}.oct-reference-home .header-inner .logo{width:185px}.oct-reference-home .header-phone{display:none}.oct-reference-home .hero-copy{padding-left:30px}}
-@media(max-width:920px){.oct-reference-home .header-inner{height:72px}.oct-reference-home .hero-layout{grid-template-columns:1fr;min-height:unset}.oct-reference-home .hero-copy{padding:34px 25px 25px;text-align:center;align-items:center}.oct-reference-home .hero-copy::after{display:none}.oct-reference-home .hero-photo{height:450px}.oct-reference-home .hero-actions{justify-content:center}.oct-reference-home .hero-trust{justify-content:center}.oct-reference-home .category-grid{grid-template-columns:repeat(3,1fr)}.oct-reference-home #best-sellers .container{display:block}.oct-reference-home #best-sellers .section-heading{display:block;margin-bottom:16px}.oct-reference-home #best-sellers .section-heading .btn{display:inline-flex;margin-top:9px}.oct-reference-home .product-grid{grid-template-columns:repeat(3,1fr)}.oct-reference-home #process .container{display:block}.oct-reference-home #process .center{text-align:center}.oct-reference-home #process h2{max-width:none}.oct-reference-home #process .steps{margin-top:18px;grid-template-columns:repeat(2,1fr)}.oct-reference-home .industry-grid{grid-template-columns:repeat(3,1fr)}.oct-reference-home .review-area{grid-template-columns:1fr}}
-@media(max-width:620px){.oct-reference-home .container{width:calc(100% - 28px)}.oct-reference-home .benefitbar .inner{justify-content:center}.oct-reference-home .benefitbar span{font-size:.62rem}.oct-reference-home .benefitbar span:nth-child(n+3){display:none}.oct-reference-home .hero-copy{padding:28px 15px 25px}.oct-reference-home .hero-copy h1{font-size:clamp(2.2rem,9vw,3.6rem)}.oct-reference-home .hero-copy .lead{font-size:.98rem}.oct-reference-home .hero-photo{height:360px;margin:0}.oct-reference-home .hero-trust{gap:8px}.oct-reference-home .hero-proof{font-size:.69rem;max-width:135px}.oct-reference-home .hero-proof strong{font-size:1.1rem}.oct-reference-home .hero-actions{width:100%}.oct-reference-home .hero-actions .btn{width:100%;max-width:390px}.oct-reference-home .section{padding:32px 0}.oct-reference-home .category-grid{grid-template-columns:repeat(2,1fr)}.oct-reference-home .category img{height:150px}.oct-reference-home .category .cat-name{font-size:.83rem}.oct-reference-home .product-grid{grid-template-columns:repeat(2,1fr)}.oct-reference-home .product-card .photo img{height:155px}.oct-reference-home .feature-row{grid-template-columns:1fr;gap:18px}.oct-reference-home .feature-row img{height:225px}.oct-reference-home .checkgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.oct-reference-home #process .steps{grid-template-columns:1fr 1fr;gap:2px}.oct-reference-home #process .step{padding:7px 5px 9px 35px}.oct-reference-home .industry-grid{grid-template-columns:repeat(2,1fr)}.oct-reference-home .industry-card{min-height:165px}.oct-reference-home .review-area{padding:0}.oct-reference-home .cta-wide{padding:23px;flex-direction:column;align-items:flex-start;gap:15px}.oct-reference-home .cta-wide .btn{width:100%}}
+@media(max-width:1240px){.oct-reference-home .hero-copy{padding-left:30px}}
+@media(max-width:920px){.oct-reference-home .hero-layout{grid-template-columns:1fr;min-height:unset}.oct-reference-home .hero-copy{padding:34px 25px 25px;text-align:center;align-items:center}.oct-reference-home .hero-copy::after{display:none}.oct-reference-home .hero-photo{height:450px}.oct-reference-home .hero-actions{justify-content:center}.oct-reference-home .hero-trust{justify-content:center}.oct-reference-home .category-grid{grid-template-columns:repeat(3,1fr)}.oct-reference-home #best-sellers .container{display:block}.oct-reference-home #best-sellers .section-heading{display:block;margin-bottom:16px}.oct-reference-home #best-sellers .section-heading .btn{display:inline-flex;margin-top:9px}.oct-reference-home .product-grid{grid-template-columns:repeat(3,1fr)}.oct-reference-home #process .container{display:block}.oct-reference-home #process .center{text-align:center}.oct-reference-home #process h2{max-width:none}.oct-reference-home #process .steps{margin-top:18px;grid-template-columns:repeat(2,1fr)}.oct-reference-home .industry-grid{grid-template-columns:repeat(3,1fr)}.oct-reference-home .review-area{grid-template-columns:1fr}}
+@media(max-width:620px){.oct-reference-home .container{width:calc(100% - 28px)}.oct-reference-home .hero-copy{padding:28px 15px 25px}.oct-reference-home .hero-copy h1{font-size:clamp(2.2rem,9vw,3.6rem)}.oct-reference-home .hero-copy .lead{font-size:.98rem}.oct-reference-home .hero-photo{height:360px;margin:0}.oct-reference-home .hero-trust{gap:8px}.oct-reference-home .hero-proof{font-size:.69rem;max-width:135px}.oct-reference-home .hero-proof strong{font-size:1.1rem}.oct-reference-home .hero-actions{width:100%}.oct-reference-home .hero-actions .btn{width:100%;max-width:390px}.oct-reference-home .section{padding:32px 0}.oct-reference-home .category-grid{grid-template-columns:repeat(2,1fr)}.oct-reference-home .category img{height:150px}.oct-reference-home .category .cat-name{font-size:.83rem}.oct-reference-home .product-grid{grid-template-columns:repeat(2,1fr)}.oct-reference-home .product-card .photo img{height:155px}.oct-reference-home .feature-row{grid-template-columns:1fr;gap:18px}.oct-reference-home .feature-row img{height:225px}.oct-reference-home .checkgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.oct-reference-home #process .steps{grid-template-columns:1fr 1fr;gap:2px}.oct-reference-home #process .step{padding:7px 5px 9px 35px}.oct-reference-home .industry-grid{grid-template-columns:repeat(2,1fr)}.oct-reference-home .industry-card{min-height:165px}.oct-reference-home .review-area{padding:0}.oct-reference-home .cta-wide{padding:23px;flex-direction:column;align-items:flex-start;gap:15px}.oct-reference-home .cta-wide .btn{width:100%}}
 /* Approved trio of logo-free hero slides, uploaded by the site owner */
 .oct-reference-home .oct-art-carousel{background:#fff;position:relative}
 .oct-reference-home .oct-art-slide{background:#fff}

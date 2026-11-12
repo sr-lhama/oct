@@ -2,23 +2,23 @@
 /* Orlando Custom Tees | App-inspired mobile homepage, approved desktop is unchanged. */
 @media (max-width:700px){
   .oct-reference-home{background:#fff;overflow-x:hidden}
-  .oct-reference-home .benefitbar{position:relative;z-index:30;background:#061c3d}
-  .oct-reference-home .benefitbar .inner{width:100%;min-height:30px;padding:0 10px;display:flex;gap:0;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
-  .oct-reference-home .benefitbar .inner::-webkit-scrollbar{display:none}
-  .oct-reference-home .benefitbar span{display:inline-flex!important;align-items:center;flex:none;font-size:9px;letter-spacing:-.01em;padding:0 10px;border-right:1px solid #4f627f}
-  .oct-reference-home .benefitbar span:nth-child(n+4){display:none!important}
-  .oct-reference-home .header{position:sticky;top:0;z-index:55;border-radius:0 0 17px 17px;box-shadow:0 4px 18px rgba(10,28,60,.07)}
-  .oct-reference-home .header-inner{width:calc(100% - 20px);min-height:69px;height:69px;gap:6px;justify-content:space-between}
-  .oct-reference-home .header-inner>a{flex:0 1 auto;min-width:0}
-  .oct-reference-home .header-inner .logo{width:clamp(123px,38vw,178px);max-height:57px;object-fit:contain}
-  .oct-reference-home .header-actions{display:flex;align-items:center;gap:6px;flex:none}
-  .oct-reference-home .header-actions .header-phone{display:inline-flex!important;align-items:center;justify-content:center;width:37px;height:39px;border:1px solid #d3e0ed;border-radius:12px;font-size:0;min-width:0;padding:0;background:#fff}
-  .oct-reference-home .header-actions .header-phone::after{content:"☎";font-size:19px;color:#091e44;font-weight:900}
-  .oct-reference-home .header-actions>.btn{display:inline-flex!important;align-items:center;justify-content:center;height:39px;min-height:39px;padding:0 9px;border:0;border-radius:12px;min-width:90px;font-size:0;box-shadow:0 4px 10px rgba(236,0,139,.16)}
-  .oct-reference-home .header-actions>.btn::before{content:"Get a Quote ›";font-family:'Outfit',Arial,sans-serif;font-size:11px;font-weight:900;white-space:nowrap;color:#fff}
-  .oct-reference-home .header-actions>.btn span{display:none}
-  .oct-reference-home .header-actions .menu-btn{display:flex!important;align-items:center;justify-content:center;border:1px solid #d3e0ed;background:white;color:#0a2346;width:37px;height:39px;border-radius:12px;font-size:21px;padding:0}
-  .oct-reference-home .mobile-menu{border-radius:0 0 17px 17px;box-shadow:0 16px 28px rgba(10,30,55,.12)}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   /* One seamless, portrait hero. Text stays real HTML above artwork. */
   .oct-reference-home .hero-wrap{background:#fff;padding:9px 9px 0}
   .oct-reference-home .oct-v6-carousel{border-radius:24px;overflow:hidden;background:#f5f8ff;box-shadow:0 9px 28px rgba(8,27,62,.10)}
@@ -75,11 +75,11 @@
   .oct-reference-home{padding-bottom:calc(66px + env(safe-area-inset-bottom,0px))}
 }
 @media(max-width:355px){
-  .oct-reference-home .header-inner .logo{width:120px}
-  .oct-reference-home .header-actions{gap:4px}
-  .oct-reference-home .header-actions .header-phone,.oct-reference-home .header-actions .menu-btn{width:31px;height:36px}
-  .oct-reference-home .header-actions>.btn{min-width:80px;padding:0 5px}
-  .oct-reference-home .header-actions>.btn::before{font-size:10px}
+  
+  
+  
+  
+  
   .oct-reference-home .oct-v6-slide,.oct-reference-home .oct-v6-slide:first-of-type{height:635px!important;min-height:635px!important}
   .oct-reference-home .oct-v6-parallax{height:635px!important;min-height:635px}
   .oct-reference-home .oct-v6-copy h1,.oct-reference-home .oct-v6-copy h2{font-size:25px}
