@@ -1,5 +1,3 @@
-// Static GitHub Pages design preview: backend is intentionally disabled.
-window.OCT_PREVIEW_ONLY=true;
 (function(){
   'use strict';
   const menu=document.querySelector('[data-menu]');
@@ -70,16 +68,72 @@ window.OCT_PREVIEW_ONLY=true;
   const quote=document.querySelector('[data-quote-form]');
   if(quote){
     const params=new URLSearchParams(location.search);if(params.has('product')){const sel=quote.querySelector('[name="product"]');if(sel){const wanted=params.get('product');const match=Array.from(sel.options).find(o=>o.value===wanted);if(match)sel.value=wanted;else{const op=document.createElement('option');op.value=wanted;op.textContent=wanted;op.selected=true;sel.append(op);}}}
-    const count=quote.querySelector('[name="quantity"]'), sum=document.querySelector('[data-quantity-summary]');
-    if(count&&sum)count.addEventListener('input',()=>{const n=parseInt(count.value,10);sum.textContent=Number.isFinite(n)&&n>0?n+' pieces':'Quantity not selected';});
-    quote.addEventListener('submit',async ev=>{ev.preventDefault();if(window.OCT_PREVIEW_ONLY){const r=document.querySelector('[data-form-result]');r.className='form-result error';r.textContent='Prévia do GitHub Pages: este formulário não envia solicitações. Para ativar, é necessário hospedar o backend PHP ou integrar ao CRM.';r.scrollIntoView({behavior:'smooth',block:'center'});return;}const result=document.querySelector('[data-form-result]');const submit=quote.querySelector('[type="submit"]');const n=Number(count.value);if(!Number.isInteger(n)||n<12){result.className='form-result error';result.textContent='The standard minimum is 12 pieces. Please update the quantity or contact us about an exception.';return;}
-      if(quote.elements.company_email && quote.elements.company_email.value)return;
-      const upload=quote.querySelector('input[type=file]');if(upload&&upload.files[0]&&upload.files[0].size>8*1024*1024){result.className='form-result error';result.textContent='Artwork cannot exceed 8 MB. Please select a smaller file.';return;}
-      submit.disabled=true;submit.textContent='Sending request…';result.className='form-result';result.textContent='';
-      try{const response=await fetch('api/quote.php',{method:'POST',body:new FormData(quote),headers:{Accept:'application/json'}});let data;try{data=await response.json()}catch{throw new Error('This preview is not connected to the PHP form handler. Install the full package on a PHP-enabled server to receive requests.');}
-      if(!response.ok||!data.ok)throw new Error(data.message||'Submission failed.');result.className='form-result ok';result.textContent='Thank you! Your request '+data.request_id+' has been received. Our team will contact you to review details and pricing.';quote.reset();result.scrollIntoView({behavior:'smooth',block:'center'});}
-      catch(err){result.className='form-result error';result.textContent='Unable to send your request: '+err.message+' You can contact info@orlandocustomtees.com.';}
-      finally{submit.disabled=false;submit.innerHTML='Send Quote Request <span class="icon-arrow">→</span>';}
+    const result = quote.querySelector('[data-form-result]');
+    const submit = quote.querySelector('[type="submit"]');
+    const label = submit.innerHTML;
+    const sizes = [...quote.querySelectorAll('input[name^="size-"]')];
+    const sum = document.querySelector('[data-quantity-summary]');
+    const qty = () => sizes.reduce((n, field) => n + Number(field.value), 0);
+    const updateTotal = () => { if (sum) sum.textContent = qty() + ' pieces'; };
+    const presets = {'Left chest':[3.5,3.5],'Right chest':[3.5,3.5],'Both chest sides':[3.5,3.5],'Centered front':[8,8],'Full front':[10,12],'Below collar':[4,2],'Small back':[6,6],'Medium back':[8,10],'Full back':[10,12],'Custom back size':[8,10]};
+    for (const side of ['front','back']) {
+      const choice = quote.elements[side];
+      const panel = quote.querySelector('[data-print-dimensions="' + side + '"]');
+      const sync = () => {
+        const active = choice.value !== 'None';
+        panel.hidden = !active;
+        panel.style.display = active ? '' : 'none';
+        [quote.elements[side+'W'],quote.elements[side+'H']].forEach((field,i) => {
+          field.disabled = !active;
+          field.required = active;
+          field.value = active ? presets[choice.value][i] : '';
+        });
+      };
+      choice.addEventListener('change', sync);
+      quote.addEventListener('reset', () => queueMicrotask(sync));
+      sync();
+    }
+    const address = quote.elements.address;
+    const delivery = quote.elements.delivery;
+    const syncAddress = () => {
+      address.required = delivery.value === 'shipping';
+      address.disabled = !address.required;
+      address.closest('[data-shipping-address]').hidden = !address.required;
+    };
+    delivery.addEventListener('change', syncAddress);
+    quote.addEventListener('reset', () => queueMicrotask(() => { syncAddress(); updateTotal(); }));
+    syncAddress();
+    sizes.forEach(field => field.addEventListener('input', updateTotal));
+    updateTotal();
+    let requestKey = crypto.randomUUID();
+    quote.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (submit.disabled || quote.elements.company_email.value) return;
+      const show = (message, kind) => {
+        result.className = 'form-result ' + kind;
+        result.textContent = message;
+      };
+      if (qty() < 12 || qty() > 1000) return show('Enter a total of 12 to 1,000 pieces.', 'error');
+      if (quote.elements.front.value === 'None' && quote.elements.back.value === 'None') return show('Select a front or back print placement.', 'error');
+      if ((quote.elements.artwork.files[0]?.size || 0) > 10 * 1024 * 1024) return show('Artwork must be 10 MB or smaller.', 'error');
+      const data = new FormData(quote);
+      data.set('requestKey', requestKey);
+      submit.disabled = true;
+      submit.textContent = 'Sending request…';
+      show('', '');
+      try {
+        const response = await fetch(quote.action, {method:'POST', body:data});
+        const receipt = await response.json();
+        if (!response.ok || !receipt.request_id) throw new Error(receipt.error || 'Please try again.');
+        requestKey = crypto.randomUUID();
+        quote.reset();
+        show('Request ' + receipt.request_id + ' received. We’ll email you a copy and follow up with your estimate after review.', 'ok');
+      } catch (error) {
+        show('Unable to send your request. ' + (error instanceof SyntaxError ? 'Please try again or contact info@orlandocustomtees.com.' : error.message), 'error');
+      } finally {
+        submit.disabled = false;
+        submit.innerHTML = label;
+      }
     });
   }
 })();
