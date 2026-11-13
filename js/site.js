@@ -81,6 +81,14 @@
       const panel = quote.querySelector('[data-print-dimensions="' + side + '"]');
       const sync = () => {
         const active = choice.value !== 'None';
+        const artwork = quote.elements[side + 'Artwork'];
+        if (artwork) artwork.disabled = !active;
+        if (artwork && !active) artwork.value = '';
+        if (artwork && side === 'back') {
+          const upload = artwork.closest('[data-back-artwork]');
+          upload.hidden = !active;
+          upload.style.display = active ? '' : 'none';
+        }
         panel.hidden = !active;
         panel.style.display = active ? '' : 'none';
         [quote.elements[side+'W'],quote.elements[side+'H']].forEach((field,i) => {
@@ -115,7 +123,11 @@
       };
       if (qty() < 12 || qty() > 1000) return show('Enter a total of 12 to 1,000 pieces.', 'error');
       if (quote.elements.front.value === 'None' && quote.elements.back.value === 'None') return show('Select a front or back print placement.', 'error');
-      if ((quote.elements.artwork.files[0]?.size || 0) > 10 * 1024 * 1024) return show('Artwork must be 10 MB or smaller.', 'error');
+      const artworkSize = ['frontArtwork', 'backArtwork'].reduce((total, name) => {
+        const field = quote.elements[name];
+        return total + (field.disabled ? 0 : (field.files[0]?.size || 0));
+      }, 0);
+      if (artworkSize > 10 * 1024 * 1024) return show('Combined artwork must be 10 MB or smaller.', 'error');
       const data = new FormData(quote);
       data.set('requestKey', requestKey);
       submit.disabled = true;
