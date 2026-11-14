@@ -6,7 +6,8 @@
     grid-template-columns: 62% 38%;
     align-items: center;
     width: min(1460px, calc(100% - 56px));
-    min-height: clamp(325px, 36vw, 530px);
+    min-height: clamp(380px, 36vw, 530px);
+    border-radius: 0 0 26px 26px;
     margin-inline: auto;
     overflow: hidden;
     background: #e4f3ff;
@@ -26,7 +27,7 @@
     background: linear-gradient(90deg, #e4f3ff00, #e4f3ff 32%);
   }
   .how-hero-copy h1 {
-    font-size: clamp(2.2rem, 3.65vw, 4.15rem);
+    font-size: clamp(2rem, 3.15vw, 3.75rem);
     line-height: 1.05;
   }
   @media (max-width: 900px) {
@@ -36,6 +37,8 @@
       align-items: stretch;
       width: calc(100% - 20px);
       min-height: 0;
+      margin-top: 10px;
+      border-radius: 22px;
     }
     .how-hero-image {
       position: static;
@@ -48,20 +51,79 @@
     .how-hero-copy h1 { font-size: clamp(27px, 6vw, 38px); }
   }
 
-  .how-guide { scroll-margin-top: 90px; }
-  .how-guide-nav { display: flex; flex-wrap: wrap; gap: 10px 22px; padding: 0; list-style: none; }
-  .how-guide a:not(.btn), .how-guide-nav a { color: #005a90; text-decoration: underline; text-underline-offset: 3px; }
+  .how-guide, #faq { scroll-margin-top: 90px; }
+  .how-guide { padding-block: clamp(36px, 6vw, 88px); }
+  .how-guide > .container, #faq > .container { max-width: 1160px; }
+  .how-guide h2 { max-width: 24ch; margin: 0 0 16px; }
+  .how-guide p { max-width: 74ch; }
+  .how-guide a:not(.btn) { color: #005a90; text-decoration: underline; text-underline-offset: 3px; }
+  .how-overview { padding-block: clamp(26px, 4vw, 52px); }
+  .how-overview-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: 28px;
+    padding: clamp(22px, 4vw, 50px);
+    border: 1px solid #dce7f0;
+    border-radius: 24px;
+    background: #f3f8fe;
+  }
+  .how-overview-panel p { margin-bottom: 0; }
+  .how-guide-nav {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .how-guide .how-guide-nav a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    min-height: 44px;
+    padding: 9px 12px;
+    border: 1px solid #d7e4ef;
+    border-radius: 11px;
+    background: #fff;
+    color: #102749;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .how-guide .how-guide-nav a:hover { border-color: #007ab5; color: #005a90; }
+  .how-guide-nav a::after { content: "↓"; color: #007ab5; }
   .how-guide-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; margin-block: 22px; }
-  .how-guide-card { padding: 20px; border: 1px solid #dce7f0; border-radius: 18px; background: #f5f9fd; }
-  .how-guide-card h3 { margin-top: 0; }
-  .how-guide-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: clamp(20px,4vw,48px); align-items: center; }
+  .how-guide-card { padding: clamp(16px, 2vw, 25px); border: 1px solid #dce7f0; border-radius: 18px; background: #fff; }
+  .how-guide-card h3 { margin: 0 0 10px; }
+  .how-guide-card p:last-child { margin-bottom: 0; }
+  .how-guide-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: clamp(24px,5vw,64px); align-items: center; }
+  .how-guide-pair figure { min-width: 0; }
   .how-guide figure { margin: 0; }
   .how-guide figure img { display: block; width: 100%; height: auto; border-radius: 18px; }
   .how-guide figcaption { margin-top: 8px; font-size: .9rem; color: var(--muted); }
+  #printing .how-guide-pair {
+    padding: clamp(22px,4vw,44px);
+    border-radius: 24px;
+    background: #091a35;
+    color: #e5efff;
+  }
+  #printing .how-guide-pair h2 { color: #fff; }
+  #printing .how-guide-pair a { color: #8bdeff; }
+  #printing .how-guide-pair img { min-height: 190px; object-fit: cover; object-position: left center; }
   .how-projects { margin-top: 24px; }
   .how-projects img { aspect-ratio: 4/3; object-fit: cover; }
+  @media (max-width: 840px) {
+    .how-overview-panel,.how-guide-pair { grid-template-columns: minmax(0,1fr); }
+  }
   @media (max-width: 700px) {
-    .how-guide-grid,.how-guide-pair { grid-template-columns: minmax(0,1fr); }
+    .how-guide-grid { grid-template-columns: minmax(0,1fr); }
+    .how-guide-nav a { font-size: .86rem; }
+    .how-guide h2 { font-size: clamp(25px,7vw,32px); }
+  }
+  @media (max-width: 370px) {
+    .how-guide-nav { grid-template-columns: minmax(0,1fr); }
   }
 </style></head><body><a class="skip-link" href="#main">Skip to content</a>
 <div class="benefitbar"><div class="container inner"><span>⌖  Orlando, FL</span><span>⚡  Fast Production (7–10 Business Days)</span><span>👕  12-Piece Minimum</span><span>▣  Free Digital Mockup</span><span>★  Quality Custom Apparel</span><nav class="social-links social-links--top" aria-label="Social media in the header"><a href="https://www.facebook.com/orlandotshirt/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><svg width="16" height="16" aria-hidden="true" focusable="false"><use href="assets/images/social-icons.svg#facebook"></use></svg></a><a href="https://www.instagram.com/orlandotshirt/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg width="16" height="16" aria-hidden="true" focusable="false"><use href="assets/images/social-icons.svg#instagram"></use></svg></a><a href="https://www.tiktok.com/@orlandotshirt" target="_blank" rel="noopener noreferrer" aria-label="TikTok" title="TikTok"><svg width="16" height="16" aria-hidden="true" focusable="false"><use href="assets/images/social-icons.svg#tiktok"></use></svg></a><a href="https://www.youtube.com/@OrlandoTshirt" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><svg width="16" height="16" aria-hidden="true" focusable="false"><use href="assets/images/social-icons.svg#youtube"></use></svg></a><a href="https://wa.me/message/BKYBFEAJW4RJP1" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"><svg width="16" height="16" aria-hidden="true" focusable="false"><use href="assets/images/social-icons.svg#whatsapp"></use></svg></a></nav></div></div>
@@ -70,10 +132,12 @@
     <img class="how-hero-image" src="assets/page-banners/sr-lhama-how-it-works.webp" width="2079" height="756" fetchpriority="high" alt="Sr. Lhama designs a custom T-shirt on his computer at the Orlando Custom Tees studio.">
     <div class="how-hero-copy"><div class="breadcrumb"><a href="index.html">Home</a> / How It Works</div><span class="eyebrow">Easy to order. Easy to love.</span><h1 id="how-title">How Custom T-Shirt &amp; <span class="text-pink">Uniform Orders Work</span></h1><p class="lead">Choose the right apparel, send your artwork, and approve a digital mockup before we print. Here’s how we make custom T-shirts and uniforms in Orlando.</p></div>
   </div>
-</section><section class="section how-guide" aria-labelledby="guide-overview">
-  <div class="container">
+</section><section class="section how-guide how-overview" aria-labelledby="guide-overview">
+  <div class="container how-overview-panel">
+    <div>
     <h2 id="guide-overview">From idea to finished apparel</h2>
     <p class="lead">Whether you’re outfitting a crew or ordering shirts for an event, here’s what to decide before production and how to care for the finished print.</p>
+    </div>
     <nav aria-label="On this page">
       <ul class="how-guide-nav">
         <li><a href="#fabric">Choose your fabric</a></li>
@@ -89,8 +153,13 @@
 </section>
 <section class="section section-soft how-guide" id="fabric" aria-labelledby="fabric-title">
   <div class="container">
+    <div class="how-guide-pair">
+      <div>
     <h2 id="fabric-title">What’s the best fabric for custom T-shirts?</h2>
     <p class="lead">Start with who will wear the shirt, where they’ll wear it, and how often it will be washed.</p>
+      </div>
+      <figure><img src="assets/home-process/sr-lhama-choose-hoodie.webp" width="559" height="373" alt="Sr. Lhama compares apparel options in the studio" loading="lazy" decoding="async"></figure>
+    </div>
     <div class="how-guide-grid">
       <article class="how-guide-card"><h3>Cotton for events</h3><p>For volunteers, event staff, or merchandise, start with the Gildan 64000 Softstyle. Many solid colors are ring-spun cotton, which has a soft feel and gives you a smooth surface for the print. Fiber content varies by color.</p></article>
       <article class="how-guide-card"><h3>Cotton-poly blend for everyday wear</h3><p>The Next Level 6210 CVC blends combed ring-spun cotton with polyester. It’s a good starting point when your staff want a soft shirt they can wear throughout the week.</p></article>
@@ -111,9 +180,14 @@
 </section>
 <section class="section section-soft how-guide" id="estimate" aria-labelledby="estimate-title">
   <div class="container">
+    <div class="how-guide-pair">
+      <div>
     <h2 id="estimate-title">What goes into your custom apparel quote?</h2>
     <p>Send the garment style or intended use, color, quantity by size, artwork, print locations, deadline, and pickup or shipping preference. The standard minimum is 12 pieces. Garment choice, extended sizes, print size and placement, artwork preparation, and rush timing can affect the estimate. Shipping is quoted separately.</p>
-    <div class="how-guide-card"><h3>Example for a 12-shirt work crew</h3><p>Request 12 navy performance shirts in mixed sizes, with a small left-chest logo and a larger back print. Include both artwork files and the date the crew needs the shirts. That gives us the details to quote the garments and both print placements.</p></div>
+      </div>
+      <figure><img src="assets/home-process/sr-lhama-quote-hoodie.webp" width="559" height="373" alt="Sr. Lhama reviews a custom apparel quote" loading="lazy" decoding="async"></figure>
+    </div>
+    <div class="how-guide-card" style="margin-top:24px"><h3>Example for a 12-shirt work crew</h3><p>Request 12 navy performance shirts in mixed sizes, with a small left-chest logo and a larger back print. Include both artwork files and the date the crew needs the shirts. That gives us the details to quote the garments and both print placements.</p></div>
     <p><a class="btn btn-pink" href="quote.html">Request a Quote</a></p>
   </div>
 </section>
