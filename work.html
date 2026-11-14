@@ -2,14 +2,66 @@
   .portfolio-photo { display: block; background: #f5f8fb; }
   .portfolio-photo img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; }
   .portfolio-photo:focus-visible { outline: 3px solid #e5007e; outline-offset: -4px; }
+
+  .portfolio-hero { padding: 0; }
+  .portfolio-hero-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 62% 38%;
+    align-items: center;
+    width: min(1460px, calc(100% - 56px));
+    min-height: clamp(325px, 36vw, 530px);
+    margin-inline: auto;
+    overflow: hidden;
+    background: #e4f3ff;
+  }
+  .portfolio-hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+  }
+  .portfolio-hero-copy {
+    position: relative;
+    grid-column: 2;
+    padding: 28px clamp(20px, 3vw, 46px);
+    background: linear-gradient(90deg, #e4f3ff00, #e4f3ff 32%);
+  }
+  .portfolio-hero-copy h1 {
+    font-size: clamp(2.2rem, 3.65vw, 4.15rem);
+    line-height: 1.05;
+  }
+  @media (max-width: 900px) {
+    .portfolio-hero-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: calc(100% - 20px);
+      min-height: 0;
+    }
+    .portfolio-hero-image {
+      position: static;
+      display: block;
+      height: auto;
+      aspect-ratio: 1.75;
+      object-position: left center;
+    }
+    .portfolio-hero-copy { padding: 20px 16px 24px; }
+    .portfolio-hero-copy h1 { font-size: clamp(27px, 6vw, 38px); }
+  }
 </style></head><body><a class="skip-link" href="#main">Skip to content</a>
 <div class="benefitbar"><div class="container inner"><span>⌖  Orlando, FL</span><span>⚡  Fast Production (7–10 Business Days)</span><span>👕  12-Piece Minimum</span><span>▣  Free Digital Mockup</span><span>★  Quality Custom Apparel</span><nav class="social-links social-links--top" aria-label="Social media in the header"><a href="https://www.facebook.com/orlandotshirt/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><svg width="16" height="16" aria-hidden="true" focusable="false"><use href="assets/images/social-icons.svg#facebook"></use></svg></a><a href="https://www.instagram.com/orlandotshirt/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg width="16" height="16" aria-hidden="true" focusable="false"><use href="assets/images/social-icons.svg#instagram"></use></svg></a><a href="https://www.tiktok.com/@orlandotshirt" target="_blank" rel="noopener noreferrer" aria-label="TikTok" title="TikTok"><svg width="16" height="16" aria-hidden="true" focusable="false"><use href="assets/images/social-icons.svg#tiktok"></use></svg></a><a href="https://www.youtube.com/@OrlandoTshirt" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><svg width="16" height="16" aria-hidden="true" focusable="false"><use href="assets/images/social-icons.svg#youtube"></use></svg></a><a href="https://wa.me/message/BKYBFEAJW4RJP1" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"><svg width="16" height="16" aria-hidden="true" focusable="false"><use href="assets/images/social-icons.svg#whatsapp"></use></svg></a></nav></div></div>
 <header class="header"><div class="container header-inner"><a aria-label="Orlando Custom Tees homepage" href="index.html"><img alt="Orlando Custom Tees official logo" class="logo" height="165" src="assets/images/logo-header-animated.gif" width="527"/></a><nav aria-label="Main navigation" class="mainnav"><a href="index.html">Home</a><a href="apparel.html">Apparel</a><a href="business-uniforms-orlando.html">Uniforms</a><a href="work.html" class="active" aria-current="page">Portfolio</a><a href="reviews.html">Reviews</a><a href="how-it-works.html">How It Works</a><a href="contact.html">Contact</a></nav><div class="header-actions"><a class="header-phone" href="tel:+14076408703">☎ (407) 640-8703</a><a class="btn btn-pink btn-sm" href="quote.html">Get a Free Quote <span aria-hidden="true">→</span></a><button aria-controls="mobileMenu" aria-expanded="false" aria-label="Open navigation" class="menu-btn" data-menu-toggle="" type="button">☰</button></div></div><nav aria-label="Mobile navigation" class="mobile-menu" data-menu="" id="mobileMenu"><a href="index.html">Home</a><a href="apparel.html">Apparel</a><a href="business-uniforms-orlando.html">Uniforms</a><a href="work.html" aria-current="page">Portfolio</a><a href="reviews.html">Reviews</a><a href="how-it-works.html">How It Works</a><a href="contact.html">Contact</a></nav></header><main id="main">
-  <section class="banner-head">
-    <div class="container">
+  <section class="banner-head portfolio-hero" aria-labelledby="portfolio-title">
+    <div class="portfolio-hero-inner">
+      <img class="portfolio-hero-image" src="assets/page-banners/sr-lhama-portfolio.webp" width="2079" height="756" fetchpriority="high" alt="Sr. Lhama showcases custom New Hope Expo, Reforma Sua Casa, and Hope &amp; Justice apparel in the Orlando Custom Tees studio.">
+      <div class="portfolio-hero-copy">
       <div class="breadcrumb"><a href="index.html">Home</a> / Portfolio</div>
-      <h1>Custom Apparel <span class="text-pink">Portfolio</span></h1>
+      <h1 id="portfolio-title">Custom Apparel <span class="text-pink">Portfolio</span></h1>
       <p class="lead">See how businesses, teams and events brought their designs to life on custom T-shirts, polos and uniforms.</p>
+    </div>
     </div>
   </section>
   <section class="section" aria-labelledby="portfolio-projects">
