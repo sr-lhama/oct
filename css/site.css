@@ -142,3 +142,30 @@ body .benefitbar .inner { width: min(1460px, calc(100% - 56px)); }
 @media (max-width: 355px) {
   body .benefitbar .inner > span:nth-child(3) { display: none !important; }
 }
+
+/* Shared mobile navigation and compact internal page headings. */
+.oct-app-nav { display: none; }
+@media (max-width: 700px) {
+  .oct-app-nav{position:fixed;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:end;bottom:0;left:0;right:0;padding:7px 3px calc(8px + env(safe-area-inset-bottom,0px));height:calc(66px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.975);border-radius:19px 19px 0 0;box-shadow:0 -5px 25px rgba(13,36,73,.12);backdrop-filter:blur(12px);z-index:110}
+  .oct-app-nav a{font-family:'Outfit',Arial,sans-serif;color:#10254c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10px;font-weight:750;text-decoration:none;min-width:0;white-space:nowrap;min-height:43px}
+  .oct-app-nav a[aria-current="page"]{color:#f1008a}
+  .oct-app-nav svg{height:23px;width:23px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .oct-app-nav .oct-app-primary{color:#09234a}
+  .oct-app-nav .oct-app-primary span{background:#ed0086;display:flex;justify-content:center;align-items:center;width:49px;height:49px;border-radius:50%;box-shadow:0 5px 17px rgba(235,0,135,.25);margin-top:-24px;color:#fff}
+  .oct-app-nav .oct-app-primary svg{height:27px;width:27px}
+  .oct-app-nav .oct-app-primary[aria-current="page"] { color: var(--pink); }
+  body { padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px)); }
+  .floating-quote { display: none !important; }
+  body .mobile-menu {
+    max-height: calc(100dvh - 155px - env(safe-area-inset-bottom, 0px));
+    overflow-y: auto;
+  }
+  .mobile-menu a[aria-current="page"]:not(.btn) { color: var(--pink); }
+  main > .banner-head:not([aria-labelledby]) { padding-block: 22px 32px; }
+  main > .banner-head:not([aria-labelledby]) h1 {
+    font-size: clamp(27px, 7.15vw, 34px);
+    line-height: 1.08;
+  }
+  main > .banner-head:not([aria-labelledby]) .lead { font-size: 1rem; }
+  main > .banner-head:not([aria-labelledby]) + .section { padding-top: 32px; }
+}
