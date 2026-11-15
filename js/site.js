@@ -139,7 +139,7 @@
         if (!response.ok || !receipt.request_id) throw new Error(receipt.error || 'Please try again.');
         requestKey = crypto.randomUUID();
         quote.reset();
-        show('Request ' + receipt.request_id + ' received. We’ll email you a copy and follow up with your estimate after review.', 'ok');
+        show('Request ' + receipt.request_id + ' received. Our team will review your request and follow up by email with your estimate.', 'ok');
       } catch (error) {
         show('Unable to send your request. ' + (error instanceof SyntaxError ? 'Please try again or contact info@orlandocustomtees.com.' : error.message), 'error');
       } finally {
