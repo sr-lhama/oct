@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin Dashboard | Orlando Custom Tees</title>
+<style>
+:root{--navy:#091a35;--navy2:#10274c;--pink:#e83383;--ink:#15243a;--muted:#64748b;--line:#e4e9f1;--bg:#f5f7fb;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,Helvetica,sans-serif}button,a{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
+#gate{min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--navy)}.gate-card{max-width:470px;width:100%;padding:34px;border-radius:18px;background:white;text-align:center;box-shadow:0 18px 50px #0003}.gate-card img{width:230px;max-width:100%;height:auto}.gate-card h1{font-size:23px;color:var(--navy)}.gate-card p{color:var(--muted);line-height:1.65}.btn{border:0;background:var(--pink);color:#fff;padding:11px 18px;border-radius:9px;font-weight:700;display:inline-block}.btn.secondary{background:white;border:1px solid #d3dbe7;color:var(--navy)}.btn:focus-visible,.nav-btn:focus-visible{outline:3px solid #f9b0d3;outline-offset:2px}
+#app[hidden],#gate[hidden]{display:none!important}#app{min-height:100vh;display:flex}
+.sidebar{background:var(--navy);color:#dce6f8;width:260px;min-width:260px;padding:23px 13px;display:flex;flex-direction:column;gap:20px}.brand{padding:7px 12px 22px;border-bottom:1px solid #294060}.brand img{display:block;width:200px;max-width:100%;margin-bottom:9px;background:#fff;border-radius:7px;padding:8px}.brand .eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#8eabdc}.brand strong{display:block;font-size:15px;line-height:1.5}.nav{display:grid;gap:4px}.nav-btn{display:flex;gap:12px;align-items:center;background:transparent;color:#dce6f8;border:0;border-radius:9px;text-align:left;width:100%;padding:13px 12px;font-size:14px}.nav-btn:hover{background:#1c3457}.nav-btn[aria-current="page"]{background:#e8338325;color:#fff;border-left:3px solid var(--pink);padding-left:9px}.nav-icon{width:20px;font-size:17px;text-align:center}.sidebar-foot{margin-top:auto;border-top:1px solid #294060;padding:17px 12px;color:#a9b9d1;font-size:12px;line-height:1.6}
+.main{flex:1;min-width:0}.topbar{min-height:80px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 30px}.topbar .caption{font-size:12px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted)}.topbar h1{margin:4px 0 0;font-size:23px}.user-info{text-align:right;font-size:13px;color:var(--muted)}.user-info strong{display:block;color:var(--navy);font-size:14px}.content{padding:28px 30px;max-width:1350px;margin:0 auto}.hero{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;border-radius:16px;padding:28px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px}.hero h2{font-size:25px;margin:5px 0 10px}.hero p{line-height:1.6;color:#d3ddf0;margin:0;max-width:680px}.pill{display:inline-block;border-radius:100px;padding:6px 10px;font-size:11px;font-weight:bold;letter-spacing:.5px}.pill.preview{background:#ffffff20;color:#fff}.pill.pending{background:#fdf1f7;color:#9c225a}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:20px 0}.stat,.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 2px 12px #10274c05}.stat span{font-size:12px;color:var(--muted);display:block}.stat strong{display:block;font-size:25px;margin-top:12px}.stat small{display:block;color:var(--muted);margin-top:8px}.cols{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}.panel h3{font-size:16px;margin:0 0 13px}.panel p{color:var(--muted);font-size:14px;line-height:1.7}.module-items{display:grid;gap:9px}.module-item{border:1px solid var(--line);border-radius:9px;padding:12px 14px;display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px}.module-item span{font-weight:600}.module-item small{color:var(--muted);text-align:right}.notice{border:1px solid #f0d4e3;background:#fff6fa;border-radius:11px;padding:17px 20px;color:#713451;line-height:1.6;font-size:13px;margin-top:18px}.section-head{margin:0 0 18px}.section-head h2{font-size:22px;margin:0 0 6px}.section-head p{margin:0;color:var(--muted);font-size:14px}.placeholder{margin-top:18px;min-height:270px;display:grid;place-items:center;text-align:center}.placeholder-icon{font-size:35px}.placeholder strong{display:block;font-size:20px;margin:13px 0}.placeholder p{max-width:500px;margin:0 auto;color:var(--muted);line-height:1.7}.footer-note{margin-top:25px;color:#7d899e;font-size:12px}
+.mobile-nav{display:none}body.busy .btn{opacity:.7}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}.sidebar{width:220px;min-width:220px}}
+@media(max-width:720px){#app{display:block}.sidebar{display:none}.mobile-nav{display:flex;gap:7px;overflow-x:auto;background:var(--navy);padding:12px;position:sticky;top:0;z-index:5}.mobile-nav .nav-btn{white-space:nowrap;width:auto;padding:9px 13px}.mobile-nav .nav-btn[aria-current="page"]{padding-left:10px}.topbar{padding:19px}.topbar h1{font-size:20px}.user-info{font-size:11px}.user-info strong{max-width:150px;overflow:hidden;text-overflow:ellipsis}.content{padding:17px}.hero{padding:23px}.hero h2{font-size:21px}.stats{gap:10px}.stat{padding:15px}.stat strong{font-size:20px}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<section id="gate" aria-live="polite"><div class="gate-card">
+<img src="https://sr-lhama.github.io/oct/assets/images/logo-official.webp" alt="Orlando Custom Tees logo">
+<h1 id="gateTitle">Checking administrator access...</h1>
+<p id="gateMessage">Verifying your secure Supabase session and permissions.</p>
+<a class="btn" id="gateLogin" href="login.html" hidden>Go to secure sign-in</a>
+</div></section>
+<div id="app" hidden>
+<aside class="sidebar">
+<div class="brand"><img src="https://sr-lhama.github.io/oct/assets/images/logo-official.webp" alt="Orlando Custom Tees"><span class="eyebrow">Management platform</span><strong>Orlando Custom Tees</strong></div>
+<nav id="desktopNav" class="nav" aria-label="Administrative navigation"></nav>
+<div class="sidebar-foot">Orlando, Florida<br>Protected admin preview<br><a href="https://sr-lhama.github.io/oct/" target="_blank" rel="noopener noreferrer">Visit main website ↗</a></div>
+</aside>
+<div class="main">
+<div class="mobile-nav" id="mobileNav" aria-label="Mobile administrative navigation"></div>
+<header class="topbar"><div><div class="caption">Orlando Custom Tees / Administration</div><h1 id="pageTitle">Overview</h1></div>
+<div style="display:flex;gap:12px;align-items:center"><div class="user-info"><strong id="displayName"></strong><span id="displayEmail"></span></div><button class="btn secondary" id="logoutBtn" type="button">Sign out</button></div>
+</header>
+<main class="content" id="content" tabindex="-1"></main>
+</div>
+</div>
+<script>
+(function(){
+"use strict";
+const SUPABASE_URL="https://xemugzorxsmzmuuiidgu.supabase.co";
+const SUPABASE_PUBLIC_KEY="sb_publishable_CIXSDcMhMfy5Vj-ak0YkzQ_2kO7Fix5";
+const pages=[
+{id:"overview",label:"Overview",icon:"◫"},
+{id:"estimates",label:"Estimates",icon:"▤"},
+{id:"orders",label:"Orders",icon:"▣"},
+{id:"items",label:"Order items",icon:"▦"},
+{id:"customers",label:"Customers",icon:"♧"},
+{id:"artwork",label:"Artwork approvals",icon:"✎"},
+{id:"production",label:"Production",icon:"◷"},
+{id:"payments",label:"Payments",icon:"＄"},
+{id:"team",label:"Team",icon:"♙"},
+{id:"migration",label:"Import / Export",icon:"⇅"},
+{id:"settings",label:"Settings",icon:"⚙"}
+];
+const gate=document.getElementById("gate"),app=document.getElementById("app");
+const client=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY,{auth:{flowType:"pkce"}});
+let currentUser=null,profile=null;
+const safe=(s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const moduleDesc={
+items:["Order Items","Manage garment styles, sizes, printing positions and quantities.","Order items tied to existing orders."],
+migration:["Import / Export","Move historical records and create backups.","Prepare data for migration."],
+estimates:["Estimates","Review customer quote requests, garment selections, pricing and approvals.","Estimate records will be connected after the existing ChatGPT Sites data is mapped and admin access policies are deployed."],
+orders:["Orders","Manage confirmed orders and customer-facing order status.","Order listing is intentionally disabled until protected administrative access and migration are completed."],
+customers:["Customers","Manage customer profiles and organization details.","Customer records remain protected. The upcoming backend must verify the admin role before serving them."],
+artwork:["Artwork approvals","Review front and back designs and record approval events.","Artwork files require private storage access policies and controlled signed URLs."],
+production:["Production","Monitor garment procurement, DTF transfers and 7–10 business day production windows.","We will preserve the current production workflow and introduce validated deadlines and status history."],
+payments:["Payments","Track PayPal payment references, paid status and reconciliation.","Payment confirmation must come from verified PayPal webhooks, never from browser-side changes."],
+team:["Team","Manage employee access and internal workflows.","Employee role assignment and administrative permissions will be implemented with protected server functions."],
+settings:["Settings","Configure operational preferences and integrations.","SMTP credentials, PayPal secrets and service role keys must stay on protected server infrastructure."]
+};
+function nav(){
+ const mark=(p)=>'<button type="button" class="nav-btn" data-page="'+p.id+'" '+(p.id==="overview"?'aria-current="page"':'')+'><span class="nav-icon" aria-hidden="true">'+p.icon+'</span>'+safe(p.label)+'</button>';
+ document.getElementById("desktopNav").innerHTML=pages.map(mark).join("");
+ document.getElementById("mobileNav").innerHTML=pages.map(mark).join("");
+ document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+}
+function showPage(id){
+ if(!pages.some(p=>p.id===id))id="overview";
+ document.querySelectorAll("[data-page]").forEach(b=>b.setAttribute("aria-current",b.dataset.page===id?"page":"false"));
+ document.getElementById("pageTitle").textContent=pages.find(p=>p.id===id).label;
+ let content;
+ if(id==="overview"){
+ content='<section class="hero"><div><span class="pill preview">SECURE DEVELOPMENT PREVIEW</span><h2>Welcome, '+safe(profile.full_name||currentUser.email)+'</h2><p>Your administrative identity has been verified. Live read-only data is loaded through Supabase with row-level security. Authorized admins can manage records; PayPal payment verification remains server-controlled.</p></div></section>'+
+ '<div class="stats">'+["Active orders","Estimates awaiting review","Artwork approvals","Production deadlines"].map(k=>'<div class="stat"><span>'+k+'</span><strong>—</strong><small>Live reporting not connected</small></div>').join("")+'</div>'+
+ '<div class="cols"><section class="panel"><h3>Commercial workflow</h3><div class="module-items">'+[
+ ["Quote request","Customer selects products and uploads artwork"],
+ ["Estimate & approval","Price reviewed, estimate sent, design approved"],
+ ["Payment confirmation","PayPal confirmation verified before production"],
+ ["Production & fulfillment","Garments, DTF, delivery and tracking"]
+ ].map(x=>'<div class="module-item"><span>'+x[0]+'</span><small>'+x[1]+'</small></div>').join("")+'</div></section>'+
+ '<section class="panel"><h3>Migration readiness</h3><div class="module-items">'+[
+ ["Supabase Auth","Connected"],["Administrator identity","Verified"],["Customer RLS","Configured, tests pending"],["Admin data permissions","Read/write configured"],["Historical order migration","Pending"],["PayPal/Resend server integrations","Pending"]
+ ].map(x=>'<div class="module-item"><span>'+x[0]+'</span><small>'+x[1]+'</small></div>').join("")+'</div></section></div>'+
+ '<div class="notice"><strong>Data protection:</strong> This dashboard uses your authenticated Supabase session and administrative RLS. Payment verification is read only until verified server-side PayPal integration is completed. The legacy ChatGPT Sites dashboard remains unchanged.</div>';
+ }else{
+ const d=moduleDesc[id];
+ content='<div class="section-head"><h2>'+safe(d[0])+'</h2><p>'+safe(d[1])+'</p></div>'+
+ '<section class="panel placeholder"><div><div class="placeholder-icon" aria-hidden="true">◫</div><strong>Module prepared</strong><p>'+safe(d[2])+'</p><p><span class="pill pending">Awaiting secure integration</span></p></div></section>';
+ }
+ document.getElementById("content").innerHTML=content+'<p class="footer-note">OCT Dashboard · Development environment · Supabase management connected</p>';
+ history.replaceState(null,"","#"+id);
+ loadReadOnlyData(id);
+}
+
+
+let loadRevision=0;
+const registry={
+ customers:{table:"customers",fields:[["name","Customer name","text",true],["company","Company","text"],["email","Email","email"],["phone","Phone","text"],["address","Address","text"]],columns:[["name","Customer"],["company","Company"],["email","Email"],["phone","Phone"]]},
+ estimates:{table:"estimates",fields:[["estimate_number","Estimate number","text"],["customer_id","Customer","customers",true],["status","Status","text"],["subtotal","Subtotal","number"],["tax","Tax","number"],["shipping","Shipping","number"],["total","Total","number"],["notes","Notes","textarea"]],columns:[["estimate_number","Estimate"],["status","Status"],["total","Total"],["created_at","Created"]]},
+ orders:{table:"orders",fields:[["order_number","Order number","text"],["customer_id","Customer","customers",true],["estimate_id","Related estimate","estimates"],["status","Status","select:received|awaiting_approval|payment_pending|production|completed|delivered|cancelled"],["total","Total","number"],["due_date","Due date","date"],["tracking_number","Tracking number","text"]],columns:[["order_number","Order"],["status","Status"],["total","Total"],["due_date","Due"]]},
+ items:{table:"order_items",fields:[["order_id","Order","orders",true],["product_name","Product","text",true],["brand","Brand","text"],["style","Style","text"],["color","Color","text"],["size","Size","text"],["quantity","Quantity","integer",true],["unit_price","Unit price","number"],["print_front","Front DTF","checkbox"],["print_back","Back DTF","checkbox"]],columns:[["product_name","Product"],["brand","Brand"],["style","Style"],["size","Size"],["quantity","Qty"],["unit_price","Unit price"]]},
+ artwork:{table:"artworks",fields:[["order_id","Order","orders",true],["position","Position","select:front|back|left_chest|sleeve|other"],["storage_path","Storage path","text"],["approval_status","Approval","select:pending|approved|rejected"]],columns:[["position","Position"],["approval_status","Approval"],["order_id","Order ID"],["created_at","Created"]]},
+ production:{table:"orders",fields:[["status","Status","select:received|awaiting_approval|payment_pending|production|completed|delivered|cancelled"],["production_started_at","Production started","datetime-local"],["due_date","Due date","date"],["completed_at","Completed","datetime-local"],["tracking_number","Tracking number","text"]],columns:[["order_number","Order"],["status","Status"],["production_started_at","Started"],["due_date","Due"],["tracking_number","Tracking"]]},
+ payments:{table:"payments",fields:[],columns:[["provider","Provider"],["status","Status"],["amount","Amount"],["paid_at","Paid"],["order_id","Order ID"]]},
+ team:{table:"profiles",fields:[],columns:[["full_name","Name"],["role","Role"],["created_at","Created"]]}
+};
+const dollar=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"});
+const formatValue=(key,value)=>{
+ if(value===null||value===undefined||value==="")return "—";
+ if(["total","amount","subtotal","tax","shipping","unit_price"].includes(key))return dollar.format(Number(value));
+ if(typeof value==="boolean")return value?"Yes":"No";
+ if(key==="due_date"||key.endsWith("_at")){const d=new Date(value);return Number.isNaN(+d)?safe(value):safe(d.toLocaleDateString("en-US",{timeZone:"UTC"}))}
+ return safe(value);
+};
+function alertIn(target,text,isError){
+ const el=document.createElement("div");el.style.cssText="padding:11px 14px;border-radius:8px;margin:12px 0;background:"+(isError?"#fff2f2":"#eaf8ee")+";color:"+(isError?"#9b2633":"#146c3c");el.textContent=text;
+ target.prepend(el);
+}
+function fieldInput(field,value,lookup){
+ const [name,title,type,required]=field;
+ const id="f-"+name;const val=value??"";
+ const prefix='<label style="display:block;font-size:12px;font-weight:600;margin:11px 0 5px" for="'+id+'">'+safe(title)+(required?" *":"")+'</label>';
+ const common=' id="'+id+'" name="'+name+'" '+(required?"required":"")+' style="width:100%;padding:11px;border:1px solid #d6dfeb;border-radius:8px;background:white;color:#15243a" ';
+ if(type==="textarea")return prefix+'<textarea '+common+' rows="3">'+safe(val)+'</textarea>';
+ if(type==="checkbox")return prefix+'<input type="checkbox" name="'+name+'" id="'+id+'" '+(val?"checked":"")+' style="width:20px;height:20px">';
+ if(type.startsWith("select:")){
+ const opts=type.slice(7).split("|");
+ return prefix+'<select '+common+'>'+opts.map(x=>'<option value="'+safe(x)+'" '+(x===val?"selected":"")+'>'+safe(x.replaceAll("_"," "))+'</option>').join("")+'</select>';
+ }
+ if(["customers","orders","estimates"].includes(type)){
+ const choices=lookup[type]||[];
+ return prefix+'<select '+common+'><option value="">Select...</option>'+choices.map(x=>{
+ let label=type==="customers"?(x.company||x.name):(type==="orders"?(x.order_number||x.id):(x.estimate_number||x.id));
+ return '<option value="'+safe(x.id)+'" '+(x.id===val?"selected":"")+'>'+safe(label)+'</option>';
+ }).join("")+'</select>';
+ }
+ const number=(type==="number"||type==="integer");
+ return prefix+'<input '+common+' type="'+type+'" '+(number?'min="0" step="'+(type==="integer"?"1":"0.01")+'"':"")+' value="'+safe(type==="datetime-local"&&val?String(val).slice(0,16):val)+'">';
+}
+async function getLookup(){
+ const pairs=[["customers","id,name,company"],["orders","id,order_number"],["estimates","id,estimate_number"]];
+ const entries=await Promise.all(pairs.map(async ([name,cols])=>{
+ const {data,error}=await client.from(name).select(cols).order("created_at",{ascending:false}).limit(500);
+ return [name,error?[]:(data||[])];
+ }));
+ return Object.fromEntries(entries);
+}
+function closeEditor(){
+ const modal=document.getElementById("recordEditor");if(modal)modal.remove();
+}
+async function showEditor(page,existing){
+ const cfg=registry[page];if(!cfg||!cfg.fields.length)return;
+ const lookup=await getLookup();
+ closeEditor();
+ const overlay=document.createElement("div");overlay.id="recordEditor";overlay.style.cssText="position:fixed;inset:0;z-index:200;background:#091a35b5;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto";
+ const box=document.createElement("section");box.style.cssText="background:#fff;border-radius:16px;padding:25px;width:min(560px,100%);max-height:90vh;overflow:auto;box-shadow:0 20px 60px #091a3535";
+ box.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:21px;margin:0">'+(existing?"Edit":"Add")+" "+safe(page==="items"?"order item":page==="production"?"production record":page.slice(0,-1))+'</h2><button type="button" id="dismiss" class="btn secondary">Close</button></div>'+
+ '<p style="color:#64748b;font-size:13px">All changes are stored in Supabase. Do not mark PayPal payments as verified here.</p>'+
+ '<form id="entryForm">'+cfg.fields.map(f=>fieldInput(f,existing?.[f[0]],lookup)).join("")+(page==="artwork"?'<label style="display:block;margin-top:12px;font-weight:bold;font-size:13px">Private artwork file (PNG, JPEG, WebP, PDF; max 20MB)</label><input type="file" id="artworkFile" accept="image/png,image/jpeg,image/webp,application/pdf" style="margin:10px 0;max-width:100%">':'')+
+ '<div style="display:flex;gap:9px;margin-top:20px"><button class="btn" type="submit">Save record</button><button class="btn secondary" type="button" id="cancelForm">Cancel</button></div><div id="formMessage" role="status"></div></form>';
+ overlay.append(box);document.body.append(overlay);
+ const exit=()=>closeEditor();
+ box.querySelector("#dismiss").onclick=exit;box.querySelector("#cancelForm").onclick=exit;
+ overlay.addEventListener("click",e=>{if(e.target===overlay)exit()});
+ box.querySelector("form").onsubmit=async e=>{
+ e.preventDefault();const form=e.target;const button=form.querySelector('button[type="submit"]');button.disabled=true;
+ const payload={};
+ for(const [name,,type,required] of cfg.fields){
+ const input=form.elements.namedItem(name);
+ let value=type==="checkbox"?input.checked:input.value.trim();
+ if(value===""&&!required){if(existing)payload[name]=null;continue}
+ if(type==="number"||type==="integer"){value=Number(value);if(!Number.isFinite(value)||value<0||type==="integer"&&!Number.isInteger(value)){alertIn(box,"Invalid numeric value: "+name,true);button.disabled=false;return}}
+ if(type==="datetime-local"&&value)value=new Date(value).toISOString();
+ payload[name]=value;
+ }
+ if(page==="production"&&payload.status==="production"&&!payload.production_started_at&&!existing?.production_started_at){
+ payload.production_started_at=new Date().toISOString();
+ }
+ let newUploadPath=null;
+ if(page==="artwork"){
+  const input=form.querySelector("#artworkFile");
+  if(input?.files?.length){
+   const file=input.files[0];
+   if(!["image/png","image/jpeg","image/webp","application/pdf"].includes(file.type)||file.size>20*1024*1024){
+    alertIn(box,"Only PNG, JPEG, WebP or PDF files up to 20MB are supported.",true);button.disabled=false;return;
+   }
+   if(!payload.order_id && !existing?.order_id){alertIn(box,"Select an order before uploading artwork.",true);button.disabled=false;return}
+   const folder=payload.order_id||existing.order_id;
+   const safeName=file.name.replace(/[^a-zA-Z0-9_.-]/g,"_").slice(-90);
+   newUploadPath=folder+"/"+crypto.randomUUID()+"-"+safeName;
+   const {error:uploadError}=await client.storage.from("order-artworks").upload(newUploadPath,file,{contentType:file.type,upsert:false});
+   if(uploadError){alertIn(box,"Artwork upload failed: "+uploadError.message,true);button.disabled=false;return}
+   payload.storage_path=newUploadPath;
+  }
+ }
+ const action=existing?client.from(cfg.table).update(payload).eq("id",existing.id):client.from(cfg.table).insert(payload);
+ const {error}=await action;
+ if(error){if(newUploadPath)await client.storage.from("order-artworks").remove([newUploadPath]);alertIn(box,"Unable to save: "+error.message,true);button.disabled=false;return}
+ closeEditor();loadReadOnlyData(page);
+ };
+}
+async function loadReadOnlyData(pageId){
+ const revision=++loadRevision;
+ if(pageId==="migration"){showMigration();return;}
+ if(pageId==="settings"){const el=document.querySelector("#content .placeholder");if(el){el.innerHTML='<div><h3>Integration status</h3><p>Supabase: connected. Resend: SMTP configured in Supabase Auth. PayPal: server-side verification not migrated yet. GitHub Pages: hosting test environment.</p><p>Never paste API secrets into browser code or GitHub.</p><p><a href="https://sr-lhama.github.io/oct-auth-preview/portal.html" target="_blank" rel="noopener">Open customer portal ↗</a></p></div>'}return}
+ if(pageId==="overview"){
+ const specs=[["orders","Orders"],["estimates","Estimates"],["customers","Customers"],["artworks","Artwork"]];
+ const results=await Promise.all(specs.map(async ([table,label])=>{
+ const {count,error}=await client.from(table).select("id",{head:true,count:"exact"});
+ return {label,count,error};
+ }));
+ if(revision!==loadRevision||location.hash!=="#overview")return;
+ const el=document.querySelector(".stats");if(el)el.innerHTML=results.map(x=>'<div class="stat"><span>'+safe(x.label)+'</span><strong>'+(x.error?"—":String(x.count??0))+'</strong><small>'+(x.error?safe(x.error.message):"Live Supabase total")+'</small></div>').join("");
+ return;
+ }
+ const cfg=registry[pageId];if(!cfg)return;
+ const slot=document.querySelector("#content .placeholder");
+ if(slot)slot.innerHTML='<div><strong>Loading '+safe(pageId)+'...</strong></div>';
+ const {data,error}=await client.from(cfg.table).select("*").order("created_at",{ascending:false}).limit(100);
+ if(revision!==loadRevision||location.hash!=="#"+pageId)return;
+ const target=document.querySelector("#content .placeholder");if(!target)return;
+ target.classList.remove("placeholder");target.style.cssText="display:block;text-align:left;min-height:180px";
+ if(error){target.innerHTML='<h3>Access error</h3><p>'+safe(error.message)+'</p>';return}
+ const rows=data||[];
+ const addable=cfg.fields.length&&pageId!=="production";
+ const toolbar='<div style="display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-bottom:16px"><div><h3 style="margin:0">Supabase records</h3><p style="margin:5px 0">Showing '+rows.length+' most recent records</p></div>'+(addable?'<button id="newEntry" class="btn" type="button">+ New record</button>':"")+'</div>';
+ const heads=cfg.columns.map(([k,l])=>'<th>'+safe(l)+'</th>').join("")+'<th>Action</th>';
+ const line=rows.map((rec,i)=>'<tr>'+cfg.columns.map(([key])=>'<td>'+formatValue(key,rec[key])+'</td>').join("")+'<td>'+(cfg.fields.length?'<button type="button" class="btn secondary editRecord" data-index="'+i+'" style="padding:8px 11px;font-size:12px">Edit</button>':'<span style="color:#64748b">Read only</span>')+'</td></tr>').join("");
+ target.innerHTML=toolbar+(rows.length?'<div style="overflow-x:auto"><table class="data-table" style="width:100%;border-collapse:collapse;font-size:13px;text-align:left"><thead><tr>'+heads+'</tr></thead><tbody>'+line+'</tbody></table></div>':'<p>No records yet. The legacy dataset is not present in Supabase.</p>');
+ target.querySelectorAll("th,td").forEach(n=>{n.style.padding="12px 10px";n.style.borderBottom="1px solid #e3e9f2"});
+ if(addable)target.querySelector("#newEntry").onclick=()=>showEditor(pageId,null);
+ target.querySelectorAll(".editRecord").forEach(n=>n.onclick=()=>showEditor(pageId,rows[Number(n.dataset.index)]));
+}
+function csvEncode(rows){
+ if(!rows.length)return "";
+ const columns=Object.keys(rows[0]);
+ const quote=x=>'"'+String(x??"").replaceAll('"','""')+'"';
+ return [columns.map(quote).join(","),...rows.map(row=>columns.map(k=>quote(typeof row[k]==="object"?JSON.stringify(row[k]):row[k])).join(","))].join("\r\n");
+}
+function downloadFile(filename,contents,type){
+ const blob=new Blob([contents],{type});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+function showMigration(){
+ const el=document.querySelector("#content .placeholder");if(!el)return;
+ el.classList.remove("placeholder");el.style.cssText="display:block;text-align:left";
+ el.innerHTML='<h3>Export current Supabase data</h3><p>Download an authenticated JSON backup of the new database. This does not export the old ChatGPT Sites database.</p><button id="exportJson" class="btn">Export JSON</button><p id="exportStatus"></p>'+
+ '<hr style="margin:25px 0;border:0;border-top:1px solid #e2e8f0"><h3>Legacy migration</h3><p>The previous dashboard is behind OpenAI authentication and cannot be read by this integration. Source records must be obtained first. The migration will preserve customer/order identifiers, artwork associations and payments; no empty records will be substituted.</p>'+
+ '<p style="font-size:13px"><strong>Accepted next input:</strong> a JSON or CSV export from the old dashboard, or its original database/API export. Do not upload secrets or payment credentials.</p><a href="https://estimate.sryama.chatgpt.site/dashboard" target="_blank" rel="noopener">Open original dashboard ↗</a>';
+ el.querySelector("#exportJson").onclick=async()=>{
+  const status=el.querySelector("#exportStatus");status.textContent="Preparing authenticated export...";
+  const result={exported_at:new Date().toISOString(),source:"supabase_oct",tables:{}};
+  for(const table of ["customers","estimates","orders","order_items","artworks","order_status_history","payments","profiles"]){
+   let all=[],from=0,error=null;
+   while(true){
+    const r=await client.from(table).select("*").range(from,from+499);
+    if(r.error){error=r.error;break}
+    all.push(...r.data);if(r.data.length<500)break;
+    from+=500;if(from>100000){error={message:"Export limit reached"};break}
+   }
+   if(error){status.textContent="Export cancelled: "+table+" - "+error.message;return}
+   result.tables[table]=all;
+  }
+  downloadFile("oct-supabase-backup-"+new Date().toISOString().slice(0,10)+".json",JSON.stringify(result,null,2),"application/json");
+  status.textContent="Supabase backup downloaded.";
+ };
+}
+function showGate(title,detail,allowLogin){
+ gate.hidden=false;app.hidden=true;
+ document.getElementById("gateTitle").textContent=title;
+ document.getElementById("gateMessage").textContent=detail;
+ document.getElementById("gateLogin").hidden=!allowLogin;
+}
+async function start(){
+ if(!client){showGate("Authentication is unavailable","The Supabase client library could not be loaded.",true);return;}
+ try{
+ const {data:userData,error:userErr}=await client.auth.getUser();
+ if(userErr||!userData.user){showGate("Sign in required","Please sign in with your Orlando Custom Tees account to access administration.",true);return;}
+ const {data:profileData,error:profileErr}=await client.from("profiles").select("full_name,role").eq("id",userData.user.id).single();
+ if(profileErr||!profileData){showGate("Permission check failed","The administrator profile could not be verified. No business data has been loaded.",false);return;}
+ if(profileData.role!=="admin"){showGate("Access restricted","This dashboard is reserved for authorized Orlando Custom Tees administrators.",false);return;}
+ currentUser=userData.user;profile=profileData;
+ document.getElementById("displayName").textContent=profile.full_name||"Administrator";
+ document.getElementById("displayEmail").textContent=currentUser.email||"";
+ nav();gate.hidden=true;app.hidden=false;
+ showPage((location.hash||"#overview").slice(1));
+ }catch(e){console.error("Admin gate error",e);showGate("Unable to verify access","Please try again or sign in again.",true);}
+}
+document.getElementById("logoutBtn").addEventListener("click",async()=>{document.body.classList.add("busy");try{await client.auth.signOut();location.replace("login.html");}finally{document.body.classList.remove("busy");}});
+start();
+})();
+</script>
+</body></html>
