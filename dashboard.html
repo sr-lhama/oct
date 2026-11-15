@@ -66,6 +66,16 @@ body.dark-mode .nav-btn{color:#b2bed0}body.dark-mode .oct-stage{background:#2a36
 @media(max-width:720px){.sidebar{display:none}.topbar{padding:12px 16px}.topbar-actions{margin-left:0}.content{padding:20px 13px}.oct-head h2{font-size:23px}.oct-pipeline{grid-template-columns:repeat(2,minmax(140px,1fr))}.oct-stage{min-height:170px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:400px){.oct-pipeline{grid-template-columns:1fr}}
 
+
+#octSoundSettings[hidden]{display:none!important}
+#octSoundSettings{position:fixed;right:76px;top:74px;z-index:90;width:min(330px,calc(100vw - 25px));padding:20px 19px;background:#fff;border:1px solid #e1e7ef;border-radius:14px;box-shadow:0 18px 44px #12253e24;font-size:12px;color:#3c4656}
+#octSoundSettings h3{margin:0 0 10px;font-size:13px}
+#octSoundSettings p{font-size:12px;line-height:1.6;color:#7d8ba1}
+#octSoundSettings input{accent-color:#05aee6}
+#octSoundsToggle[aria-pressed="true"]{background:#eaf8ff;border-color:#00a8e5;color:#006c99}
+body.dark-mode #octSoundSettings{background:#202b3a;color:#f0f4ff;border-color:#41506a}
+@media(max-width:720px){#octSoundSettings{right:12px;top:120px}}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -95,10 +105,21 @@ body.dark-mode .nav-btn{color:#b2bed0}body.dark-mode .oct-stage{background:#2a36
 <a href="#estimates" id="newEstimateNav">New estimate</a>
 <a href="#orders" id="myOrdersNav">My orders</a>
 <a href="#overview" id="dashNav">Dashboard</a>
+<button type="button" class="btn secondary" id="octSoundsToggle" aria-pressed="false" title="Ativar ou desativar alertas sonoros">♫ Sons desligados</button>
+<button type="button" class="btn secondary" id="octSoundSettingsToggle" aria-expanded="false" aria-controls="octSoundSettings" title="Configurações de som">⚙</button>
 <button type="button" class="btn secondary" id="darkModeToggle" title="Alternar tema">☾</button>
 <button type="button" class="btn secondary" id="logoutBtn">Sair</button>
 </div>
 </header>
+<section id="octSoundSettings" hidden role="region" aria-label="Alertas do dashboard">
+<h3>Alertas do dashboard</h3>
+<p>Novo pedido: caixa registradora.<br>Mudança de status: ICQ.</p>
+<label for="octSoundVolume" style="display:block;font-size:12px;font-weight:650;margin-top:16px">Volume: <output id="octVolumeLabel">70%</output></label>
+<input type="range" min="0" max="100" step="5" value="70" id="octSoundVolume" style="width:100%;margin:12px 0 15px" aria-label="Volume dos alertas">
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn secondary" id="octTestCash">Testar caixa</button><button type="button" class="btn secondary" id="octTestIcq">Testar ICQ</button></div>
+<p style="font-size:11px">O navegador exige um clique para liberar áudio. A verificação ocorre a cada 5 segundos enquanto esta página estiver aberta. Em segundo plano, o navegador pode reduzir a frequência.</p>
+<p style="font-size:11px;margin-bottom:0" id="octSoundLastAlert" aria-live="polite">Último alerta: nenhum nesta sessão</p>
+</section>
 <main class="content" id="content" tabindex="-1"></main>
 </div>
 </div>
@@ -193,6 +214,132 @@ async function octClockAction(action){
  if(error){window.alert("Não foi possível registrar a jornada: "+error.message);return}
  octActiveShift=data.ended_at?null:data;updateOctClock();
  if(location.hash==="#hours")showPage("hours");
+}
+
+/* Notification sounds are generated in the browser. No proprietary audio or remote file is required. */
+let octSoundContext=null,octSoundEnabled=false,octSoundVolume=70,octSoundTimer=null;
+let octAlertBaseline=null,octSoundStarted=false,octSoundChecking=false;
+const octSafeStorage={
+ get(key){try{return localStorage.getItem(key)}catch{return null}},
+ set(key,v){try{localStorage.setItem(key,v)}catch{}}
+};
+function octGetAudioContext(){
+ const Audio=window.AudioContext||window.webkitAudioContext;
+ if(!Audio)throw new Error("Este navegador não oferece suporte a áudio.");
+ if(!octSoundContext)octSoundContext=new Audio();
+ return octSoundContext;
+}
+async function octUnlockAudio(){
+ const ctx=octGetAudioContext();
+ if(ctx.state==="suspended")await ctx.resume();
+ return ctx;
+}
+function octTone(ctx,{freq=600,delay=0,length=.13,wave="sine",gain=.11,finish=null}){
+ const osc=ctx.createOscillator(),env=ctx.createGain();
+ osc.type=wave;osc.frequency.setValueAtTime(freq,ctx.currentTime+delay);
+ if(finish)osc.frequency.exponentialRampToValueAtTime(finish,ctx.currentTime+delay+length);
+ osc.connect(env);env.connect(ctx.destination);
+ const t=ctx.currentTime+delay,v=Math.max(.0001,gain*octSoundVolume/100);
+ env.gain.setValueAtTime(.0001,t);
+ env.gain.exponentialRampToValueAtTime(v,t+.012);
+ env.gain.exponentialRampToValueAtTime(.0001,t+length);
+ osc.start(t);osc.stop(t+length+.015);
+}
+async function octPlaySound(kind,force=false){
+ if(!force&&!octSoundEnabled)return;
+ const ctx=await octUnlockAudio();
+ if(kind==="cash"){
+  /* A short original cash-register chime: mechanical click, two metallic notes. */
+  octTone(ctx,{freq:850,length:.045,wave:"square",gain:.065});
+  octTone(ctx,{freq:1480,delay:.065,length:.13,wave:"triangle",gain:.14});
+  octTone(ctx,{freq:1960,delay:.16,length:.27,wave:"sine",gain:.18});
+  octTone(ctx,{freq:2960,delay:.16,length:.21,wave:"sine",gain:.075});
+ }else{
+  /* Short classic instant-message-style notification, not a sampled ICQ recording. */
+  octTone(ctx,{freq:740,length:.11,wave:"sine",gain:.16});
+  octTone(ctx,{freq:1120,delay:.14,length:.13,wave:"triangle",gain:.16});
+  octTone(ctx,{freq:920,delay:.29,length:.16,wave:"sine",gain:.15});
+ }
+}
+function octSoundUi(){
+ const btn=document.getElementById("octSoundsToggle");
+ if(btn){btn.textContent=octSoundEnabled?"♫ Sons ativos":"♫ Sons desligados";btn.setAttribute("aria-pressed",String(octSoundEnabled))}
+ const slider=document.getElementById("octSoundVolume"),label=document.getElementById("octVolumeLabel");
+ if(slider)slider.value=octSoundVolume;
+ if(label)label.textContent=octSoundVolume+"%";
+}
+async function octSoundSnapshot(){
+ const [orders,history,inbox]=await Promise.all([
+  client.from("orders").select("id,created_at").order("created_at",{ascending:false}).limit(100),
+  client.from("order_status_history").select("id,created_at").order("created_at",{ascending:false}).limit(100),
+  client.from("quote_requests").select("id,created_at").order("created_at",{ascending:false}).limit(100)
+ ]);
+ if(orders.error||history.error||inbox.error)throw new Error("Notification query failed");
+ return {
+  orders:new Set((orders.data||[]).map(x=>x.id)),
+  history:new Set((history.data||[]).map(x=>x.id)),
+  inbox:new Set((inbox.data||[]).map(x=>x.id))
+ };
+}
+async function octCheckAlerts(){
+ if(octSoundChecking||!currentUser)return;
+ octSoundChecking=true;
+ try{
+  const snap=await octSoundSnapshot();
+  if(!octAlertBaseline){octAlertBaseline=snap;return}
+  const freshOrder=[...snap.orders].some(id=>!octAlertBaseline.orders.has(id));
+  const freshQuote=[...snap.inbox].some(id=>!octAlertBaseline.inbox.has(id));
+  const statusChanged=[...snap.history].some(id=>!octAlertBaseline.history.has(id));
+  octAlertBaseline=snap;
+  if(freshOrder||freshQuote){
+   await octPlaySound("cash").catch(()=>{});
+   const msg=document.getElementById("octSoundLastAlert");
+   if(msg)msg.textContent="Último alerta: novo pedido · "+new Date().toLocaleTimeString("pt-BR");
+  }else if(statusChanged){
+   await octPlaySound("icq").catch(()=>{});
+   const msg=document.getElementById("octSoundLastAlert");
+   if(msg)msg.textContent="Último alerta: alteração de status · "+new Date().toLocaleTimeString("pt-BR");
+  }
+  if((freshOrder||freshQuote||statusChanged)&&location.hash==="#overview")renderOctOverview();
+ }catch(e){console.warn("OCT sound notifications unavailable",e)}
+ finally{octSoundChecking=false}
+}
+function octInitializeSound(){
+ if(octSoundStarted)return;
+ octSoundStarted=true;
+ octSoundVolume=Math.min(100,Math.max(0,Number(octSafeStorage.get("oct_sound_volume")||70)||70));
+ octSoundEnabled=octSafeStorage.get("oct_sound_enabled")==="true";
+ /* On reload, sound stays enabled but may need a user gesture to unlock the audio context. */
+ octSoundUi();
+ const trigger=document.getElementById("octSoundsToggle");
+ trigger?.addEventListener("click",async()=>{
+  const next=!octSoundEnabled;
+  if(next){try{await octUnlockAudio()}catch(e){window.alert(e.message);return}}
+  octSoundEnabled=next;octSafeStorage.set("oct_sound_enabled",String(next));octSoundUi();
+  if(next)await octPlaySound("icq",true).catch(()=>{});
+ });
+ const settings=document.getElementById("octSoundSettings"),gear=document.getElementById("octSoundSettingsToggle");
+ gear?.addEventListener("click",()=>{
+  if(!settings)return;settings.hidden=!settings.hidden;
+  gear.setAttribute("aria-expanded",String(!settings.hidden));
+ });
+ document.addEventListener("click",e=>{
+  if(settings&&!settings.hidden&&!settings.contains(e.target)&&!gear?.contains(e.target)){
+   settings.hidden=true;gear?.setAttribute("aria-expanded","false");
+  }
+ });
+ document.getElementById("octSoundVolume")?.addEventListener("input",e=>{
+  octSoundVolume=Number(e.target.value);octSafeStorage.set("oct_sound_volume",String(octSoundVolume));octSoundUi();
+ });
+ for(const [id,kind] of [["octTestCash","cash"],["octTestIcq","icq"]]){
+  document.getElementById(id)?.addEventListener("click",async()=>{
+   try{await octPlaySound(kind,true)}catch(e){window.alert(e.message)}
+  });
+ }
+ octCheckAlerts();
+ if(octSoundTimer)clearInterval(octSoundTimer);
+ octSoundTimer=setInterval(octCheckAlerts,5000);
+ document.addEventListener("visibilitychange",()=>{if(!document.hidden)octCheckAlerts()});
 }
 const OCT_STAGES=[
  ["generated","Gerado"],["sent","Enviado"],["waiting","Aguardando resposta"],
@@ -808,6 +955,7 @@ async function start(){
  document.getElementById("displayName").textContent=profile.full_name||"Administrator";
  document.getElementById("displayEmail").textContent=currentUser.email||"";
  nav();gate.hidden=true;app.hidden=false;
+ octInitializeSound();
  document.getElementById("hideMenu")?.addEventListener("click",()=>{
  const sidebar=document.querySelector(".sidebar");if(!sidebar)return;
  const hidden=sidebar.style.display==="none";sidebar.style.display=hidden?"flex":"none";
