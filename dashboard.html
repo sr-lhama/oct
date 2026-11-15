@@ -85,6 +85,7 @@ body.dark-mode .nav-btn{color:#b2bed0}body.dark-mode .oct-stage{background:#2a36
 <div class="main">
 <div class="mobile-nav" id="mobileNav" aria-label="Mobile administrative navigation"></div>
 <header class="topbar">
+<h1 id="pageTitle" style="display:none">Visão geral</h1>
 <button type="button" class="btn secondary" id="hideMenu" title="Recolher menu" aria-label="Recolher menu">☰</button>
 <div class="user-info"><strong id="displayName"></strong><span id="displayEmail">Administrador · Orlando</span></div>
 <div class="header-clock"><div><span>Jornada encerrada</span><strong>00:00:00</strong></div><span class="journey-label">Sem jornada</span></div>
@@ -114,8 +115,10 @@ const pages=[
 {id:"production",label:"Produção & compras",icon:"▣"},
 {id:"customers",label:"Clientes",icon:"♧"},
 {id:"catalog",label:"Produtos",icon:"◈"},
-{id:"purchases",label:"Fornecedores DTF",icon:"▦"},
-{id:"paypalhistory",label:"Financeiro",icon:"＄"},
+{id:"suppliers",label:"Fornecedores DTF",icon:"▦"},
+{id:"purchases",label:"Compras",icon:"▥"},
+{id:"finance",label:"Financeiro",icon:"＄"},
+{id:"paypalhistory",label:"PayPal histórico",icon:"＄"},
 {id:"team",label:"Equipe",icon:"♙"},
 {id:"artwork",label:"Aprovação de artes",icon:"✎"},
 {id:"studiohistory",label:"Estúdio de arte",icon:"✦"},
@@ -131,6 +134,8 @@ const client=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY,{aut
 let currentUser=null,profile=null;
 const safe=(s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const moduleDesc={
+suppliers:["Fornecedores DTF","Cadastro e ajustes comerciais dos fornecedores.","Gerencie os fornecedores usando dados importados do sistema original."],
+finance:["Financeiro","Movimentações e saldo do negócio.","Entradas históricas e controle financeiro."],
 purchases:["Purchases","Original supplier orders and purchases.","Historical procurement records are shown without allowing accidental payment changes."],
 studiohistory:["Studio history","Original artwork versions and proof revisions.","Original metadata is available; private R2 objects require separate recovery."],
 hours:["Time tracking","Existing employee shifts and punches.","Original attendance data is preserved for payroll review."],
@@ -261,10 +266,18 @@ async function renderOctOverview(){
  if(studio)studio.onclick=()=>showPage("studiohistory");
 }
 function nav(){
- const mark=(p)=>'<button type="button" class="nav-btn" data-page="'+p.id+'" '+(p.id==="overview"?'aria-current="page"':'')+'><span class="nav-icon" aria-hidden="true">'+p.icon+'</span>'+safe(p.label)+'</button>';
- document.getElementById("desktopNav").innerHTML=pages.map(mark).join("");
+ const mark=p=>'<button type="button" class="nav-btn" data-page="'+p.id+'" '+(p.id==="overview"?'aria-current="page"':'')+'><span class="nav-icon" aria-hidden="true">'+p.icon+'</span>'+safe(p.label)+'</button>';
+ const primary=["overview","estimates","hours","production","customers","catalog","suppliers","finance","team","settings"];
+ const extra=pages.filter(p=>!primary.includes(p.id));
+ const desktop=document.getElementById("desktopNav");
+ desktop.innerHTML='<div style="color:#a1acbb;font-size:10px;letter-spacing:1.5px;padding:5px 12px">GESTÃO COMERCIAL</div>'+
+ primary.map(id=>mark(pages.find(p=>p.id===id))).join("")+
+ '<button type="button" class="nav-btn" id="newEstimateSidebar" style="color:#e32183">+ Novo estimate</button>'+
+ '<details class="oct-advanced-nav" style="margin-top:7px"><summary style="font-size:11px;cursor:pointer;color:#78869b;padding:12px">Mais módulos e histórico</summary><div style="display:grid;gap:2px">'+extra.map(mark).join("")+'</div></details>';
  document.getElementById("mobileNav").innerHTML=pages.map(mark).join("");
  document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+ const create=document.getElementById("newEstimateSidebar");
+ if(create)create.onclick=()=>{showPage("estimates");setTimeout(()=>document.querySelector("#newEntry")?.click(),400)};
 }
 function showPage(id){
  if(!pages.some(p=>p.id===id))id="overview";
@@ -415,7 +428,9 @@ async function showEditor(page,existing){
 }
 async function loadReadOnlyData(pageId){
  const revision=++loadRevision;
- if(["purchases","studiohistory","hours","paypalhistory","catalog"].includes(pageId)){showOriginalModule(pageId);return;}
+ if(pageId==="catalog"||pageId==="suppliers"){showCommercialRegistry(pageId);return;}
+ if(pageId==="finance"){showFinanceBoard();return;}
+ if(["purchases","studiohistory","hours","paypalhistory"].includes(pageId)){showOriginalModule(pageId);return;}
  if(pageId==="migration"){showMigration();return;}
  if(pageId==="archive"){showLegacyArchive();return;}
  if(pageId==="settings"){const el=document.querySelector("#content .placeholder");if(el){el.innerHTML='<div><h3>Integration status</h3><p>Supabase: connected. Resend: SMTP configured in Supabase Auth. PayPal: server-side verification not migrated yet. GitHub Pages: hosting test environment.</p><p>Never paste API secrets into browser code or GitHub.</p><p><a href="https://sr-lhama.github.io/oct-auth-preview/portal.html" target="_blank" rel="noopener">Open customer portal ↗</a></p></div>'}return}
@@ -584,6 +599,71 @@ async function inspectOctBackup(file,onProgress){
 }
 
 
+
+async function showCommercialRegistry(type){
+ const target=document.querySelector("#content .placeholder");if(!target)return;
+ target.classList.remove("placeholder");target.style.cssText="display:block;text-align:left";
+ const isProduct=type==="catalog",table=isProduct?"catalog_products":"dtf_suppliers";
+ target.innerHTML='<div class="kanban-header"><div><h3>'+safe(isProduct?"Produtos":"Fornecedores DTF")+'</h3><p>Dados originais restaurados no Supabase. Alterações feitas aqui não modificam o histórico original.</p></div><button class="btn" type="button" id="addCommercial">+ '+(isProduct?"Produto":"Fornecedor")+'</button></div><div id="commercialList">Carregando...</div>';
+ const list=target.querySelector("#commercialList");
+ async function refresh(){
+  const {data,error}=await client.from(table).select("*").order("name");
+  if(error){list.textContent="Não foi possível carregar os cadastros: "+error.message;return}
+  const columns=isProduct?["Produto","Custo","Frete de compra","Imposto","Preços por faixa","Situação","Ação"]:["Fornecedor","Situação","Ação"];
+  list.innerHTML='<div style="overflow:auto"><table style="width:100%;border-collapse:collapse;font-size:12px;text-align:left"><thead><tr>'+columns.map(x=>'<th style="padding:12px;border-bottom:1px solid #e0e7ef">'+safe(x)+'</th>').join("")+'</tr></thead><tbody>'+
+   (data||[]).map((r,i)=>'<tr>'+(isProduct?
+    '<td>'+safe(r.name)+'</td><td>'+dollar.format(Number(r.cost||0))+'</td><td>'+dollar.format(Number(r.shipping||0))+'</td><td>'+safe((Number(r.purchase_tax||0)*100).toFixed(2))+'%</td><td>'+safe((r.tiers||[]).map(v=>dollar.format(Number(v))).join(" · "))+'</td>':
+    '<td>'+safe(r.name)+'</td>')+
+    '<td>'+safe(r.active?"Ativo":"Inativo")+'</td><td><button type="button" class="btn secondary commercialEdit" data-i="'+i+'">Editar</button></td></tr>').join("")+'</tbody></table></div>';
+  list.querySelectorAll("td").forEach(x=>{x.style.padding="13px 12px";x.style.borderBottom="1px solid #edf0f4"});
+  list.querySelectorAll(".commercialEdit").forEach(b=>b.onclick=()=>showCommercialEditor(data[Number(b.dataset.i)]));
+ }
+ async function showCommercialEditor(existing){
+  closeEditor();
+  const overlay=document.createElement("div");overlay.id="recordEditor";overlay.style.cssText="position:fixed;inset:0;z-index:230;background:#11223aa8;display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto";
+  const panel=document.createElement("section");panel.style.cssText="background:white;color:#283344;border-radius:14px;width:min(570px,100%);max-height:92vh;overflow:auto;padding:25px";
+  const entries=[["id","Código","text"],["name","Nome","text"],["active","Ativo","checkbox"]];
+  if(isProduct)entries.push(["cost","Custo unitário (USD)","number"],["shipping","Frete do fornecedor (USD)","number"],["purchase_tax","Taxa de compra (decimal, ex. 0.065)","number"],["tiers","Preços por faixa, separados por vírgulas","tiers"],["description","Descrição","text"]);
+  panel.innerHTML='<h2 style="margin-top:0;font-size:22px">'+safe(existing?"Editar":"Cadastrar")+' '+(isProduct?"produto":"fornecedor")+'</h2><p style="color:#758298;font-size:12px">Não altera os registros históricos importados.</p>'+
+   '<form id="commercialForm">'+entries.map(([key,label,kind])=>'<label style="display:block;margin:12px 0 5px;font-size:12px;font-weight:bold">'+safe(label)+'</label>'+
+   (kind==="checkbox"?'<input name="'+key+'" type="checkbox" '+(existing?.[key]?"checked":"")+'>':
+   '<input name="'+key+'" type="'+(kind==="number"?"number":"text")+'" '+(kind==="number"?'step="0.0001" min="0"':'')+' '+(key==="id"&&existing?'readonly':'')+' required value="'+safe(kind==="tiers"?(existing?.tiers||[]).join(", "):existing?.[key]??"")+'" style="display:block;width:100%;padding:11px;border:1px solid #dbe2eb;border-radius:8px">')).join("")+
+   '<div style="display:flex;gap:10px;margin-top:22px"><button type="submit" class="btn">Salvar</button><button type="button" class="btn secondary" id="cancelCommercial">Cancelar</button></div><p id="commercialMessage"></p></form>';
+  overlay.append(panel);document.body.append(overlay);
+  panel.querySelector("#cancelCommercial").onclick=()=>overlay.remove();
+  overlay.onclick=e=>{if(e.target===overlay)overlay.remove()};
+  panel.querySelector("form").onsubmit=async e=>{
+   e.preventDefault();const form=e.target,payload={};
+   for(const [name,,kind] of entries){
+    const input=form.elements.namedItem(name);
+    payload[name]=kind==="checkbox"?input.checked:kind==="number"?Number(input.value):kind==="tiers"?input.value.split(",").map(v=>Number(v.trim())):input.value.trim();
+   }
+   if(isProduct&&(!payload.tiers.length||payload.tiers.some(v=>!Number.isFinite(v)||v<0))){panel.querySelector("#commercialMessage").textContent="Informe valores válidos para as faixas.";return}
+   if(existing)delete payload.id;
+   const query=existing?client.from(table).update(payload).eq("id",existing.id):client.from(table).insert(payload);
+   const {error}=await query;
+   if(error){panel.querySelector("#commercialMessage").textContent="Erro ao salvar: "+error.message;return}
+   overlay.remove();refresh();
+  };
+ }
+ target.querySelector("#addCommercial").onclick=()=>showCommercialEditor(null);
+ refresh();
+}
+async function showFinanceBoard(){
+ const target=document.querySelector("#content .placeholder");if(!target)return;
+ target.classList.remove("placeholder");target.style.cssText="display:block;text-align:left";
+ target.innerHTML='<h3>Financeiro</h3><p>Movimentações importadas do caixa original. Os pagamentos continuam protegidos de alterações manuais e devem ser reconciliados com PayPal.</p><div class="stats" id="financeSummary"></div><h3>Lançamentos históricos</h3><div id="financeLedger">Carregando...</div><p><button class="btn secondary" type="button" id="paypalTab">Consultar faturas e eventos PayPal</button></p>';
+ target.querySelector("#paypalTab").onclick=()=>showPage("paypalhistory");
+ const {data,error}=await client.from("legacy_records").select("payload").eq("source_table","ledger").limit(500);
+ if(error){target.querySelector("#financeLedger").textContent=error.message;return}
+ const entries=(data||[]).map(x=>x.payload||{}).sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")));
+ const inc=entries.filter(x=>x.kind==="income").reduce((n,x)=>n+Number(x.amount||0)/100,0);
+ const expense=entries.filter(x=>x.kind==="expense").reduce((n,x)=>n+Number(x.amount||0)/100,0);
+ target.querySelector("#financeSummary").innerHTML=[
+ ["Recebimentos registrados",inc],["Despesas registradas",expense],["Saldo registrado",inc-expense]
+ ].map(([label,value])=>'<div class="stat"><span>'+safe(label)+'</span><strong>'+dollar.format(value)+'</strong></div>').join("");
+ target.querySelector("#financeLedger").innerHTML=entries.length?entries.map(v=>'<div class="module-item" style="margin:7px 0"><div><strong>'+safe(v.description||v.category||"Lançamento")+'</strong><p style="font-size:11px">'+safe(v.date||"")+' · '+safe(v.kind==="income"?"Recebimento":"Despesa")+'</p></div><strong>'+dollar.format(Number(v.amount||0)/100)+'</strong></div>').join(""):'<p>Sem lançamentos históricos.</p>';
+}
 const originalModuleTables={
  purchases:["purchases","purchase_events","purchase_payments"],
  studiohistory:["studio_versions","studio_proof_sets","artwork_proofs","artwork_files"],
