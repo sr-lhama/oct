@@ -171,14 +171,14 @@ body .benefitbar .inner { width: min(1460px, calc(100% - 56px)); }
 }
 
 /* Language links share the top bar with the social icons. */
-.oct-language-bar, .oct-language-bar > nav:first-child {
+.oct-language-bar, .oct-language-bar > .oct-language-links {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 .oct-language-bar { flex: none; }
 .oct-language-bar .social-links--top { margin: 0 0 0 6px; }
-.oct-language-bar > nav:first-child a {
+.oct-language-bar > .oct-language-links a {
   display: grid;
   place-items: center;
   width: 30px;
@@ -187,21 +187,29 @@ body .benefitbar .inner { width: min(1460px, calc(100% - 56px)); }
   border-radius: 8px;
 }
 .oct-language-bar a svg { display: block; border-radius: 2px; }
-.oct-language-bar > nav:first-child a svg { width: 16px; height: 11px; }
-.oct-language-bar > nav:first-child a:is(:hover, :focus-visible, [aria-current]) {
+.oct-language-bar > .oct-language-links a svg { width: 16px; height: 11px; }
+.oct-language-bar > .oct-language-links a:is(:hover, :focus-visible, [aria-current]) {
   background: #1b324e;
   border-color: #8ba2bd;
 }
 @media (max-width: 920px) {
   .oct-language-bar { flex-basis: 100%; justify-content: center; margin-top: 4px; }
   .oct-language-bar .social-links--top { flex-basis: auto; }
-  .oct-language-bar > nav:first-child a { width: 34px; height: 34px; }
+  .oct-language-bar > .oct-language-links a { width: 34px; height: 34px; }
 }
 @media (max-width: 340px) {
-  .oct-language-bar, .oct-language-bar > nav:first-child, .oct-language-bar .social-links { gap: 4px; }
-  .oct-language-bar > nav:first-child a, .oct-language-bar .social-links--top a { width: 30px; }
+  .oct-language-bar, .oct-language-bar > .oct-language-links, .oct-language-bar .social-links { gap: 4px; }
+  .oct-language-bar > .oct-language-links a, .oct-language-bar .social-links--top a { width: 30px; }
 }
 @media (max-width: 700px) {
   html[lang="es"] .header-actions>.btn::before { content: "Cotizar ›"; }
   html[lang="pt-BR"] .header-actions>.btn::before { content: "Orçamento ›"; }
 }
+
+.footer .oct-language-bar--footer {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 8px 14px;
+  margin-top: 13px;
+}
+.footer .oct-language-bar--footer .social-links { margin: 0; }

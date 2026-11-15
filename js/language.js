@@ -22,6 +22,7 @@
   bar.className = 'oct-language-bar';
   const nav = document.createElement('nav');
   nav.setAttribute('aria-label', {en: 'Website language', es: 'Idioma del sitio', pt: 'Idioma do site'}[selected.code]);
+  nav.className = 'oct-language-links';
   nav.setAttribute('translate', 'no');
   bar.append(nav);
   for (const entry of languages) {
@@ -42,6 +43,26 @@
     bar.append(social);
   } else {
     topBar.append(bar);
+  }
+
+  const footer = document.querySelector('.footer');
+  if (footer) {
+    const footerBar = document.createElement('div');
+    footerBar.className = 'oct-language-bar oct-language-bar--footer';
+    const footerNav = nav.cloneNode(true);
+    footerNav.setAttribute('aria-label', {
+      en: 'Website language in the footer',
+      es: 'Idioma del sitio en el pie de página',
+      pt: 'Idioma do site no rodapé',
+    }[selected.code]);
+    footerBar.append(footerNav);
+    const footerSocial = footer.querySelector('.social-links--footer');
+    if (footerSocial) {
+      footerSocial.before(footerBar);
+      footerBar.prepend(footerSocial);
+    } else {
+      (footer.querySelector('.footer-grid > :first-child') || footer.querySelector('.container') || footer).append(footerBar);
+    }
   }
 
   if (selected.code === 'en') return;
