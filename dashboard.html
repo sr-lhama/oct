@@ -396,7 +396,7 @@ function showMigration(){
    const result=await inspectOctBackup(file,update);
    update("Backup verified. Importing "+result.count+" records into Supabase...");
    const {data,error}=await client.functions.invoke("oct-legacy-import",{body:{archive:result.archive,sha:result.sha}});
-   if(error)throw new Error(error.message||"Import request failed");
+   if(error){let details=null;try{details=await error.context?.json()}catch{}throw new Error(details?.error||error.message||"Import request failed")}
    if(!data?.ok)throw new Error(data?.error||"Import was not confirmed");
    update("IMPORT COMPLETE\nOriginal rows: "+data.records+
     "\nCustomers migrated: "+(data.customers??"already imported")+
