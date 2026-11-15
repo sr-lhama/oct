@@ -132,6 +132,7 @@ const pages=[
 {id:"overview",label:"Visão geral",icon:"▣"},
 {id:"estimates",label:"Estimates & pedidos",icon:"▤"},
 {id:"inbox",label:"Solicitações do site",icon:"✉"},
+{id:"messages",label:"Mensagens de clientes",icon:"✉"},
 {id:"hours",label:"Jornada & tickets",icon:"◷"},
 {id:"production",label:"Produção & compras",icon:"▣"},
 {id:"customers",label:"Clientes",icon:"♧"},
@@ -155,6 +156,7 @@ const client=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY,{aut
 let currentUser=null,profile=null;
 const safe=(s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const moduleDesc={
+messages:["Mensagens de clientes","Conversa por solicitação do website.","Mensagens do portal registradas no Supabase; respostas por e-mail não estão sincronizadas."],
 suppliers:["Fornecedores DTF","Cadastro e ajustes comerciais dos fornecedores.","Gerencie os fornecedores usando dados importados do sistema original."],
 finance:["Financeiro","Movimentações e saldo do negócio.","Entradas históricas e controle financeiro."],
 purchases:["Purchases","Original supplier orders and purchases.","Historical procurement records are shown without allowing accidental payment changes."],
@@ -414,7 +416,7 @@ async function renderOctOverview(){
 }
 function nav(){
  const mark=p=>'<button type="button" class="nav-btn" data-page="'+p.id+'" '+(p.id==="overview"?'aria-current="page"':'')+'><span class="nav-icon" aria-hidden="true">'+p.icon+'</span>'+safe(p.label)+'</button>';
- const primary=["overview","estimates","hours","production","customers","catalog","suppliers","finance","team","settings"];
+ const primary=["overview","estimates","messages","hours","production","customers","catalog","suppliers","finance","team","settings"];
  const extra=pages.filter(p=>!primary.includes(p.id));
  const desktop=document.getElementById("desktopNav");
  desktop.innerHTML='<div style="color:#a1acbb;font-size:10px;letter-spacing:1.5px;padding:5px 12px">GESTÃO COMERCIAL</div>'+
@@ -575,6 +577,7 @@ async function showEditor(page,existing){
 }
 async function loadReadOnlyData(pageId){
  const revision=++loadRevision;
+ if(pageId==="messages"){showMessagesAdmin();return;}
  if(pageId==="catalog"||pageId==="suppliers"){showCommercialRegistry(pageId);return;}
  if(pageId==="finance"){showFinanceBoard();return;}
  if(["purchases","studiohistory","hours","paypalhistory"].includes(pageId)){showOriginalModule(pageId);return;}
@@ -747,6 +750,38 @@ async function inspectOctBackup(file,onProgress){
 
 
 
+async function showMessagesAdmin(){
+ const slot=document.querySelector("#content .placeholder");if(!slot)return;
+ slot.classList.remove("placeholder");slot.style.cssText="display:block;text-align:left";
+ slot.innerHTML='<h3>Mensagens dos clientes</h3><p>Histórico do portal vinculado à solicitação. E-mails externos ainda não são sincronizados.</p><div id="octMessageRequestList">Carregando solicitações...</div><div id="octAdminConversation" style="margin-top:18px"></div>';
+ const list=slot.querySelector("#octMessageRequestList");
+ const {data:quotes,error}=await client.from("quote_requests").select("id,request_number,customer_name,email,product,status").order("created_at",{ascending:false}).limit(200);
+ if(error){list.textContent="Erro ao carregar: "+error.message;return}
+ if(!quotes?.length){list.innerHTML='<p>Não há solicitações recebidas para conversar.</p>';return}
+ list.innerHTML='<div style="display:flex;gap:8px;flex-wrap:wrap">'+quotes.map((q,i)=>
+  '<button type="button" class="btn secondary octConversationButton" data-i="'+i+'">'+safe(q.request_number)+' · '+safe(q.customer_name)+'</button>'
+ ).join("")+'</div>';
+ list.querySelectorAll(".octConversationButton").forEach(button=>button.onclick=()=>conversation(quotes[Number(button.dataset.i)]));
+ async function conversation(q){
+  const area=slot.querySelector("#octAdminConversation");
+  area.innerHTML='<div class="panel"><h3>'+safe(q.customer_name)+' · '+safe(q.request_number)+'</h3><p>'+safe(q.email)+' · '+safe(q.product)+' · '+safe(q.status)+'</p><div id="octAdminMessages">Carregando...</div><form id="octAdminMessageForm"><label for="octAdminMessageInput">Responder pelo portal</label><textarea id="octAdminMessageInput" rows="4" maxlength="4000" required style="width:100%;margin:9px 0;padding:12px;border:1px solid #dbe5ed;border-radius:10px"></textarea><button class="btn" type="submit">Enviar mensagem</button></form></div>';
+  const {data,error}=await client.from("customer_messages").select("id,sender_role,body,created_at").eq("quote_request_id",q.id).order("created_at",{ascending:true}).limit(200);
+  const target=area.querySelector("#octAdminMessages");
+  if(error){target.textContent=error.message;return}
+  target.innerHTML=data?.length?data.map(m=>
+    '<div style="border-left:3px solid '+(m.sender_role==="staff"?"#e32183":"#06a8de")+';padding:10px 13px;background:#f5f8fd;margin:9px 0;border-radius:8px"><small>'+safe(m.sender_role==="staff"?"Equipe OCT":"Cliente")+' · '+safe(new Date(m.created_at).toLocaleString("pt-BR"))+'</small><p style="margin:5px 0;white-space:pre-wrap">'+safe(m.body)+'</p></div>'
+  ).join(""):'<p>Não há mensagens nesta solicitação.</p>';
+  area.querySelector("form").onsubmit=async e=>{
+   e.preventDefault();
+   const body=area.querySelector("#octAdminMessageInput").value.trim();if(!body)return;
+   const submit=e.target.querySelector('button[type="submit"]');submit.disabled=true;
+   const {error:sendError}=await client.from("customer_messages").insert({quote_request_id:q.id,sender_user_id:currentUser.id,sender_role:"staff",body});
+   submit.disabled=false;
+   if(sendError){window.alert("Não foi possível enviar: "+sendError.message);return}
+   conversation(q);
+  };
+ }
+}
 async function showCommercialRegistry(type){
  const target=document.querySelector("#content .placeholder");if(!target)return;
  target.classList.remove("placeholder");target.style.cssText="display:block;text-align:left";
