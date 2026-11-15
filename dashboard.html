@@ -15,6 +15,57 @@
 .mobile-nav{display:none}body.busy .btn{opacity:.7}
 @media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}.sidebar{width:220px;min-width:220px}}
 @media(max-width:720px){#app{display:block}.sidebar{display:none}.mobile-nav{display:flex;gap:7px;overflow-x:auto;background:var(--navy);padding:12px;position:sticky;top:0;z-index:5}.mobile-nav .nav-btn{white-space:nowrap;width:auto;padding:9px 13px}.mobile-nav .nav-btn[aria-current="page"]{padding-left:10px}.topbar{padding:19px}.topbar h1{font-size:20px}.user-info{font-size:11px}.user-info strong{max-width:150px;overflow:hidden;text-overflow:ellipsis}.content{padding:17px}.hero{padding:23px}.hero h2{font-size:21px}.stats{gap:10px}.stat{padding:15px}.stat strong{font-size:20px}}
+
+/* OCT workspace fidelity layer */
+:root{--navy:#ffffff;--ink:#242936;--muted:#78869b;--line:#dfe6ed;--bg:#f4f7fb;--pink:#e32183;--cyan:#02afe6}
+body{font-family:Inter,"Segoe UI",Arial,sans-serif;background:var(--bg);color:#242936}
+#app{min-height:100vh}
+.sidebar{background:#fff;color:#62728c;border-right:1px solid #e0e6ef;padding:18px 11px;width:208px;min-width:208px;gap:15px}
+.brand{padding:3px 0 10px;border:0}.brand img{width:188px!important;max-width:100%;margin:0 auto;background:none;padding:0}.brand .eyebrow{color:#8b98ab;font-size:8px;letter-spacing:2px;margin:8px 3px}.brand strong{display:none}
+.nav{gap:3px}.nav-btn{font-size:12px;color:#637189;border-radius:8px;padding:14px 11px;font-weight:500;gap:10px}
+.nav-btn:hover{background:#f1f7fb;color:#007eab}
+.nav-btn[aria-current="page"]{background:#e4f5fb;color:#007699;border-left:3px solid var(--pink);padding-left:8px}
+.nav-icon{font-size:15px;color:#7f91aa;width:18px}.sidebar-foot{border-color:#e4e9f1;color:#6d7889}
+.topbar{background:white;min-height:81px;padding:12px 22px;border-bottom:1px solid #dfecf3;justify-content:flex-start;gap:20px;flex-wrap:wrap}
+.topbar .caption{font-size:10px;color:#7d8aa0;text-transform:none;letter-spacing:0}
+.topbar h1{font-size:14px;margin:0;color:#252d3b}.user-info{text-align:left}
+.user-info strong{color:#252d3b}
+.content{max-width:1600px;padding:30px max(24px,4vw)}
+.oct-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:30px;flex-wrap:wrap}
+.oct-head small{font-size:10px;letter-spacing:2px;font-weight:700;color:#dc1681}
+.oct-head h2{font-size:29px;letter-spacing:-.7px;margin:12px 0 0;color:#252935}
+.stats{gap:15px;margin:0 0 24px}.stat{min-height:120px;border-color:#dce4ee;border-radius:13px;padding:22px;box-shadow:none}
+.stat span{font-size:11px}.stat strong{font-size:25px;color:#232937;margin:12px 0}.stat small{font-size:11px}
+.kanban-header{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 17px;flex-wrap:wrap}
+.kanban-header h3{font-size:19px;margin:0}.oct-pipeline{display:grid;grid-template-columns:repeat(6,minmax(145px,1fr));gap:12px}
+.oct-stage{min-height:280px;background:#eaf0f6;border-radius:12px;padding:12px 10px}
+.oct-stage-title{display:flex;justify-content:space-between;align-items:center;font-size:10px;gap:5px;font-weight:700;min-height:30px;color:#394355}
+.oct-stage-title b{font-size:10px}.oct-stage-count{background:white;color:#97a7bc;border-radius:100%;min-width:20px;text-align:center;padding:3px 5px}
+.oct-empty{text-align:center;margin:44px 3px;color:#8490a4;font-size:10px}
+.oct-order{display:block;background:white;text-align:left;width:100%;border:1px solid #dfe5ee;border-radius:10px;padding:13px;margin:8px 0;cursor:pointer;color:#34415b}
+.oct-order:hover{border-color:#00a9de;box-shadow:0 3px 10px #15364a14}
+.oct-order small{display:block;color:#8492a7;font-size:9px;margin-bottom:9px}
+.oct-order strong{display:block;font-size:12px;color:#283244;margin-bottom:7px}.oct-order p{font-size:10px;color:#8a97a9;margin:4px 0 8px}.oct-order em{font-size:12px;color:#252d39;font-weight:750;font-style:normal}
+.oct-stage[ data-stage="cancelled"]{background:#f3edf2}
+.panel{box-shadow:none}.panel.placeholder{min-height:160px}
+.topbar-actions{display:flex;gap:12px;align-items:center;margin-left:auto;flex-wrap:wrap;font-size:12px}
+.topbar-actions a{font-size:11px;color:#008abb}.topbar-actions a:hover{text-decoration:underline}
+.btn{background:#05aee6;color:#063146;border-radius:9px;font-size:12px;font-weight:700}
+.btn.secondary{background:white;border:1px solid #dde3ed;color:#334155}
+.btn:hover{filter:brightness(.95)}
+.header-clock{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.header-clock span{font-size:10px;color:#79869d}.header-clock strong{display:block;font-size:22px;font-variant-numeric:tabular-nums;letter-spacing:1px}
+.journey-label{font-size:11px;color:#a47c37;border-radius:30px;padding:6px 10px;background:#fff6df}
+.oct-workspace-card{padding:16px 0 0}.oct-heading-label{color:#e32183;font-size:10px;letter-spacing:2px;font-weight:700}
+button:focus-visible,a:focus-visible{outline:2px solid #00b0e0;outline-offset:3px}
+body.dark-mode{--bg:#151c27;--line:#38465a;color:#edf3fc}
+body.dark-mode .content{background:#151c27}body.dark-mode .sidebar,body.dark-mode .topbar,body.dark-mode .stat,body.dark-mode .panel,body.dark-mode .oct-order{background:#202b3a;color:#f2f5ff;border-color:#39465b}
+body.dark-mode .nav-btn{color:#b2bed0}body.dark-mode .oct-stage{background:#2a3647}body.dark-mode .oct-head h2,body.dark-mode .stat strong,body.dark-mode .topbar h1,body.dark-mode .user-info strong{color:white}body.dark-mode .oct-order strong{color:#fff}
+@media(max-width:1450px){.oct-pipeline{grid-template-columns:repeat(5,minmax(155px,1fr))}}
+@media(max-width:1180px){.oct-pipeline{grid-template-columns:repeat(3,minmax(150px,1fr))}.header-clock{display:none}}
+@media(max-width:720px){.sidebar{display:none}.topbar{padding:12px 16px}.topbar-actions{margin-left:0}.content{padding:20px 13px}.oct-head h2{font-size:23px}.oct-pipeline{grid-template-columns:repeat(2,minmax(140px,1fr))}.oct-stage{min-height:170px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:400px){.oct-pipeline{grid-template-columns:1fr}}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -27,14 +78,25 @@
 </div></section>
 <div id="app" hidden>
 <aside class="sidebar">
-<div class="brand"><img src="https://sr-lhama.github.io/oct/assets/images/logo-official.webp" alt="Orlando Custom Tees"><span class="eyebrow">Management platform</span><strong>Orlando Custom Tees</strong></div>
+<div class="brand"><img src="https://sr-lhama.github.io/oct/assets/images/logo-official.webp" alt="Orlando Custom Tees"><span class="eyebrow">COMMERCIAL WORKSPACE</span><strong>Orlando Custom Tees</strong></div>
 <nav id="desktopNav" class="nav" aria-label="Administrative navigation"></nav>
 <div class="sidebar-foot">Orlando, Florida<br>Protected admin preview<br><a href="https://sr-lhama.github.io/oct/" target="_blank" rel="noopener noreferrer">Visit main website ↗</a></div>
 </aside>
 <div class="main">
 <div class="mobile-nav" id="mobileNav" aria-label="Mobile administrative navigation"></div>
-<header class="topbar"><div><div class="caption">Orlando Custom Tees / Administration</div><h1 id="pageTitle">Overview</h1></div>
-<div style="display:flex;gap:12px;align-items:center"><div class="user-info"><strong id="displayName"></strong><span id="displayEmail"></span></div><button class="btn secondary" id="logoutBtn" type="button">Sign out</button></div>
+<header class="topbar">
+<button type="button" class="btn secondary" id="hideMenu" title="Recolher menu" aria-label="Recolher menu">☰</button>
+<div class="user-info"><strong id="displayName"></strong><span id="displayEmail">Administrador · Orlando</span></div>
+<div class="header-clock"><div><span>Jornada encerrada</span><strong>00:00:00</strong></div><span class="journey-label">Sem jornada</span></div>
+<div class="topbar-actions">
+<button type="button" class="btn" id="startShift">Iniciar jornada</button>
+<a href="#hours" id="workHoursNav">Minhas horas e tickets</a>
+<a href="#estimates" id="newEstimateNav">New estimate</a>
+<a href="#orders" id="myOrdersNav">My orders</a>
+<a href="#overview" id="dashNav">Dashboard</a>
+<button type="button" class="btn secondary" id="darkModeToggle" title="Alternar tema">☾</button>
+<button type="button" class="btn secondary" id="logoutBtn">Sair</button>
+</div>
 </header>
 <main class="content" id="content" tabindex="-1"></main>
 </div>
@@ -45,24 +107,24 @@
 const SUPABASE_URL="https://xemugzorxsmzmuuiidgu.supabase.co";
 const SUPABASE_PUBLIC_KEY="sb_publishable_CIXSDcMhMfy5Vj-ak0YkzQ_2kO7Fix5";
 const pages=[
-{id:"overview",label:"Overview",icon:"◫"},
-{id:"inbox",label:"Quote Inbox",icon:"✉"},
-{id:"estimates",label:"Estimates",icon:"▤"},
-{id:"orders",label:"Orders",icon:"▣"},
-{id:"items",label:"Order items",icon:"▦"},
-{id:"customers",label:"Customers",icon:"♧"},
-{id:"artwork",label:"Artwork approvals",icon:"✎"},
-{id:"production",label:"Production",icon:"◷"},
-{id:"payments",label:"Payments",icon:"＄"},
-{id:"team",label:"Team",icon:"♙"},
-{id:"purchases",label:"Purchases",icon:"▥"},
-{id:"studiohistory",label:"Studio history",icon:"✎"},
-{id:"hours",label:"Time tracking",icon:"◷"},
-{id:"paypalhistory",label:"PayPal history",icon:"＄"},
-{id:"catalog",label:"Catalog",icon:"▦"},
-{id:"migration",label:"Import / Export",icon:"⇅"},
-{id:"archive",label:"Legacy Archive",icon:"▥"},
-{id:"settings",label:"Settings",icon:"⚙"}
+{id:"overview",label:"Visão geral",icon:"▣"},
+{id:"estimates",label:"Estimates & pedidos",icon:"▤"},
+{id:"inbox",label:"Solicitações do site",icon:"✉"},
+{id:"hours",label:"Jornada & tickets",icon:"◷"},
+{id:"production",label:"Produção & compras",icon:"▣"},
+{id:"customers",label:"Clientes",icon:"♧"},
+{id:"catalog",label:"Produtos",icon:"◈"},
+{id:"purchases",label:"Fornecedores DTF",icon:"▦"},
+{id:"paypalhistory",label:"Financeiro",icon:"＄"},
+{id:"team",label:"Equipe",icon:"♙"},
+{id:"artwork",label:"Aprovação de artes",icon:"✎"},
+{id:"studiohistory",label:"Estúdio de arte",icon:"✦"},
+{id:"orders",label:"Pedidos (tabela)",icon:"▤"},
+{id:"items",label:"Itens de pedidos",icon:"▦"},
+{id:"payments",label:"Pagamentos",icon:"＄"},
+{id:"migration",label:"Importar / Exportar",icon:"⇅"},
+{id:"archive",label:"Histórico original",icon:"▥"},
+{id:"settings",label:"Configurações",icon:"⚙"}
 ];
 const gate=document.getElementById("gate"),app=document.getElementById("app");
 const client=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY,{auth:{flowType:"pkce"}});
@@ -87,6 +149,95 @@ payments:["Payments","Track PayPal payment references, paid status and reconcili
 team:["Team","Manage employee access and internal workflows.","Employee role assignment and administrative permissions will be implemented with protected server functions."],
 settings:["Settings","Configure operational preferences and integrations.","SMTP credentials, PayPal secrets and service role keys must stay on protected server infrastructure."]
 };
+
+
+let octActiveShift=null,octTicker=null;
+const octClockFmt=n=>{n=Math.max(0,Math.floor(n));return [Math.floor(n/3600),Math.floor((n%3600)/60),n%60].map(x=>String(x).padStart(2,"0")).join(":")};
+function updateOctClock(){
+ const label=document.querySelector(".header-clock>div>span");
+ const digits=document.querySelector(".header-clock strong");
+ const badge=document.querySelector(".journey-label");
+ const button=document.querySelector("#startShift");
+ if(!digits||!button)return;
+ if(!octActiveShift){
+  digits.textContent="00:00:00";
+  if(label)label.textContent="Jornada encerrada";
+  if(badge)badge.textContent="Sem jornada";
+  button.textContent="Iniciar jornada";
+  return;
+ }
+ const started=new Date(octActiveShift.started_at).getTime();
+ const now=Date.now();
+ const breakStart=octActiveShift.break_started_at?new Date(octActiveShift.break_started_at).getTime():0;
+ const breakSoFar=breakStart?Math.max(0,(now-breakStart)/1000):0;
+ const seconds=(now-started)/1000-(octActiveShift.total_break_seconds||0)-breakSoFar;
+ digits.textContent=octClockFmt(seconds);
+ if(label)label.textContent="Jornada em andamento";
+ if(badge)badge.textContent=breakStart?"Em pausa":"Trabalhando";
+ button.textContent=breakStart?"Retomar jornada":"Pausar jornada";
+}
+async function fetchOctClock(){
+ const {data,error}=await client.from("work_clock_sessions").select("id,started_at,ended_at,break_started_at,total_break_seconds").eq("user_id",currentUser.id).is("ended_at",null).maybeSingle();
+ if(error){console.error("Cannot read clock",error);return}
+ octActiveShift=data;updateOctClock();
+}
+async function octClockAction(action){
+ const btn=document.querySelector("#startShift");if(btn)btn.disabled=true;
+ const {data,error}=await client.rpc("oct_clock_action",{p_action:action});
+ if(btn)btn.disabled=false;
+ if(error){window.alert("Não foi possível registrar a jornada: "+error.message);return}
+ octActiveShift=data.ended_at?null:data;updateOctClock();
+ if(location.hash==="#hours")showPage("hours");
+}
+const OCT_STAGES=[
+ ["generated","Gerado"],["sent","Enviado"],["waiting","Aguardando resposta"],
+ ["artwork_approval","Aprovação da arte"],["awaiting_payment","Aguardando pagamento"],
+ ["payment_confirmed","Pagamento confirmado"],["in_progress","Em produção"],
+ ["finished","Finalizado"],["delivered","Entregue"],["cancelled","Cancelado"]
+];
+async function renderOctOverview(){
+ const stats=document.querySelector("#octOverviewStats"),stageTarget=document.querySelector("#octPipeline");
+ if(!stageTarget)return;
+ const [ordersResponse,ledgerResponse]=await Promise.all([
+ client.from("orders").select("id,legacy_id,order_number,status,total,created_at,legacy_payload,production_started_at,due_date").order("created_at",{ascending:false}).limit(500),
+ client.from("legacy_records").select("payload").eq("source_table","ledger").limit(500)
+ ]);
+ if(ordersResponse.error){stageTarget.textContent="Não foi possível carregar os pedidos: "+ordersResponse.error.message;return}
+ const orders=ordersResponse.data||[];
+ const ledger=(ledgerResponse.data||[]).map(x=>x.payload||{});
+ const income=ledger.filter(x=>x.kind==="income").reduce((n,x)=>n+Number(x.amount||0)/100,0);
+ const expense=ledger.filter(x=>x.kind==="expense").reduce((n,x)=>n+Number(x.amount||0)/100,0);
+ const metrics=[
+ ["Estimates cadastrados",orders.length,"Até 500 registros recentes"],
+ ["Em produção",orders.filter(o=>o.status==="in_progress").length,"Pedidos em andamento"],
+ ["Recebimentos registrados",dollar.format(income),"Caixa, não valor de propostas"],
+ ["Saldo registrado",dollar.format(income-expense),"Receitas menos despesas"]
+ ];
+ if(stats)stats.innerHTML=metrics.map(([label,value,sub])=>'<div class="stat"><span>'+safe(label)+'</span><strong>'+safe(value)+'</strong><small>'+safe(sub)+'</small></div>').join("");
+ stageTarget.innerHTML=OCT_STAGES.map(([key,label])=>{
+ const group=orders.filter(o=>o.status===key);
+ return '<section class="oct-stage" data-stage="'+key+'"><div class="oct-stage-title"><b>'+label+'</b><span class="oct-stage-count">'+group.length+'</span></div>'+
+ (group.length?group.map(o=>{
+  const detail=o.legacy_payload||{},raw=typeof detail.data==="string"?JSON.parse(detail.data):detail.data||{};
+  const price=typeof detail.pricing==="string"?JSON.parse(detail.pricing):detail.pricing||{};
+  const quantity=price.quantity??Object.values(raw.sizes||{}).reduce((n,v)=>n+Number(v||0),0);
+  return '<button type="button" class="oct-order" data-order="'+safe(o.id)+'"><small>'+safe(o.order_number||o.id)+'</small>'+
+    '<strong>'+safe(raw.company||raw.name||"Cliente")+'</strong>'+
+    '<p>'+safe(quantity)+' peças · '+safe(raw.productName||raw.productId||"Personalizado")+'</p>'+
+    '<em>'+dollar.format(Number(o.total||0))+'</em></button>';
+ }).join(""):'<div class="oct-empty">Nenhum pedido nesta etapa</div>')+'</section>';
+ }).join("");
+ stageTarget.querySelectorAll("[data-order]").forEach(b=>b.onclick=()=>{
+  showPage("orders");
+  setTimeout(()=>{const id=b.dataset.order; const rows=[...document.querySelectorAll(".legacyDetail")];const match=rows.find(x=>x.closest("tr")?.textContent?.includes(orders.find(o=>o.id===id)?.order_number||"-----"));if(match)match.click()},500);
+ });
+ const refresh=document.getElementById("refreshOverview");
+ if(refresh)refresh.onclick=renderOctOverview;
+ const add=document.getElementById("addEstimate");
+ if(add)add.onclick=()=>{showPage("estimates");setTimeout(()=>document.querySelector("#newEntry")?.click(),400)};
+ const studio=document.getElementById("launchStudio");
+ if(studio)studio.onclick=()=>showPage("studiohistory");
+}
 function nav(){
  const mark=(p)=>'<button type="button" class="nav-btn" data-page="'+p.id+'" '+(p.id==="overview"?'aria-current="page"':'')+'><span class="nav-icon" aria-hidden="true">'+p.icon+'</span>'+safe(p.label)+'</button>';
  document.getElementById("desktopNav").innerHTML=pages.map(mark).join("");
@@ -99,18 +250,10 @@ function showPage(id){
  document.getElementById("pageTitle").textContent=pages.find(p=>p.id===id).label;
  let content;
  if(id==="overview"){
- content='<section class="hero"><div><span class="pill preview">SECURE DEVELOPMENT PREVIEW</span><h2>Welcome, '+safe(profile.full_name||currentUser.email)+'</h2><p>Your administrative identity has been verified. Live read-only data is loaded through Supabase with row-level security. Authorized admins can manage records; PayPal payment verification remains server-controlled.</p></div></section>'+
- '<div class="stats">'+["Active orders","Estimates awaiting review","Artwork approvals","Production deadlines"].map(k=>'<div class="stat"><span>'+k+'</span><strong>—</strong><small>Live reporting not connected</small></div>').join("")+'</div>'+
- '<div class="cols"><section class="panel"><h3>Commercial workflow</h3><div class="module-items">'+[
- ["Quote request","Customer selects products and uploads artwork"],
- ["Estimate & approval","Price reviewed, estimate sent, design approved"],
- ["Payment confirmation","PayPal confirmation verified before production"],
- ["Production & fulfillment","Garments, DTF, delivery and tracking"]
- ].map(x=>'<div class="module-item"><span>'+x[0]+'</span><small>'+x[1]+'</small></div>').join("")+'</div></section>'+
- '<section class="panel"><h3>Migration readiness</h3><div class="module-items">'+[
- ["Supabase Auth","Connected"],["Administrator identity","Verified"],["Customer RLS","Configured, tests pending"],["Admin data permissions","Read/write configured"],["Historical order migration","Pending"],["PayPal/Resend server integrations","Pending"]
- ].map(x=>'<div class="module-item"><span>'+x[0]+'</span><small>'+x[1]+'</small></div>').join("")+'</div></section></div>'+
- '<div class="notice"><strong>Data protection:</strong> This dashboard uses your authenticated Supabase session and administrative RLS. Payment verification is read only until verified server-side PayPal integration is completed. The legacy ChatGPT Sites dashboard remains unchanged.</div>';
+ content='<div class="oct-head"><div><small>ORLANDO CUSTOM TEES · GESTÃO</small><h2>Seu negócio, em movimento.</h2></div><button class="btn secondary" id="refreshOverview" type="button">↻ Atualizar</button></div>'+
+ '<div class="stats" id="octOverviewStats"><div class="stat"><span>Estimates cadastrados</span><strong>…</strong></div><div class="stat"><span>Em produção</span><strong>…</strong></div><div class="stat"><span>Recebimentos registrados</span><strong>…</strong></div><div class="stat"><span>Saldo registrado</span><strong>…</strong></div></div>'+
+ '<section class="oct-workspace-card"><div class="kanban-header"><h3>Pipeline de pedidos</h3><div><button type="button" class="btn secondary" id="launchStudio">✦ Testar Estúdio de Arte</button> <button type="button" class="btn" id="addEstimate">+ Criar estimate</button></div></div><div id="octPipeline" class="oct-pipeline"><p>Carregando pedidos reais...</p></div></section>'+
+ '<p class="footer-note">Painel conectado ao Supabase. Histórico original preservado. Pagamentos somente após verificação externa.</p>';
  }else{
  const d=moduleDesc[id];
  content='<div class="section-head"><h2>'+safe(d[0])+'</h2><p>'+safe(d[1])+'</p></div>'+
@@ -118,7 +261,7 @@ function showPage(id){
  }
  document.getElementById("content").innerHTML=content+'<p class="footer-note">OCT Dashboard · Development environment · Supabase management connected</p>';
  history.replaceState(null,"","#"+id);
- loadReadOnlyData(id);
+ if(id==="overview")renderOctOverview();else loadReadOnlyData(id);
 }
 
 
@@ -450,6 +593,18 @@ async function showOriginalModule(page){
   area.innerHTML='<p>'+data.length+' imported records in <strong>'+safe(table)+'</strong>. '+safe(privacyHint)+'</p>'+body;
  }
  render(groups[0]);
+ if(page==="hours"){
+  const section=document.createElement("section");section.className="panel";section.style.marginBottom="18px";
+  section.innerHTML='<h3>Controle de jornada atual</h3><p>Início, pausa e encerramento registrados no Supabase. Os apontamentos antigos continuam disponíveis nas abas abaixo.</p><div id="liveShifts">Carregando jornadas...</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn" id="shiftIn" type="button">Iniciar jornada</button><button class="btn secondary" id="shiftPause" type="button">Pausar</button><button class="btn secondary" id="shiftResume" type="button">Retomar</button><button class="btn secondary" id="shiftOut" type="button">Encerrar jornada</button></div>';
+  slot.insertBefore(section,slot.firstChild);
+  const actions=[["shiftIn","in"],["shiftPause","pause"],["shiftResume","resume"],["shiftOut","out"]];
+  for(const [name,action] of actions)section.querySelector("#"+name).onclick=()=>octClockAction(action);
+  client.from("work_clock_sessions").select("started_at,ended_at,total_break_seconds").eq("user_id",currentUser.id).order("started_at",{ascending:false}).limit(30).then(({data,error})=>{
+   const target=section.querySelector("#liveShifts");
+   if(error){target.textContent=error.message;return}
+   target.innerHTML=data?.length?data.map(r=>'<p style="padding:9px;border-bottom:1px solid #e2e8f0">Início: '+safe(new Date(r.started_at).toLocaleString("pt-BR"))+' | Fim: '+safe(r.ended_at?new Date(r.ended_at).toLocaleString("pt-BR"):"Em andamento")+' | Pausas: '+octClockFmt(r.total_break_seconds)+'</p>').join(""):'<p>Nenhuma jornada nova registrada.</p>';
+  });
+ }
 }
 const legacyTableNames=["artwork_proofs","work_shifts","ledger","events","purchases","products","suppliers","work_messages","work_segments","studio_versions","work_profiles","paypal_webhook_events","estimates","purchase_events","notifications","work_tickets","customers","members","work_profile_history","config","artwork_files","purchase_payments","studio_proof_sets","work_presence","paypal_invoices","work_events"];
 async function showLegacyArchive(){
@@ -551,6 +706,20 @@ async function start(){
  document.getElementById("displayName").textContent=profile.full_name||"Administrator";
  document.getElementById("displayEmail").textContent=currentUser.email||"";
  nav();gate.hidden=true;app.hidden=false;
+ document.getElementById("hideMenu")?.addEventListener("click",()=>{
+ const sidebar=document.querySelector(".sidebar");if(!sidebar)return;
+ const hidden=sidebar.style.display==="none";sidebar.style.display=hidden?"flex":"none";
+ });
+ document.getElementById("darkModeToggle")?.addEventListener("click",()=>document.body.classList.toggle("dark-mode"));
+ document.getElementById("startShift")?.addEventListener("click",()=>octClockAction(octActiveShift?(octActiveShift.break_started_at?"resume":"pause"):"in"));
+ fetchOctClock();
+ if(octTicker)clearInterval(octTicker);
+ octTicker=setInterval(updateOctClock,1000);
+ ["workHoursNav","newEstimateNav","myOrdersNav","dashNav"].forEach(id=>{
+ const el=document.getElementById(id);if(!el)return;
+ el.addEventListener("click",ev=>{ev.preventDefault();showPage(({workHoursNav:"hours",newEstimateNav:"estimates",myOrdersNav:"orders",dashNav:"overview"})[id])});
+ });
+
  showPage((location.hash||"#overview").slice(1));
  }catch(e){console.error("Admin gate error",e);showGate("Unable to verify access","Please try again or sign in again.",true);}
 }
