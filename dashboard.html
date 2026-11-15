@@ -227,9 +227,31 @@ async function renderOctOverview(){
     '<em>'+dollar.format(Number(o.total||0))+'</em></button>';
  }).join(""):'<div class="oct-empty">Nenhum pedido nesta etapa</div>')+'</section>';
  }).join("");
- stageTarget.querySelectorAll("[data-order]").forEach(b=>b.onclick=()=>{
-  showPage("orders");
-  setTimeout(()=>{const id=b.dataset.order; const rows=[...document.querySelectorAll(".legacyDetail")];const match=rows.find(x=>x.closest("tr")?.textContent?.includes(orders.find(o=>o.id===id)?.order_number||"-----"));if(match)match.click()},500);
+ stageTarget.querySelectorAll("[data-order]").forEach(b=>b.onclick=async()=>{
+  const selected=orders.find(o=>o.id===b.dataset.order);if(!selected)return;
+  closeEditor();
+  const overlay=document.createElement("div");overlay.id="recordEditor";
+  overlay.style.cssText="position:fixed;inset:0;z-index:220;background:#122138a8;display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto";
+  const panel=document.createElement("section");panel.style.cssText="background:#fff;color:#243043;border-radius:15px;padding:26px;width:min(760px,100%);max-height:92vh;overflow:auto";
+  overlay.append(panel);document.body.append(overlay);
+  const raw=selected.legacy_payload||{};
+  const details=typeof raw.data==="string"?JSON.parse(raw.data):raw.data||{};
+  const price=typeof raw.pricing==="string"?JSON.parse(raw.pricing):raw.pricing||{};
+  panel.innerHTML='<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><div><small style="color:#dc1780">ORLANDO CUSTOM TEES · PEDIDO</small><h2 style="margin:7px 0">'+safe(selected.order_number)+'</h2></div><button type="button" class="btn secondary" id="closeOrder">Fechar</button></div>'+
+   '<p style="font-size:13px;color:#6c798d">Status atual: <strong>'+safe(OCT_STAGES.find(x=>x[0]===selected.status)?.[1]||selected.status)+'</strong></p>'+
+   '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px">'+
+    [["Cliente",details.name],["Empresa",details.company],["Produto",details.productName||details.productId],["Cor",details.color],["Tamanhos",JSON.stringify(details.sizes||{})],["Frente",details.front],["Costas",details.back],["Total",dollar.format(Number(selected.total||0))],["Observações",details.notes]].map(([k,v])=>
+     '<div style="border:1px solid #e3e8ef;border-radius:9px;padding:12px"><small style="color:#8290a4">'+safe(k)+'</small><div style="overflow-wrap:anywhere;font-size:13px;margin-top:6px">'+safe(v??"—")+'</div></div>').join("")+
+   '</div><h3 style="margin:22px 0 9px">Histórico do pedido</h3><div id="octOrderEvents" style="font-size:12px">Carregando histórico...</div>'+
+   '<div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px"><button class="btn" type="button" id="editOrderFromPipeline">Editar pedido</button><button type="button" class="btn secondary" id="backToOrders">Ver todos os pedidos</button></div>';
+  panel.querySelector("#closeOrder").onclick=()=>overlay.remove();
+  overlay.onclick=e=>{if(e.target===overlay)overlay.remove()};
+  panel.querySelector("#backToOrders").onclick=()=>{overlay.remove();showPage("orders")};
+  panel.querySelector("#editOrderFromPipeline").onclick=()=>{overlay.remove();showEditor("orders",selected)};
+  const {data:events,error}=await client.from("order_status_history").select("new_status,notes,created_at").eq("order_id",selected.id).order("created_at",{ascending:true}).limit(100);
+  const area=panel.querySelector("#octOrderEvents");
+  if(!area)return;
+  area.innerHTML=error?'<p>Histórico indisponível.</p>':events?.length?events.map(e=>'<div style="padding:9px 0;border-bottom:1px solid #e4e9f1"><strong>'+safe(OCT_STAGES.find(x=>x[0]===e.new_status)?.[1]||e.new_status)+'</strong> · '+safe(new Date(e.created_at).toLocaleString("pt-BR"))+'<p style="margin:5px 0;color:#607086">'+safe(e.notes||"")+'</p></div>').join(""):'<p>Nenhuma atualização anterior.</p>';
  });
  const refresh=document.getElementById("refreshOverview");
  if(refresh)refresh.onclick=renderOctOverview;
@@ -252,7 +274,7 @@ function showPage(id){
  if(id==="overview"){
  content='<div class="oct-head"><div><small>ORLANDO CUSTOM TEES · GESTÃO</small><h2>Seu negócio, em movimento.</h2></div><button class="btn secondary" id="refreshOverview" type="button">↻ Atualizar</button></div>'+
  '<div class="stats" id="octOverviewStats"><div class="stat"><span>Estimates cadastrados</span><strong>…</strong></div><div class="stat"><span>Em produção</span><strong>…</strong></div><div class="stat"><span>Recebimentos registrados</span><strong>…</strong></div><div class="stat"><span>Saldo registrado</span><strong>…</strong></div></div>'+
- '<section class="oct-workspace-card"><div class="kanban-header"><h3>Pipeline de pedidos</h3><div><button type="button" class="btn secondary" id="launchStudio">✦ Testar Estúdio de Arte</button> <button type="button" class="btn" id="addEstimate">+ Criar estimate</button></div></div><div id="octPipeline" class="oct-pipeline"><p>Carregando pedidos reais...</p></div></section>'+
+ '<section class="oct-workspace-card"><div class="kanban-header"><h3>Pipeline de pedidos</h3><div><button type="button" class="btn secondary" id="launchStudio">✦ Estúdio de Arte</button> <button type="button" class="btn" id="addEstimate">+ Criar estimate</button></div></div><div id="octPipeline" class="oct-pipeline"><p>Carregando pedidos reais...</p></div></section>'+
  '<p class="footer-note">Painel conectado ao Supabase. Histórico original preservado. Pagamentos somente após verificação externa.</p>';
  }else{
  const d=moduleDesc[id];
