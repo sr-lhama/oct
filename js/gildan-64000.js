@@ -913,7 +913,7 @@
       const pantone = details ? (details.model === '6210' && color.name === 'White' ? '663 C' : '') : swatches[color.name]?.[1];
       pms.textContent = pantone ? ' · PMS ' + pantone : '';
       quote.href = 'quote.html?' + new URLSearchParams({ product: details?.quoteName || 'Gildan 64000 Softstyle', color: color.name });
-      for (const button of swatchGrid.children) button.setAttribute('aria-pressed', String(button.textContent === color.name));
+      for (const button of swatchGrid.children) button.setAttribute('aria-pressed', String(button.dataset.colorName === color.name));
       thumbs.replaceChildren(...views.map((view, index) => {
         const button = document.createElement('button');
         button.type = 'button';
@@ -938,6 +938,7 @@
         const button = document.createElement('button');
         button.type = 'button';
         button.textContent = entry.name;
+        button.dataset.colorName = entry.name;
         const hex = (details ? details.swatches[entry.name] : swatches[entry.name]?.[0]) || '#e5e7eb';
         button.style.setProperty('--swatch-color', hex);
         button.setAttribute('aria-pressed', String(entry === color));

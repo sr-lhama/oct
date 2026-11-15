@@ -169,3 +169,36 @@ body .benefitbar .inner { width: min(1460px, calc(100% - 56px)); }
   main > .banner-head:not([aria-labelledby]) .lead { font-size: 1rem; }
   main > .banner-head:not([aria-labelledby]) + .section { padding-top: 32px; }
 }
+
+.oct-language-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  width: min(1460px, calc(100% - 56px));
+  margin-inline: auto;
+  padding-block: 4px;
+  font-size: .8rem;
+}
+.oct-language-bar nav { display: flex; gap: 5px; }
+.oct-language-bar a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 45px;
+  min-height: 34px;
+  padding: 3px 8px;
+  border: 1px solid #e0e9f3;
+  border-radius: 8px;
+  color: #10254c;
+  font-weight: 800;
+}
+.oct-language-bar a svg { display: block; border-radius: 2px; }
+.oct-language-bar a:hover, .oct-language-bar a[aria-current] { background: #eaf6ff; border-color: #0879ae; }
+@media (max-width: 700px) {
+  .oct-language-bar { width: calc(100% - 20px); }
+  .oct-language-bar a { min-height: 40px; }
+  html[lang="es"] .header-actions>.btn::before { content: "Cotizar ›"; }
+  html[lang="pt-BR"] .header-actions>.btn::before { content: "Orçamento ›"; }
+}
