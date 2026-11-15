@@ -56,6 +56,7 @@ const pages=[
 {id:"payments",label:"Payments",icon:"＄"},
 {id:"team",label:"Team",icon:"♙"},
 {id:"migration",label:"Import / Export",icon:"⇅"},
+{id:"archive",label:"Legacy Archive",icon:"▥"},
 {id:"settings",label:"Settings",icon:"⚙"}
 ];
 const gate=document.getElementById("gate"),app=document.getElementById("app");
@@ -66,6 +67,7 @@ const moduleDesc={
 inbox:["Quote Inbox","Website estimate requests received via Supabase.","Review artwork and convert a request to a draft estimate."],
 items:["Order Items","Manage garment styles, sizes, printing positions and quantities.","Order items tied to existing orders."],
 migration:["Import / Export","Move historical records and create backups.","Prepare data for migration."],
+archive:["Legacy Archive","Read all original CRM records preserved during migration.","Browse the imported historical data."],
 estimates:["Estimates","Review customer quote requests, garment selections, pricing and approvals.","Estimate records will be connected after the existing ChatGPT Sites data is mapped and admin access policies are deployed."],
 orders:["Orders","Manage confirmed orders and customer-facing order status.","Order listing is intentionally disabled until protected administrative access and migration are completed."],
 customers:["Customers","Manage customer profiles and organization details.","Customer records remain protected. The upcoming backend must verify the admin role before serving them."],
@@ -239,6 +241,7 @@ async function showEditor(page,existing){
 async function loadReadOnlyData(pageId){
  const revision=++loadRevision;
  if(pageId==="migration"){showMigration();return;}
+ if(pageId==="archive"){showLegacyArchive();return;}
  if(pageId==="settings"){const el=document.querySelector("#content .placeholder");if(el){el.innerHTML='<div><h3>Integration status</h3><p>Supabase: connected. Resend: SMTP configured in Supabase Auth. PayPal: server-side verification not migrated yet. GitHub Pages: hosting test environment.</p><p>Never paste API secrets into browser code or GitHub.</p><p><a href="https://sr-lhama.github.io/oct-auth-preview/portal.html" target="_blank" rel="noopener">Open customer portal ↗</a></p></div>'}return}
  if(pageId==="overview"){
  const specs=[["orders","Orders"],["estimates","Estimates"],["customers","Customers"],["quote_requests","Website requests"],["artworks","Artwork"]];
@@ -372,6 +375,26 @@ async function inspectOctBackup(file,onProgress){
  const count=Object.values(archive).reduce((n,rows)=>n+rows.length,0);
  if(Object.keys(archive).length!==26||count!==254)throw new Error("Backup record count mismatch");
  return {archive,sha:hash,count};
+}
+
+const legacyTableNames=["artwork_proofs","work_shifts","ledger","events","purchases","products","suppliers","work_messages","work_segments","studio_versions","work_profiles","paypal_webhook_events","estimates","purchase_events","notifications","work_tickets","customers","members","work_profile_history","config","artwork_files","purchase_payments","studio_proof_sets","work_presence","paypal_invoices","work_events"];
+async function showLegacyArchive(){
+ const root=document.querySelector("#content .placeholder");if(!root)return;
+ root.classList.remove("placeholder");root.style.cssText="display:block;text-align:left";
+ root.innerHTML='<h3>Original CRM archive</h3><p>Read-only history from the ChatGPT Sites system. These records preserve original identifiers, status changes, team records, supplier information, invoice metadata and artwork file references. Historical data must not be confused with verified new payments.</p>'+
+ '<label for="legacyTable" style="display:block;margin:10px 0 6px;font-weight:700">Original data category</label><select id="legacyTable" style="width:min(440px,100%);padding:11px;border:1px solid #d7deea;border-radius:8px">'+
+ legacyTableNames.map(t=>'<option value="'+safe(t)+'">'+safe(t.replaceAll("_"," "))+'</option>').join("")+'</select><div id="legacyRecords" style="margin-top:20px" role="status">Loading...</div>';
+ const select=root.querySelector("#legacyTable");
+ async function render(){
+  const area=root.querySelector("#legacyRecords"),table=select.value;
+  area.textContent="Loading "+table+"...";
+  const {data,error}=await client.from("legacy_records").select("source_id,payload,imported_at").eq("source_table",table).order("source_id").limit(500);
+  if(error){area.textContent="Unable to read the archive: "+error.message;return}
+  if(!data?.length){area.textContent="No archived records in this category. It may have been empty in the original system, or the backup has not been imported yet.";return}
+  area.innerHTML='<p><strong>'+data.length+'</strong> original records from '+safe(table)+'</p>'+
+   data.map((rec,i)=>'<details style="border:1px solid #e2e8f0;border-radius:9px;padding:12px 15px;margin:9px 0"><summary style="cursor:pointer;font-size:13px"><strong>'+safe(rec.source_id)+'</strong></summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.5">'+safe(JSON.stringify(rec.payload,null,2))+'</pre></details>').join("");
+ }
+ select.onchange=render;render();
 }
 function showMigration(){
  const el=document.querySelector("#content .placeholder");if(!el)return;
