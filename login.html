@@ -1,1 +1,180 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign In | Orlando Custom Tees</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #091a35;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 430px;
+      background: white;
+      border-radius: 18px;
+      padding: 38px 32px;
+      text-align: center;
+      box-shadow: 0 20px 60px #0003;
+    }
+    .logo {
+      width: 210px;
+      max-width: 100%;
+      margin-bottom: 25px;
+    }
+    h1 { color: #091a35; font-size: 26px; }
+    p { color: #64748b; line-height: 1.6; }
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 15px;
+      margin: 16px 0;
+    }
+    button {
+      width: 100%;
+      padding: 16px;
+      background: #e83383;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    button:disabled { opacity: .6; cursor: wait; }
+    #message { font-size: 14px; min-height: 24px; }
+    .back {
+      display: block;
+      margin-top: 25px;
+      color: #64748b;
+      text-decoration: none;
+      font-size: 13px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <main class="login-card">
+    <img
+      class="logo"
+      src="assets/images/logo-official.webp"
+      alt="Orlando Custom Tees"
+    >
+
+    <h1>Welcome Back</h1>
+    <p>Sign in to your Orlando Custom Tees account.</p>
+
+    <form id="loginForm">
+      <input
+        type="email"
+        id="email"
+        placeholder="Your email address"
+        autocomplete="email"
+        required
+      >
+      <button id="submitBtn" type="submit">
+        Send Secure Sign-In Link
+      </button>
+    </form>
+
+    <p id="message" role="status" aria-live="polite"></p>
+
+    <a class="back" href="index.html">
+      Back to Orlando Custom Tees
+    </a>
+  </main>
+
+  <script>
+    // Replace these values before testing.
+    const SUPABASE_URL = "https://xemugzorxsmzmuuuidgu.supabase.co";
+    const SUPABASE_PUBLIC_KEY = "sb_publishable_CIXSDcMhMfy5Vj-ak0YkzQ_2kO7Fix5";
+
+    const message = document.getElementById("message");
+    const form = document.getElementById("loginForm");
+    const button = document.getElementById("submitBtn");
+
+    if (
+      SUPABASE_URL.startsWith("YOUR_") ||
+      SUPABASE_PUBLIC_KEY.startsWith("YOUR_")
+    ) {
+      message.textContent = "Authentication setup pending.";
+      form.hidden = true;
+    } else {
+      const client = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLIC_KEY,
+        { auth: { flowType: "pkce" } }
+      );
+
+      async function initialize() {
+        try {
+          const code = new URLSearchParams(
+            window.location.search
+          ).get("code");
+
+          if (code) {
+            const { error } =
+              await client.auth.exchangeCodeForSession(code);
+            if (error) throw error;
+            history.replaceState({}, "", window.location.pathname);
+          }
+
+          const { data } = await client.auth.getUser();
+          if (data.user) {
+            message.textContent =
+              "Signed in successfully as " + data.user.email;
+            form.hidden = true;
+          }
+        } catch (error) {
+          message.textContent =
+            "Sign-in could not be completed. Please try again.";
+        }
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        button.disabled = true;
+        message.textContent = "Sending your secure link...";
+
+        const email = document.getElementById("email").value;
+
+        try {
+          const { error } = await client.auth.signInWithOtp({
+            email,
+            options: {
+              shouldCreateUser: false,
+              emailRedirectTo: new URL(
+                "login.html", window.location.href
+              ).href
+            }
+          });
+
+          if (error) throw error;
+
+          message.textContent =
+            "If your account is registered, check your inbox.";
+        } catch (error) {
+          message.textContent =
+            "Unable to send the link. Please try again.";
+        } finally {
+          button.disabled = false;
+        }
+      });
+
+      initialize();
+    }
+  </script>
+</body>
+</html>
+
