@@ -111,43 +111,87 @@
     }
 
     if (form) {
-      const productField = form.elements.product;
-      const colorField = form.elements.color;
-      const controls = form.querySelector('[data-catalog-controls]');
-      let chosenColor = '';
-      const preview = setupPreview(controls, controls.querySelector('img'), color => {
-        if (color) {
-          chosenColor = color.name;
-          colorField.value = chosenColor;
-        } else if (chosenColor && colorField.value === chosenColor) {
-          colorField.value = '';
-          chosenColor = '';
+      const productField=form.elements.product;
+      const colorField=form.elements.color;
+      const manualField=document.getElementById('octManualColor');
+      const manualWrapper=form.querySelector('[data-oct-manual-color]');
+      const controls=form.querySelector('[data-catalog-controls]');
+      const swatches=document.getElementById('octColorSwatches');
+      const frontImg=form.querySelector('[data-oct-front-img]');
+      const backImg=form.querySelector('[data-oct-back-img]');
+      const hint=document.getElementById('octColorHelp');
+      const incomingColor=params.get('color');
+      let selectedColor='';
+      const getProduct=()=>byName.get(productField.value);
+      function sendColorEvent(){form.dispatchEvent(new CustomEvent('oct:colorchange',{bubbles:true}))}
+      function updateImages(product,color){
+        for(const [view,img] of [['Front',frontImg],['Back',backImg]]){
+          const photo=color?.views?.[view];
+          if(photo){
+            img.src=new URL(photo,catalogUrl).href;
+            img.hidden=false;
+            img.alt=(names[product.model]||product.model)+' in '+color.name+' - '+view;
+          }else{img.hidden=true;img.removeAttribute('src')}
         }
-      });
-      const currentProduct = () => byName.get(productField.value);
-      const incomingColor = params.get('color');
-      const initial = preview(currentProduct(), colorField.value || incomingColor);
-      if (!colorField.value && initial) {
-        chosenColor = initial.name;
-        colorField.value = chosenColor;
       }
-      productField.addEventListener('change', () => {
-        if (chosenColor && colorField.value === chosenColor) colorField.value = '';
-        chosenColor = '';
-        preview(currentProduct(), colorField.value);
-      });
-      colorField.addEventListener('input', () => {
-        chosenColor = '';
-        preview(currentProduct(), colorField.value);
-      });
-      form.addEventListener('reset', () => queueMicrotask(() => {
-        chosenColor = '';
-        preview(currentProduct(), colorField.value);
-      }));
+      function render(){
+        const product=getProduct();
+        const isCatalog=Boolean(product);
+        controls.hidden=!isCatalog;
+        manualWrapper.hidden=isCatalog;
+        if(!isCatalog){
+          selectedColor='';
+          colorField.value=manualField.value.trim();
+          manualField.required=true;
+          sendColorEvent();
+          return;
+        }
+        manualField.required=false;
+        const colors=product.colors||[];
+        if(!selectedColor||!colors.some(c=>c.name===selectedColor)){
+          const preferred=colors.find(c=>c.name===incomingColor)||colors.find(c=>c.name==='Black')||colors[0];
+          selectedColor=preferred?.name||'';
+        }
+        swatches.replaceChildren();
+        for(const color of colors){
+          const button=document.createElement('button');
+          button.type='button';button.className='oct-swatch';
+          button.setAttribute('aria-label','Select '+color.name);
+          button.setAttribute('aria-pressed',String(color.name===selectedColor));
+          const dot=document.createElement('span');dot.className='oct-swatch-dot';
+          const photo=color.views?.Front||color.views?.Back;
+          if(photo){dot.style.backgroundImage='url("'+new URL(photo,catalogUrl).href+'")';dot.style.backgroundSize='300%';dot.style.backgroundPosition='center 35%';}
+          const label=document.createElement('span');label.className='oct-swatch-label';label.textContent=color.name;
+          button.append(dot,label);
+          button.addEventListener('click',()=>{selectedColor=color.name;paintSelection()});
+          swatches.append(button);
+        }
+        hint.textContent=colors.length+' catalog colors. Select the color you prefer; availability is confirmed after review.';
+        paintSelection();
+        function paintSelection(){
+          const color=colors.find(c=>c.name===selectedColor);
+          colorField.value=color?.name||'';
+          swatches.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.querySelector('.oct-swatch-label')?.textContent===selectedColor)));
+          updateImages(product,color);
+          sendColorEvent();
+        }
+      }
+      productField.addEventListener('change',()=>{selectedColor='';render()});
+      manualField.addEventListener('input',()=>{if(!getProduct()){colorField.value=manualField.value.trim();sendColorEvent()}});
+      form.addEventListener('reset',()=>queueMicrotask(()=>{selectedColor='';render()}));
+      render();
     }
   }
 
   loadCatalog().catch(() => {
-    // The original illustrations and manual quote fields remain usable.
+    const form=document.querySelector('[data-quote-form]');
+    if(form){
+      const manual=form.querySelector('[data-oct-manual-color]');
+      const input=form.querySelector('#octManualColor');
+      if(manual)manual.hidden=false;
+      if(input){input.required=true;input.addEventListener('input',()=>{form.elements.color.value=input.value.trim();form.dispatchEvent(new CustomEvent('oct:colorchange'))})}
+      const controls=form.querySelector('[data-catalog-controls]');
+      if(controls)controls.hidden=true;
+    }
   });
 })();
