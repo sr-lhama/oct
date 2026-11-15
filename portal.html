@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Customer Portal | Orlando Custom Tees</title>
+<style>
+:root{--navy:#091a35;--pink:#e83383;--line:#e2e8f0;--muted:#64748b}*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#14243d}
+header{background:var(--navy);padding:18px max(22px,calc((100vw - 1100px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px;color:white}
+header img{width:208px;background:white;padding:8px;border-radius:9px}
+header a{color:white;font-size:13px}main{max-width:1100px;margin:28px auto;padding:0 20px}
+.card{border:1px solid var(--line);border-radius:15px;background:#fff;padding:24px;margin-bottom:18px;box-shadow:0 3px 15px #091a3508}
+h1{font-size:27px;margin:0 0 10px;color:var(--navy)}h2{font-size:19px;margin:0 0 15px}p{line-height:1.65;color:var(--muted)}
+input,button{font:inherit}input{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:8px;margin:10px 0 15px;max-width:430px}
+button{border:0;background:var(--pink);color:#fff;border-radius:9px;padding:13px 19px;font-weight:700;cursor:pointer}
+button:disabled{opacity:.65}button.secondary{background:white;border:1px solid #cbd5e1;color:var(--navy)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:14px}
+.order{border:1px solid var(--line);border-radius:12px;padding:17px}
+.meta{font-size:12px;color:var(--muted);margin:7px 0}.tag{display:inline-block;font-size:11px;padding:5px 9px;background:#fbe7f1;color:#8b2554;border-radius:40px;font-weight:700}
+.section-label{letter-spacing:2px;text-transform:uppercase;font-size:11px;color:var(--pink);font-weight:bold;margin-bottom:8px}
+a{color:var(--pink);text-decoration:none}
+#portal[hidden],#auth[hidden]{display:none}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></head>
+<body><header><a href="https://sr-lhama.github.io/oct/"><img src="https://sr-lhama.github.io/oct/assets/images/logo-official.webp" alt="Orlando Custom Tees"></a><a href="https://sr-lhama.github.io/oct/">Visit our website ↗</a></header>
+<main>
+<section id="auth" class="card"><div class="section-label">Customer access</div><h1>Track your order</h1>
+<p>Enter the email address used for your Orlando Custom Tees order. We'll send a secure sign-in link. New accounts must verify their email before accessing any order.</p>
+<form id="form"><label for="email">Email address</label><div><input id="email" type="email" autocomplete="email" required placeholder="you@company.com"></div><button id="send" type="submit">Send secure sign-in link</button></form><p id="authMsg" role="status"></p>
+</section>
+<div id="portal" hidden>
+<section class="card" style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><div><div class="section-label">Your account</div><h1>Order tracking</h1><p id="welcome" style="margin:0"></p></div><button id="logout" class="secondary">Sign out</button></section>
+<section class="card"><h2>My orders</h2><div id="orders" role="status"><p>Loading your orders...</p></div></section>
+<section class="card"><h2>Artwork review status</h2><div id="artworks"><p>Loading artwork details...</p></div></section>
+<section class="card"><h2>Need assistance?</h2><p>For changes or questions about a delivery, contact <a href="mailto:order@orlandocustomtees.com">order@orlandocustomtees.com</a>. Payment verification is performed by our team.</p></section>
+</div>
+</main><script>
+const SUPABASE_URL="https://xemugzorxsmzmuuiidgu.supabase.co",SUPABASE_PUBLIC_KEY="sb_publishable_CIXSDcMhMfy5Vj-ak0YkzQ_2kO7Fix5";
+const c=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY,{auth:{flowType:"pkce"}});
+const $=id=>document.getElementById(id);
+const safe=x=>String(x??"").replace(/[&<>"']/g,k=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[k]));
+const formatDate=d=>d?new Date(d+"T12:00:00Z").toLocaleDateString("en-US",{timeZone:"UTC"}):"Not scheduled";
+async function initialize(){
+ const {data,error}=await c.auth.getUser();
+ if(error||!data.user){$("portal").hidden=true;$("auth").hidden=false;return}
+ $("auth").hidden=true;$("portal").hidden=false;$("welcome").textContent=data.user.email;
+ const {data:orders,error:ordErr}=await c.from("orders").select("id,order_number,status,total,due_date,created_at").order("created_at",{ascending:false}).limit(100);
+ if(ordErr){$("orders").textContent="Unable to load orders. Contact support.";return}
+ if(!orders?.length){$("orders").innerHTML='<p>No orders are linked to this verified email yet. If you already placed an order, contact our team so we can match your account.</p>'}
+ else{$("orders").innerHTML='<div class="cards">'+orders.map(o=>'<div class="order"><strong>'+safe(o.order_number||o.id)+'</strong><p class="meta">Placed: '+safe(new Date(o.created_at).toLocaleDateString("en-US"))+'</p><span class="tag">'+safe(o.status)+'</span><p class="meta">Estimated due: '+safe(formatDate(o.due_date))+'</p><p class="meta">Total: '+new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(o.total||0))+'</p></div>').join("")+'</div>'}
+ const {data:artworks,error:artErr}=await c.from("artworks").select("id,order_id,position,storage_path,approval_status,approved_at,created_at").order("created_at",{ascending:false}).limit(100);
+ if(artErr){$("artworks").textContent="Artwork status is temporarily unavailable.";return}
+ const cards=[];
+ for(const a of artworks||[]){
+  let fileUrl=null;
+  if(a.storage_path){
+   const {data:link,error:linkErr}=await c.storage.from("order-artworks").createSignedUrl(a.storage_path,600);
+   if(!linkErr)fileUrl=link?.signedUrl;
+  }
+  cards.push('<div class="order"><strong>'+safe(a.position||"Artwork")+'</strong><p class="meta">Order: '+safe(a.order_id)+'</p><span class="tag">'+safe(a.approval_status)+'</span>'+
+   (fileUrl?'<p><a target="_blank" rel="noopener noreferrer" href="'+safe(fileUrl)+'">View artwork (10-minute secure link) ↗</a></p>':'<p class="meta">Artwork file not available online yet</p>')+
+   (a.approval_status==="pending"&&fileUrl?'<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="decision" data-id="'+safe(a.id)+'" data-decision="approved">Approve artwork</button><button type="button" class="secondary decision" data-id="'+safe(a.id)+'" data-decision="rejected">Request changes</button></div>':'')+'</div>');
+ }
+ $("artworks").innerHTML=cards.length?'<div class="cards">'+cards.join("")+'</div>':'<p>No artwork records are linked to your orders yet.</p>';
+ $("artworks").querySelectorAll(".decision").forEach(button=>button.addEventListener("click",async()=>{
+  const decision=button.dataset.decision;
+  if(!window.confirm(decision==="approved"?"Confirm you reviewed this artwork and approve production?":"Request changes to this artwork?"))return;
+  const all=$("artworks").querySelectorAll(".decision");all.forEach(b=>b.disabled=true);
+  const {data:response,error}=await c.functions.invoke("oct-artwork-approval",{body:{artwork_id:button.dataset.id,decision}});
+  if(error||!response?.ok){window.alert("Artwork approval could not be saved. Please contact our team.");all.forEach(b=>b.disabled=false);return}
+  await initialize();
+ }));
+
+}
+$("form").addEventListener("submit",async e=>{e.preventDefault();$("send").disabled=true;$("authMsg").textContent="Sending secure link...";
+ try{
+ const {error}=await c.auth.signInWithOtp({email:$("email").value.trim(),options:{shouldCreateUser:true,emailRedirectTo:"https://sr-lhama.github.io/oct-auth-preview/login.html"}});
+ if(error)throw error;
+ $("authMsg").textContent="Check your inbox. Your secure link will open the sign-in page; then return to this customer portal.";
+ }catch(e){$("authMsg").textContent="Unable to send the email. Please contact us.";console.error("Customer auth",e)}finally{$("send").disabled=false}});
+$("logout").addEventListener("click",async()=>{await c.auth.signOut();location.reload()});
+initialize();
+</script></body></html>
