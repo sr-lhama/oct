@@ -170,35 +170,38 @@ body .benefitbar .inner { width: min(1460px, calc(100% - 56px)); }
   main > .banner-head:not([aria-labelledby]) + .section { padding-top: 32px; }
 }
 
-.oct-language-bar {
+/* Language links share the top bar with the social icons. */
+.oct-language-bar, .oct-language-bar > nav:first-child {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  gap: 12px;
-  width: min(1460px, calc(100% - 56px));
-  margin-inline: auto;
-  padding-block: 4px;
-  font-size: .8rem;
+  gap: 6px;
 }
-.oct-language-bar nav { display: flex; gap: 5px; }
-.oct-language-bar a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  min-width: 45px;
-  min-height: 34px;
-  padding: 3px 8px;
-  border: 1px solid #e0e9f3;
+.oct-language-bar { flex: none; }
+.oct-language-bar .social-links--top { margin: 0 0 0 6px; }
+.oct-language-bar > nav:first-child a {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #536984;
   border-radius: 8px;
-  color: #10254c;
-  font-weight: 800;
 }
 .oct-language-bar a svg { display: block; border-radius: 2px; }
-.oct-language-bar a:hover, .oct-language-bar a[aria-current] { background: #eaf6ff; border-color: #0879ae; }
+.oct-language-bar > nav:first-child a svg { width: 16px; height: 11px; }
+.oct-language-bar > nav:first-child a:is(:hover, :focus-visible, [aria-current]) {
+  background: #1b324e;
+  border-color: #8ba2bd;
+}
+@media (max-width: 920px) {
+  .oct-language-bar { flex-basis: 100%; justify-content: center; margin-top: 4px; }
+  .oct-language-bar .social-links--top { flex-basis: auto; }
+  .oct-language-bar > nav:first-child a { width: 34px; height: 34px; }
+}
+@media (max-width: 340px) {
+  .oct-language-bar, .oct-language-bar > nav:first-child, .oct-language-bar .social-links { gap: 4px; }
+  .oct-language-bar > nav:first-child a, .oct-language-bar .social-links--top a { width: 30px; }
+}
 @media (max-width: 700px) {
-  .oct-language-bar { width: calc(100% - 20px); }
-  .oct-language-bar a { min-height: 40px; }
   html[lang="es"] .header-actions>.btn::before { content: "Cotizar ›"; }
   html[lang="pt-BR"] .header-actions>.btn::before { content: "Orçamento ›"; }
 }

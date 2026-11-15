@@ -15,8 +15,9 @@
     || languages[0];
   try { localStorage.setItem(storageKey, selected.code); } catch {}
 
-  const header = document.querySelector('.header');
-  if (!header) return;
+  const topBar = document.querySelector('.benefitbar .inner');
+  if (!topBar) return;
+  const social = topBar.querySelector('.social-links--top');
   const bar = document.createElement('div');
   bar.className = 'oct-language-bar';
   const nav = document.createElement('nav');
@@ -32,18 +33,21 @@
     link.hreflang = entry.tag;
     link.setAttribute('aria-label', entry.label);
     if (selected.code === entry.code) link.setAttribute('aria-current', 'true');
-    const flag = document.createElement('span');
-    flag.setAttribute('aria-hidden', 'true');
-    flag.innerHTML = '<svg viewBox="0 0 24 16" width="20" height="14" focusable="false">' + entry.flag + '</svg>';
-    link.append(flag, entry.code.toUpperCase());
+    link.title = entry.label;
+    link.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 16" width="20" height="14" focusable="false">' + entry.flag + '</svg>';
     nav.append(link);
   }
-  header.before(bar);
+  if (social) {
+    social.before(bar);
+    bar.append(social);
+  } else {
+    topBar.append(bar);
+  }
 
   if (selected.code === 'en') return;
   const dictionaryUrl = new URL('locale-' + selected.code + '.json', document.currentScript.src);
   const attributes = ['alt', 'title', 'aria-label', 'placeholder'];
-  const exclusion = 'script,style,textarea,[translate="no"],.oct-language-bar,.google-review-author h3,.oct-review-person strong';
+  const exclusion = 'script,style,textarea,[translate="no"],.google-review-author h3,.oct-review-person strong';
 
   fetch(dictionaryUrl).then(response => {
     if (!response.ok) throw new Error('Translation unavailable');
