@@ -117,10 +117,10 @@ const registry={
 inbox:{table:"quote_requests",fields:[],columns:[["request_number","Request"],["customer_name","Customer"],["email","Email"],["product","Product"],["quantity","Qty"],["status","Status"]]},
  customers:{table:"customers",fields:[["name","Customer name","text",true],["company","Company","text"],["email","Email","email"],["phone","Phone","text"],["address","Address","text"]],columns:[["name","Customer"],["company","Company"],["email","Email"],["phone","Phone"]]},
  estimates:{table:"estimates",fields:[["estimate_number","Estimate number","text"],["customer_id","Customer","customers",true],["status","Status","text"],["subtotal","Subtotal","number"],["tax","Tax","number"],["shipping","Shipping","number"],["total","Total","number"],["notes","Notes","textarea"]],columns:[["estimate_number","Estimate"],["status","Status"],["total","Total"],["created_at","Created"]]},
- orders:{table:"orders",fields:[["order_number","Order number","text"],["customer_id","Customer","customers",true],["estimate_id","Related estimate","estimates"],["status","Status","select:received|awaiting_approval|payment_pending|production|completed|delivered|cancelled"],["total","Total","number"],["due_date","Due date","date"],["tracking_number","Tracking number","text"]],columns:[["order_number","Order"],["status","Status"],["total","Total"],["due_date","Due"]]},
+ orders:{table:"orders",fields:[["order_number","Order number","text"],["customer_id","Customer","customers",true],["estimate_id","Related estimate","estimates"],["status","Status","select:generated|sent|waiting|artwork_approval|awaiting_payment|payment_confirmed|in_progress|finished|delivered|cancelled"],["total","Total","number"],["due_date","Due date","date"],["tracking_number","Tracking number","text"]],columns:[["order_number","Order"],["status","Status"],["total","Total"],["due_date","Due"]]},
  items:{table:"order_items",fields:[["order_id","Order","orders",true],["product_name","Product","text",true],["brand","Brand","text"],["style","Style","text"],["color","Color","text"],["size","Size","text"],["quantity","Quantity","integer",true],["unit_price","Unit price","number"],["print_front","Front DTF","checkbox"],["print_back","Back DTF","checkbox"]],columns:[["product_name","Product"],["brand","Brand"],["style","Style"],["size","Size"],["quantity","Qty"],["unit_price","Unit price"]]},
  artwork:{table:"artworks",fields:[["order_id","Order","orders",true],["position","Position","select:front|back|left_chest|sleeve|other"],["storage_path","Storage path","text"]],columns:[["position","Position"],["approval_status","Approval"],["order_id","Order ID"],["created_at","Created"]]},
- production:{table:"orders",fields:[["status","Status","select:received|awaiting_approval|payment_pending|production|completed|delivered|cancelled"],["production_started_at","Production started","datetime-local"],["due_date","Due date","date"],["completed_at","Completed","datetime-local"],["tracking_number","Tracking number","text"]],columns:[["order_number","Order"],["status","Status"],["production_started_at","Started"],["due_date","Due"],["tracking_number","Tracking"]]},
+ production:{table:"orders",fields:[["status","Status","select:generated|sent|waiting|artwork_approval|awaiting_payment|payment_confirmed|in_progress|finished|delivered|cancelled"],["production_started_at","Production started","datetime-local"],["due_date","Due date","date"],["completed_at","Completed","datetime-local"],["tracking_number","Tracking number","text"]],columns:[["order_number","Order"],["status","Status"],["production_started_at","Started"],["due_date","Due"],["tracking_number","Tracking"]]},
  payments:{table:"payments",fields:[],columns:[["provider","Provider"],["status","Status"],["amount","Amount"],["paid_at","Paid"],["order_id","Order ID"]]},
  team:{table:"profiles",fields:[],columns:[["full_name","Name"],["role","Role"],["created_at","Created"]]}
 };
@@ -211,7 +211,7 @@ async function showEditor(page,existing){
  if(type==="datetime-local"&&value)value=new Date(value).toISOString();
  payload[name]=value;
  }
- if(page==="production"&&payload.status==="production"&&!payload.production_started_at&&!existing?.production_started_at){
+ if(page==="production"&&payload.status==="in_progress"&&!payload.production_started_at&&!existing?.production_started_at){
  payload.production_started_at=new Date().toISOString();
   if(!payload.due_date&&!existing?.due_date)payload.due_date=addBusinessDays(new Date(),7);
  }
@@ -267,17 +267,47 @@ async function loadReadOnlyData(pageId){
  const heads=cfg.columns.map(([k,l])=>'<th>'+safe(l)+'</th>').join("")+'<th>Action</th>';
  const line=rows.map((rec,i)=>'<tr>'+cfg.columns.map(([key])=>{
  let formatted=formatValue(key,rec[key]);
- if(pageId==="production"&&key==="due_date"&&rec.due_date&&!["completed","delivered","cancelled"].includes(rec.status)){
+ if(pageId==="production"&&key==="due_date"&&rec.due_date&&!["finished","delivered","cancelled"].includes(rec.status)){
  const remaining=remainingBusinessDays(rec.due_date);
  const color=remaining!==null&&remaining<=3?"#b4233e":"#0f7155";
  formatted+=' <small style="display:block;color:'+color+'">'+(remaining<0?Math.abs(remaining)+' business days overdue':remaining+' business days left')+'</small>';
  }
  return '<td>'+formatted+'</td>';
- }).join("")+'<td>'+(pageId==="inbox"?'<button type="button" class="btn secondary viewQuote" data-index="'+i+'" style="font-size:12px;padding:8px 10px">Details</button> '+(rec.converted_estimate_id?'<span>Converted</span>':'<button type="button" class="btn convertQuote" data-index="'+i+'" style="font-size:12px;padding:8px 10px">Convert</button>'):(cfg.fields.length?'<button type="button" class="btn secondary editRecord" data-index="'+i+'" style="padding:8px 11px;font-size:12px">Edit</button>':'<span style="color:#64748b">Read only</span>'))+'</td></tr>').join("");
+ }).join("")+'<td>'+(pageId==="inbox"?'<button type="button" class="btn secondary viewQuote" data-index="'+i+'" style="font-size:12px;padding:8px 10px">Details</button> '+(rec.converted_estimate_id?'<span>Converted</span>':'<button type="button" class="btn convertQuote" data-index="'+i+'" style="font-size:12px;padding:8px 10px">Convert</button>'):(cfg.fields.length?'<button type="button" class="btn secondary editRecord" data-index="'+i+'" style="padding:8px 11px;font-size:12px">Edit</button>':'<span style="color:#64748b">Read only</span>')+(rec.legacy_id?'<button type="button" class="btn secondary legacyDetail" data-index="'+i+'" style="padding:8px 11px;font-size:12px;margin-left:5px">Original details</button>':''))+'</td></tr>').join("");
  target.innerHTML=toolbar+(rows.length?'<div style="overflow-x:auto"><table class="data-table" style="width:100%;border-collapse:collapse;font-size:13px;text-align:left"><thead><tr>'+heads+'</tr></thead><tbody>'+line+'</tbody></table></div>':'<p>No records yet. The legacy dataset is not present in Supabase.</p>');
  target.querySelectorAll("th,td").forEach(n=>{n.style.padding="12px 10px";n.style.borderBottom="1px solid #e3e9f2"});
  if(addable)target.querySelector("#newEntry").onclick=()=>showEditor(pageId,null);
  target.querySelectorAll(".editRecord").forEach(n=>n.onclick=()=>showEditor(pageId,rows[Number(n.dataset.index)]));
+ target.querySelectorAll(".legacyDetail").forEach(button=>button.onclick=async()=>{
+  const rec=rows[Number(button.dataset.index)];
+  closeEditor();
+  const overlay=document.createElement("div");overlay.id="recordEditor";
+  overlay.style.cssText="position:fixed;inset:0;z-index:220;background:#091a35bf;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto";
+  const panel=document.createElement("section");panel.style.cssText="background:white;color:#15243a;border-radius:15px;padding:24px;width:min(780px,100%);max-height:90vh;overflow:auto";
+  overlay.append(panel);document.body.append(overlay);
+  panel.innerHTML='<h2 style="margin:0">Original order '+safe(rec.legacy_id)+'</h2><p>This historical record is preserved exactly as it was exported. Any newer edits belong to the operational record.</p><div id="historyDetail">Loading original order and events...</div><button class="btn secondary" id="closeLegacy" type="button">Close</button>';
+  panel.querySelector("#closeLegacy").onclick=()=>overlay.remove();overlay.onclick=e=>{if(e.target===overlay)overlay.remove()};
+  const [orderResult,eventsResult]=await Promise.all([
+   client.from("legacy_records").select("payload").eq("source_table","estimates").eq("source_id",rec.legacy_id).maybeSingle(),
+   client.from("order_status_history").select("new_status,notes,created_at").eq("order_id",rec.id).order("created_at",{ascending:true})
+  ]);
+  if(orderResult.error||eventsResult.error){panel.querySelector("#historyDetail").textContent="Unable to read original history.";return}
+  const data=orderResult.data?.payload||rec.legacy_payload||{};
+  const originalData=typeof data.data==="string"?JSON.parse(data.data):data.data||{};
+  const price=typeof data.pricing==="string"?JSON.parse(data.pricing):data.pricing||{};
+  const fields=[
+   ["Customer",originalData.name],["Company",originalData.company],["Email",originalData.email],
+   ["Garment",originalData.productName],["Color",originalData.color],["Sizes",JSON.stringify(originalData.sizes||{})],
+   ["Front",originalData.front],["Back",originalData.back],["Original status",data.status],
+   ["Original price",price.total!=null?dollar.format(Number(price.total)):"Manual quote"],
+   ["Customer notes",originalData.notes]
+  ];
+  panel.querySelector("#historyDetail").innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:7px;margin-bottom:20px">'+
+   fields.map(([k,v])=>'<div style="border:1px solid #e1e8ef;border-radius:9px;padding:10px"><small style="color:#64748b">'+safe(k)+'</small><div style="overflow-wrap:anywhere">'+safe(v??"—")+'</div></div>').join("")+
+   '</div><h3>Original status history</h3>'+
+   (eventsResult.data?.length?eventsResult.data.map(e=>'<div style="padding:9px;border-bottom:1px solid #e5e9ee"><strong>'+safe(e.new_status)+'</strong> · <small>'+safe(new Date(e.created_at).toLocaleString())+'</small><p style="margin:5px 0">'+safe(e.notes||"")+'</p></div>').join(""):'<p>No events linked.</p>');
+ });
+
  if(pageId==="inbox"){
   target.querySelectorAll(".convertQuote").forEach(b=>b.onclick=async()=>{
    const rec=rows[Number(b.dataset.index)];
