@@ -311,16 +311,109 @@ function csvEncode(rows){
 function downloadFile(filename,contents,type){
  const blob=new Blob([contents],{type});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
 }
+
+const EXPECTED_OCT_BACKUP_SHA="9c9f3f2ae8df4010510c81f5a2335a9fee95ae2db4aedc329a36c90c597e696c";
+function parseZipDirectory(bytes){
+ const view=new DataView(bytes);
+ let eocd=-1;
+ for(let i=bytes.byteLength-22;i>=Math.max(0,bytes.byteLength-65557);i--){
+  if(view.getUint32(i,true)===0x06054b50){eocd=i;break}
+ }
+ if(eocd<0)throw new Error("Invalid ZIP directory");
+ const count=view.getUint16(eocd+10,true),base=view.getUint32(eocd+16,true);
+ if(count>2000||base>=bytes.byteLength)throw new Error("Invalid ZIP size");
+ let p=base;
+ const entries=[];
+ for(let i=0;i<count;i++){
+  if(view.getUint32(p,true)!==0x02014b50)throw new Error("Invalid ZIP index");
+  const method=view.getUint16(p+10,true);
+  const packed=view.getUint32(p+20,true),unpacked=view.getUint32(p+24,true);
+  const nameLen=view.getUint16(p+28,true),extraLen=view.getUint16(p+30,true),commentLen=view.getUint16(p+32,true);
+  const localOffset=view.getUint32(p+42,true);
+  const name=new TextDecoder("utf-8").decode(new Uint8Array(bytes,p+46,nameLen));
+  entries.push({name,method,packed,unpacked,localOffset});
+  p+=46+nameLen+extraLen+commentLen;
+ }
+ return entries;
+}
+async function readZipText(bytes,entry){
+ if(entry.unpacked>1000000||entry.packed>1000000)throw new Error("JSON entry exceeds safe size");
+ const view=new DataView(bytes);
+ const at=entry.localOffset;
+ if(view.getUint32(at,true)!==0x04034b50)throw new Error("Invalid ZIP file header");
+ const start=at+30+view.getUint16(at+26,true)+view.getUint16(at+28,true);
+ if(start+entry.packed>bytes.byteLength)throw new Error("Invalid ZIP data boundary");
+ const chunk=new Uint8Array(bytes,start,entry.packed);
+ let text;
+ if(entry.method===0)text=new TextDecoder().decode(chunk);
+ else if(entry.method===8){
+  if(typeof DecompressionStream!=="function")throw new Error("Your browser does not support ZIP extraction");
+  text=await new Response(new Blob([chunk]).stream().pipeThrough(new DecompressionStream("deflate-raw"))).text();
+ }else throw new Error("Unsupported ZIP compression");
+ if(new TextEncoder().encode(text).length!==entry.unpacked)throw new Error("ZIP size mismatch: "+entry.name);
+ return text;
+}
+async function inspectOctBackup(file,onProgress){
+ if(file.size<10000||file.size>150000000)throw new Error("Unexpected backup file size");
+ const bytes=await file.arrayBuffer();
+ onProgress("Verifying backup signature...");
+ const hash=Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",bytes))).map(x=>x.toString(16).padStart(2,"0")).join("");
+ if(hash!==EXPECTED_OCT_BACKUP_SHA)throw new Error("This ZIP does not match the audited Orlando Custom Tees backup dated November 15, 2026");
+ const entries=parseZipDirectory(bytes);
+ const archive={};
+ for(const entry of entries){
+  if(!entry.name.startsWith("oct-backup/dados-original/")||!entry.name.endsWith(".json"))continue;
+  onProgress("Reading "+entry.name.split("/").pop()+"...");
+  const parsed=JSON.parse(await readZipText(bytes,entry));
+  if(!parsed.table||!Array.isArray(parsed.rows))throw new Error("Malformed original backup data");
+  if(archive[parsed.table])throw new Error("Duplicate table in backup");
+  archive[parsed.table]=parsed.rows;
+ }
+ const count=Object.values(archive).reduce((n,rows)=>n+rows.length,0);
+ if(Object.keys(archive).length!==26||count!==254)throw new Error("Backup record count mismatch");
+ return {archive,sha:hash,count};
+}
 function showMigration(){
  const el=document.querySelector("#content .placeholder");if(!el)return;
  el.classList.remove("placeholder");el.style.cssText="display:block;text-align:left";
- el.innerHTML='<h3>Export current Supabase data</h3><p>Download an authenticated JSON backup of the new database. This does not export the old ChatGPT Sites database.</p><button id="exportJson" class="btn">Export JSON</button><p id="exportStatus"></p>'+
- '<hr style="margin:25px 0;border:0;border-top:1px solid #e2e8f0"><h3>Legacy migration</h3><p>The previous dashboard is behind OpenAI authentication and cannot be read by this integration. Source records must be obtained first. The migration will preserve customer/order identifiers, artwork associations and payments; no empty records will be substituted.</p>'+
- '<p style="font-size:13px"><strong>Accepted next input:</strong> a JSON or CSV export from the old dashboard, or its original database/API export. Do not upload secrets or payment credentials.</p><a href="https://estimate.sryama.chatgpt.site/dashboard" target="_blank" rel="noopener">Open original dashboard ↗</a>';
+ el.innerHTML='<h3>Import the original CRM backup</h3>'+
+ '<p>The historical ZIP has already been inspected: <strong>26 source tables and 254 original records</strong>. Import preserves every original JSON row, creates linked customers and estimates, and retains source IDs. Imported PayPal invoices are historical records, not confirmed new payments.</p>'+
+ '<p><strong>One-time import:</strong> choose <code>Backup_Orlando_Custom_Tees_2026-11-15(1).zip</code> from your computer. Import runs under your verified admin account; the ZIP is unpacked in your browser, and only database JSON records are submitted to the protected migration service. No files are sent to GitHub.</p>'+
+ '<label for="backupZip" style="font-weight:600;display:block;margin:10px 0">Original backup ZIP</label><input id="backupZip" type="file" accept=".zip,application/zip" style="max-width:100%;display:block;margin:10px 0 18px">'+
+ '<button class="btn" id="importLegacy" type="button">Import all 254 historical records</button><p id="importStatus" role="status" style="white-space:pre-wrap"></p>'+
+ '<p style="font-size:13px"><strong>Important:</strong> the backup excludes the private artwork files stored in the former R2 service. Its artwork metadata and filenames will be preserved.</p>'+
+ '<hr style="margin:25px 0;border:0;border-top:1px solid #e2e8f0"><h3>Previous imports</h3><div id="importHistory"><p>Checking database...</p></div>'+
+ '<hr style="margin:25px 0;border:0;border-top:1px solid #e2e8f0"><h3>Export current Supabase data</h3>'+
+ '<p>Download a JSON backup of the new database (including private archived source rows). Store this file securely.</p><button id="exportJson" class="btn secondary" type="button">Export Supabase JSON</button><p id="exportStatus" role="status"></p>';
+ const status=el.querySelector("#importStatus");
+ const upload=el.querySelector("#importLegacy");
+ upload.onclick=async()=>{
+  const file=el.querySelector("#backupZip").files?.[0];
+  if(!file){status.textContent="Select the original ZIP first.";return;}
+  upload.disabled=true;
+  const update=t=>status.textContent=t;
+  try{
+   const result=await inspectOctBackup(file,update);
+   update("Backup verified. Importing "+result.count+" records into Supabase...");
+   const {data,error}=await client.functions.invoke("oct-legacy-import",{body:{archive:result.archive,sha:result.sha}});
+   if(error)throw new Error(error.message||"Import request failed");
+   if(!data?.ok)throw new Error(data?.error||"Import was not confirmed");
+   update("IMPORT COMPLETE\nOriginal rows: "+data.records+
+    "\nCustomers migrated: "+(data.customers??"already imported")+
+    "\nEstimates migrated: "+(data.estimates??"already imported")+
+    "\nActive orders migrated: "+(data.orders??"already imported")+
+    (data.already_imported?"\nThis archive had already been imported.":"")+
+    "\nOriginal record history is preserved in Supabase.");
+   await loadImportHistory(el);
+  }catch(error){
+   console.error("Original backup migration",error);
+   update("Migration did not complete: "+error.message+"\nNo production website changes were made.");
+  }finally{upload.disabled=false;}
+ };
  el.querySelector("#exportJson").onclick=async()=>{
-  const status=el.querySelector("#exportStatus");status.textContent="Preparing authenticated export...";
+  const status=el.querySelector("#exportStatus");status.textContent="Preparing secure JSON export...";
   const result={exported_at:new Date().toISOString(),source:"supabase_oct",tables:{}};
-  for(const table of ["customers","estimates","orders","order_items","artworks","order_status_history","payments","profiles"]){
+  for(const table of ["customers","estimates","orders","order_items","artworks","order_status_history","payments","profiles","legacy_records","legacy_import_runs"]){
    let all=[],from=0,error=null;
    while(true){
     const r=await client.from(table).select("*").range(from,from+499);
@@ -334,7 +427,15 @@ function showMigration(){
   downloadFile("oct-supabase-backup-"+new Date().toISOString().slice(0,10)+".json",JSON.stringify(result,null,2),"application/json");
   status.textContent="Supabase backup downloaded.";
  };
+ loadImportHistory(el);
 }
+async function loadImportHistory(root){
+ const el=root.querySelector("#importHistory");if(!el)return;
+ const {data,error}=await client.from("legacy_import_runs").select("archive_sha256,imported_at,record_count,normalized_customers,normalized_estimates,normalized_orders").order("imported_at",{ascending:false}).limit(5);
+ if(error){el.textContent="Unable to check imports: "+error.message;return}
+ el.innerHTML=data?.length?data.map(r=>'<p><strong>'+safe(new Date(r.imported_at).toLocaleString("en-US"))+'</strong> · '+r.record_count+' original rows · '+r.normalized_customers+' customers · '+r.normalized_estimates+' estimates · '+r.normalized_orders+' orders<br><small>SHA-256: '+safe(r.archive_sha256)+'</small></p>').join(""):'<p>No historical data has been imported yet.</p>';
+}
+
 function showGate(title,detail,allowLogin){
  gate.hidden=false;app.hidden=true;
  document.getElementById("gateTitle").textContent=title;
