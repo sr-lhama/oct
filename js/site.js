@@ -76,43 +76,85 @@
     const qty = () => sizes.reduce((n, field) => n + Number(field.value), 0);
     const updateTotal = () => { if (sum) sum.textContent = qty() + ' pieces'; };
     const presets = {'Left chest':[3.5,3.5],'Right chest':[3.5,3.5],'Both chest sides':[3.5,3.5],'Centered front':[8,8],'Full front':[10,12],'Below collar':[4,2],'Small back':[6,6],'Medium back':[8,10],'Full back':[10,12],'Custom back size':[8,10]};
-    for (const side of ['front','back']) {
-      const choice = quote.elements[side];
-      const panel = quote.querySelector('[data-print-dimensions="' + side + '"]');
-      const sync = () => {
-        const active = choice.value !== 'None';
-        const artwork = quote.elements[side + 'Artwork'];
-        if (artwork) artwork.disabled = !active;
-        if (artwork && !active) artwork.value = '';
-        if (artwork && side === 'back') {
-          const upload = artwork.closest('[data-back-artwork]');
-          upload.hidden = !active;
-          upload.style.display = active ? '' : 'none';
-        }
-        panel.hidden = !active;
-        panel.style.display = active ? '' : 'none';
-        [quote.elements[side+'W'],quote.elements[side+'H']].forEach((field,i) => {
-          field.disabled = !active;
-          field.required = active;
-          field.value = active ? presets[choice.value][i] : '';
-        });
-      };
-      choice.addEventListener('change', sync);
-      quote.addEventListener('reset', () => queueMicrotask(sync));
-      sync();
+    const sizeLabel=()=>sizes.filter(field=>Number(field.value)>0).map(field=>field.name.slice(5)+': '+field.value).join(' / ');
+    const escapeHtml=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const summary=document.getElementById('octLiveSummary');
+    function updateSummary(){
+      updateTotal();
+      if(!summary)return;
+      const product=quote.elements.product?.value||'Choose a garment';
+      const color=quote.elements.color?.value||'Select a color';
+      const delivery=quote.elements.delivery?.value==='shipping'?'Ship to my address':'Local pickup';
+      const rows=[['Garment',product],['Color',color],['Front print',quote.elements.front.value],['Back print',quote.elements.back.value],['Quantity',qty()+' pieces'],['Sizes',sizeLabel()||'Select sizes'],['Fulfillment',delivery]];
+      summary.innerHTML='<ul class="oct-summary-list">'+rows.map(([name,val])=>'<li><span>'+escapeHtml(name)+'</span><strong>'+escapeHtml(val)+'</strong></li>').join('')+'</ul>';
     }
-    const address = quote.elements.address;
-    const delivery = quote.elements.delivery;
-    const syncAddress = () => {
-      address.required = delivery.value === 'shipping';
-      address.disabled = !address.required;
-      address.closest('[data-shipping-address]').hidden = !address.required;
+    function updatePositions(){
+      for(const side of ['front','back']){
+        const choice=quote.elements[side];
+        const active=choice.value!=='None';
+        const artwork=quote.elements[side+'Artwork'];
+        if(artwork){
+          artwork.disabled=!active;
+          if(!active)artwork.value='';
+          if(side==='back'){
+            const container=artwork.closest('[data-back-artwork]');
+            if(container){container.hidden=!active;container.style.display=active?'':'none'}
+          }
+        }
+        const [width,height]=presets[choice.value]||[0,0];
+        quote.elements[side+'W'].value=active?width:'';
+        quote.elements[side+'H'].value=active?height:'';
+        const marker=quote.querySelector('[data-marker="'+side+'"]');
+        if(marker){
+          const positions={
+           'Left chest':'left_chest','Right chest':'right_chest','Both chest sides':'both_chest',
+           'Centered front':'centered','Full front':'full_front',
+           'Below collar':'below_collar','Small back':'small_back','Medium back':'medium_back',
+           'Full back':'full_back','Custom back size':'full_back'
+          };
+          marker.hidden=!active;
+          marker.dataset.position=positions[choice.value]||'centered';
+        }
+        const caption=quote.querySelector('[data-oct-'+side+'-caption]');
+        if(caption)caption.textContent=active?choice.value:'No print selected';
+      }
+      updateSummary();
+    }
+    const stateSelect=quote.elements.shipping_state;
+    const states=['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','DC'];
+    if(stateSelect&&stateSelect.options.length===1){
+      states.forEach(code=>stateSelect.add(new Option(code,code)));
+    }
+    const delivery=quote.elements.delivery;
+    const addressPanel=quote.querySelector('[data-shipping-address]');
+    const shippingFields=['shipping_street','shipping_unit','shipping_city','shipping_state','shipping_zip'];
+    function syncAddress(){
+      const shipping=delivery.value==='shipping';
+      addressPanel.hidden=!shipping;
+      for(const name of shippingFields){
+        const el=quote.elements[name];if(!el)continue;
+        el.disabled=!shipping;
+        el.required=shipping&&name!=='shipping_unit';
+      }
+      updateSummary();
+    }
+    const buildAddress=()=>{
+      if(delivery.value!=='shipping')return '';
+      return [
+       quote.elements.shipping_street.value.trim(),
+       quote.elements.shipping_unit.value.trim(),
+       quote.elements.shipping_city.value.trim()+', '+quote.elements.shipping_state.value.trim()+' '+quote.elements.shipping_zip.value.trim(),
+       'United States'
+      ].filter(Boolean).join('\n');
     };
-    delivery.addEventListener('change', syncAddress);
-    quote.addEventListener('reset', () => queueMicrotask(() => { syncAddress(); updateTotal(); }));
-    syncAddress();
-    sizes.forEach(field => field.addEventListener('input', updateTotal));
-    updateTotal();
+    ['front','back'].forEach(side=>quote.elements[side].addEventListener('change',updatePositions));
+    delivery.addEventListener('change',syncAddress);
+    quote.elements.product.addEventListener('change',updateSummary);
+    quote.elements.color.addEventListener('change',updateSummary);
+    quote.addEventListener('oct:colorchange',updateSummary);
+    sizes.forEach(field=>field.addEventListener('input',updateSummary));
+    quote.addEventListener('reset',()=>queueMicrotask(()=>{syncAddress();updatePositions()}));
+    syncAddress();updatePositions();
     let requestKey = crypto.randomUUID();
     quote.addEventListener('submit', async event => {
       event.preventDefault();
@@ -128,6 +170,7 @@
         return total + (field.disabled ? 0 : (field.files[0]?.size || 0));
       }, 0);
       if (artworkSize > 10 * 1024 * 1024) return show('Combined artwork must be 10 MB or smaller.', 'error');
+      quote.elements.address.value=buildAddress();
       const data = new FormData(quote);
       data.set('requestKey', requestKey);
       submit.disabled = true;
