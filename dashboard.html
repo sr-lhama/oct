@@ -55,6 +55,11 @@ const pages=[
 {id:"production",label:"Production",icon:"◷"},
 {id:"payments",label:"Payments",icon:"＄"},
 {id:"team",label:"Team",icon:"♙"},
+{id:"purchases",label:"Purchases",icon:"▥"},
+{id:"studiohistory",label:"Studio history",icon:"✎"},
+{id:"hours",label:"Time tracking",icon:"◷"},
+{id:"paypalhistory",label:"PayPal history",icon:"＄"},
+{id:"catalog",label:"Catalog",icon:"▦"},
 {id:"migration",label:"Import / Export",icon:"⇅"},
 {id:"archive",label:"Legacy Archive",icon:"▥"},
 {id:"settings",label:"Settings",icon:"⚙"}
@@ -64,6 +69,11 @@ const client=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY,{aut
 let currentUser=null,profile=null;
 const safe=(s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const moduleDesc={
+purchases:["Purchases","Original supplier orders and purchases.","Historical procurement records are shown without allowing accidental payment changes."],
+studiohistory:["Studio history","Original artwork versions and proof revisions.","Original metadata is available; private R2 objects require separate recovery."],
+hours:["Time tracking","Existing employee shifts and punches.","Original attendance data is preserved for payroll review."],
+paypalhistory:["PayPal history","Original PayPal invoice metadata.","Historical invoices are not treated as newly confirmed payments."],
+catalog:["Catalog","Original garments, suppliers and pricing configuration.","Historical catalog entries are preserved exactly."],
 inbox:["Quote Inbox","Website estimate requests received via Supabase.","Review artwork and convert a request to a draft estimate."],
 items:["Order Items","Manage garment styles, sizes, printing positions and quantities.","Order items tied to existing orders."],
 migration:["Import / Export","Move historical records and create backups.","Prepare data for migration."],
@@ -240,6 +250,7 @@ async function showEditor(page,existing){
 }
 async function loadReadOnlyData(pageId){
  const revision=++loadRevision;
+ if(["purchases","studiohistory","hours","paypalhistory","catalog"].includes(pageId)){showOriginalModule(pageId);return;}
  if(pageId==="migration"){showMigration();return;}
  if(pageId==="archive"){showLegacyArchive();return;}
  if(pageId==="settings"){const el=document.querySelector("#content .placeholder");if(el){el.innerHTML='<div><h3>Integration status</h3><p>Supabase: connected. Resend: SMTP configured in Supabase Auth. PayPal: server-side verification not migrated yet. GitHub Pages: hosting test environment.</p><p>Never paste API secrets into browser code or GitHub.</p><p><a href="https://sr-lhama.github.io/oct-auth-preview/portal.html" target="_blank" rel="noopener">Open customer portal ↗</a></p></div>'}return}
@@ -407,6 +418,39 @@ async function inspectOctBackup(file,onProgress){
  return {archive,sha:hash,count};
 }
 
+
+const originalModuleTables={
+ purchases:["purchases","purchase_events","purchase_payments"],
+ studiohistory:["studio_versions","studio_proof_sets","artwork_proofs","artwork_files"],
+ hours:["work_shifts","work_segments","work_events","work_presence","work_tickets","work_messages"],
+ paypalhistory:["paypal_invoices","paypal_webhook_events","ledger"],
+ catalog:["products","suppliers","config"]
+};
+async function showOriginalModule(page){
+ const slot=document.querySelector("#content .placeholder");if(!slot)return;
+ slot.classList.remove("placeholder");slot.style.cssText="display:block;text-align:left";
+ const groups=originalModuleTables[page];
+ slot.innerHTML='<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center"><div><h3 style="margin:0">Original CRM · '+safe(page.replaceAll("_"," "))+'</h3><p>Imported records from the source database. Read-only preservation.</p></div><span class="pill pending">Historical records</span></div>'+
+ '<div style="display:flex;gap:9px;flex-wrap:wrap;margin:15px 0" id="historicalTabs"></div><div id="historicalContents" role="status">Loading...</div>';
+ const tabs=slot.querySelector("#historicalTabs");
+ groups.forEach((group,i)=>{const b=document.createElement("button");b.type="button";b.textContent=group.replaceAll("_"," ");b.className="btn secondary";b.style.fontSize="12px";b.style.padding="9px 11px";b.onclick=()=>render(group);tabs.append(b)});
+ async function render(table){
+  tabs.querySelectorAll("button").forEach((b,i)=>{b.style.opacity=groups[i]===table?"1":".62"});
+  const area=slot.querySelector("#historicalContents");
+  area.textContent="Loading "+table+"...";
+  const {data,error}=await client.from("legacy_records").select("source_id,payload,imported_at").eq("source_table",table).order("source_id").limit(500);
+  if(error){area.textContent="Cannot load original "+table+": "+error.message;return}
+  if(!data?.length){area.textContent="The original "+table+" category was empty.";return}
+  const privacyHint=table==="paypal_invoices"||table==="paypal_webhook_events"?'Financial information is historical and must be verified with PayPal before any live payment operation.':"";
+  const body=data.map(rec=>{
+   const obj=rec.payload||{};
+   const common=Object.entries(obj).filter(([k,v])=>k!=="data"&&k!=="pricing"&&typeof v!=="object").slice(0,5);
+   return '<details style="margin:9px 0;border:1px solid #e2e8f0;border-radius:10px;padding:13px"><summary style="cursor:pointer"><strong>'+safe(obj.name||obj.subject||obj.email||obj.description||rec.source_id)+'</strong> <span style="font-size:12px;color:#64748b">'+safe(obj.status||obj.kind||"")+'</span></summary><div style="margin:12px 0;font-size:12px">'+common.map(([k,v])=>'<div><strong>'+safe(k)+':</strong> '+safe(v??"")+'</div>').join("")+'</div><pre style="font-size:12px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere">'+safe(JSON.stringify(obj,null,2))+'</pre></details>';
+  }).join("");
+  area.innerHTML='<p>'+data.length+' imported records in <strong>'+safe(table)+'</strong>. '+safe(privacyHint)+'</p>'+body;
+ }
+ render(groups[0]);
+}
 const legacyTableNames=["artwork_proofs","work_shifts","ledger","events","purchases","products","suppliers","work_messages","work_segments","studio_versions","work_profiles","paypal_webhook_events","estimates","purchase_events","notifications","work_tickets","customers","members","work_profile_history","config","artwork_files","purchase_payments","studio_proof_sets","work_presence","paypal_invoices","work_events"];
 async function showLegacyArchive(){
  const root=document.querySelector("#content .placeholder");if(!root)return;
