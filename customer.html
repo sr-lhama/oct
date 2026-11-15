@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>My Account | Orlando Custom Tees</title><link rel="icon" href="favicon.ico"><link rel="stylesheet" href="css/site.css">
+<style>
+.account-layout{min-height:70vh;max-width:1140px;padding:42px 22px 65px;margin:0 auto}.account-header{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:24px}.account-card{border:1px solid #dae8f2;border-radius:20px;background:white;padding:24px;box-shadow:0 6px 22px #0921480a;margin:15px 0}.account-card h2{font-size:22px}.account-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:14px}.account-card p{color:#596d83;font-size:14px}.account-meta{display:flex;gap:9px;flex-wrap:wrap;align-items:center;font-size:12px;color:#647185}.account-badge{background:#eaf6fc;border-radius:30px;color:#0877a3;padding:6px 11px;font-weight:800}.account-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.account-actions button{border:1px solid #c9dfe9;background:#fff;border-radius:9px;padding:9px 12px;color:#0b668a;font-weight:750;font-size:12px}.account-actions button.primary{background:#0aaee2;color:#fff;border-color:#0aaee2}.account-actions button:disabled{opacity:.55}.account-card input,.account-card textarea,.account-card select{border:1px solid #d0e1ec;padding:12px;border-radius:10px;width:100%;margin:5px 0 12px}.account-card textarea{min-height:100px}.account-card label{display:block;font-size:12px;font-weight:800;margin-top:10px}.account-card button{cursor:pointer}.account-card .btn{margin-top:9px}.account-msg{border-left:3px solid #07ade2;background:#eff8fc;padding:11px 13px;border-radius:7px;margin:9px 0;font-size:13px}.account-msg.staff{border-left-color:#ea1687;background:#fff6fa}.account-error{color:#ac2838}.account-help{font-size:12px;color:#647185}.account-sizes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.account-sizes input{text-align:center}.account-drawer{border-top:1px solid #e2ebf2;margin-top:16px;padding-top:12px}.account-summary{padding:15px;border-radius:12px;background:#f1f9fd}.account-summary strong{color:#14243d}#accountLoading{padding:25px;color:#657d95}
+@media(max-width:650px){.account-layout{padding:24px 13px 45px}.account-grid{grid-template-columns:1fr}.account-sizes{grid-template-columns:repeat(4,1fr)}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head><body>
+<header class="header"><div class="container header-inner"><a href="index.html" aria-label="Orlando Custom Tees home"><img alt="Orlando Custom Tees" class="logo" src="assets/images/logo-header-animated.gif" width="270"></a><div class="header-actions"><a class="btn btn-outline btn-sm" href="quote.html">Request a Quote</a><a class="btn btn-pink btn-sm" href="index.html">Home</a></div></div></header>
+<main class="account-layout">
+<div class="account-header"><div><span class="eyebrow">YOUR ORLANDO CUSTOM TEES ACCOUNT</span><h1 style="font-size:clamp(27px,4vw,43px);margin:9px 0">My Account</h1><p style="color:#66798f;margin:0">Track requests, reuse your artwork and contact our team.</p></div><button class="btn btn-outline" type="button" id="customerLogout" hidden>Sign out</button></div>
+<section id="customerAuth" class="account-card" hidden><h2>Sign in securely</h2><p>Enter the same email address you used to request an estimate. We'll send you a secure sign-in link. No password is required.</p><form id="customerLogin"><label for="customerEmail">Email address</label><input required type="email" id="customerEmail" autocomplete="email" placeholder="you@business.com"><button type="submit" class="btn btn-pink" id="customerSend">Email me a sign-in link</button></form><p class="account-help">Your first estimate does not require an account. Your email must be verified before requests become visible here.</p><p id="loginInfo" role="status"></p></section>
+<section id="customerContent" hidden>
+<div class="account-card"><h2>Welcome back</h2><p>Signed in as <strong id="customerIdentity"></strong></p><p class="account-help">Your new quote requests appear here after you submit the form. Payment and tracking are shown only when available.</p></div>
+<div class="account-grid"><div class="account-card"><h2>My Requests</h2><strong id="quoteCount">0</strong><p>Quote requests and reorder history</p></div><div class="account-card"><h2>My Orders</h2><strong id="orderCount">0</strong><p>Current order and production status</p></div></div>
+<section class="account-card"><h2>Quotes & Reorders</h2><div id="customerQuotes"><p>Loading your requests...</p></div></section>
+<section class="account-card"><h2>Order tracking</h2><div id="customerOrders"><p>Loading orders...</p></div></section>
+<section class="account-card"><h2>Messages</h2><p>Conversations submitted here remain associated with the corresponding quote. Email inbox synchronization is not enabled.</p><div id="customerMessages"><p>Select a quote to view its conversation.</p></div></section>
+</section>
+<div id="accountLoading" role="status">Checking your secure session...</div>
+</main><footer class="footer"><div class="container"><div class="copyright"><span>© 2026 Orlando Custom Tees · Yama Services LLC</span><span><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a></span></div></div></footer>
+<script>
+(function(){
+"use strict";
+const URL="https://xemugzorxsmzmuuiidgu.supabase.co";
+const KEY="sb_publishable_CIXSDcMhMfy5Vj-ak0YkzQ_2kO7Fix5";
+const sup=window.supabase.createClient(URL,KEY,{auth:{flowType:"pkce"}});
+const $=id=>document.getElementById(id);
+const safe=x=>String(x??"").replace(/[&<>"']/g,k=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[k]));
+const money=x=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(x||0));
+let current=null;
+function alertError(e){window.alert(typeof e==="string"?e:(e?.message||"Unable to complete this request."))}
+async function start(){
+ try{
+  const {data,error}=await sup.auth.getUser();
+  $("accountLoading").hidden=true;
+  if(error||!data.user){$("customerAuth").hidden=false;return}
+  current=data.user;
+  $("customerContent").hidden=false;$("customerLogout").hidden=false;
+  $("customerIdentity").textContent=current.email||"Customer";
+  const claim=await sup.rpc("oct_claim_my_quotes");
+  if(claim.error)console.warn("Could not link some previous requests",claim.error);
+  await refresh();
+ }catch(e){$("accountLoading").textContent="Unable to load customer information.";console.error(e)}
+}
+async function refresh(){
+ const [quotes,orders]=await Promise.all([
+  sup.from("quote_requests").select("id,request_number,status,product,color,sizes,quantity,front_print,back_print,delivery,shipping_address,notes,created_at,file_paths,source_quote_id").order("created_at",{ascending:false}).limit(100),
+  sup.from("orders").select("id,order_number,status,total,due_date,tracking_number,created_at").order("created_at",{ascending:false}).limit(100)
+ ]);
+ if(quotes.error){$("customerQuotes").textContent="Unable to load requests: "+quotes.error.message;return}
+ const qs=quotes.data||[],os=orders.data||[];
+ $("quoteCount").textContent=String(qs.length);
+ $("orderCount").textContent=orders.error?"—":String(os.length);
+ $("customerQuotes").innerHTML=qs.length?qs.map(q=>'<article class="account-card" data-quote="'+safe(q.id)+'"><div class="account-meta"><strong>'+safe(q.request_number)+'</strong><span class="account-badge">'+safe(q.status||"new")+'</span><span>'+safe(new Date(q.created_at).toLocaleDateString("en-US"))+'</span></div><h3 style="font-size:18px;margin:13px 0 6px">'+safe(q.product)+'</h3><p>'+safe(q.color||"Color pending")+' · '+safe(q.quantity)+' pieces · Front: '+safe(q.front_print||"None")+' · Back: '+safe(q.back_print||"None")+'</p><p class="account-help">Sizes: '+safe(Object.entries(q.sizes||{}).filter(([k,v])=>Number(v)>0).map(([k,v])=>k+': '+v).join(" / "))+'</p><p class="account-help">Artwork: '+safe(Object.keys(q.file_paths||{}).length?'Saved with this request':'None uploaded')+'</p><div class="account-actions"><button type="button" class="primary repeatQuote" data-id="'+safe(q.id)+'">Order Again</button><button type="button" class="messageQuote" data-id="'+safe(q.id)+'">Messages</button>'+(q.status==="new"?'<button type="button" class="editQuote" data-id="'+safe(q.id)+'">Edit Request</button>':'')+'</div><div class="account-drawer" id="drawer-'+safe(q.id)+'" hidden></div></article>').join(""):'<p>You have no requests yet. <a href="quote.html">Request your first estimate</a>.</p>';
+ $("customerOrders").innerHTML=orders.error?'<p>Unable to load current orders.</p>':os.length?os.map(o=>'<div class="account-msg"><strong>'+safe(o.order_number)+'</strong> · '+safe(o.status)+'<p>Due: '+safe(o.due_date||"To be confirmed")+' · Total: '+money(o.total)+'</p>'+ (o.tracking_number?'<p>Tracking: '+safe(o.tracking_number)+'</p>':'')+'</div>').join(""):'<p>Orders will appear after your request becomes a confirmed order. Payment details will be available once invoices are integrated.</p>';
+ $("customerQuotes").querySelectorAll(".repeatQuote").forEach(btn=>btn.onclick=async()=>{
+  if(!confirm("Create a new request using the same garment, sizes and saved artwork? Current pricing and availability will be reviewed again."))return;
+  btn.disabled=true;
+  const {data,error}=await sup.rpc("oct_reorder_quote",{p_source:btn.dataset.id});
+  btn.disabled=false;
+  if(error)alertError(error);else{alert("New request "+data+" created. You can edit it while it remains new.");await refresh();}
+ });
+ $("customerQuotes").querySelectorAll(".messageQuote").forEach(btn=>btn.onclick=()=>openMessages(btn.dataset.id));
+ $("customerQuotes").querySelectorAll(".editQuote").forEach(btn=>btn.onclick=()=>openEditor(qs.find(q=>q.id===btn.dataset.id)));
+}
+async function openMessages(id){
+ const target=$("customerMessages");
+ target.scrollIntoView({behavior:"smooth",block:"start"});
+ target.innerHTML='<h3>Conversation</h3><p>Loading messages...</p>';
+ const {data,error}=await sup.from("customer_messages").select("id,body,sender_role,created_at").eq("quote_request_id",id).order("created_at",{ascending:true}).limit(200);
+ if(error){target.textContent=error.message;return}
+ target.innerHTML='<h3>Conversation for this request</h3>'+(data?.length?data.map(m=>'<div class="account-msg '+(m.sender_role==="staff"?"staff":"")+'"><small>'+safe(m.sender_role==="staff"?"Orlando Custom Tees":"You")+' · '+safe(new Date(m.created_at).toLocaleString("en-US"))+'</small><p>'+safe(m.body)+'</p></div>').join(""):'<p>No messages yet.</p>')+'<form id="msgForm"><label for="msgText">Write a message</label><textarea id="msgText" maxlength="4000" required placeholder="How can we help?"></textarea><button class="btn btn-pink" type="submit">Send message</button></form>';
+ $("msgForm").onsubmit=async e=>{
+  e.preventDefault();const body=$("msgText").value.trim();if(!body)return;
+  const {error:sendError}=await sup.from("customer_messages").insert({quote_request_id:id,sender_user_id:current.id,sender_role:"customer",body});
+  if(sendError)alertError(sendError);else openMessages(id);
+ };
+}
+function openEditor(q){
+ if(!q)return;
+ const area=$("drawer-"+q.id);area.hidden=false;
+ const values=q.sizes||{},names=["XS","S","M","L","XL","2XL","3XL","4XL"];
+ area.innerHTML='<h3>Edit your request</h3><p>Available only while the request is new. Uploaded artwork remains attached.</p><form id="editMyQuote"><div class="account-sizes">'+names.map(name=>'<label>'+name+'<input type="number" min="0" max="1000" step="1" name="size-'+name+'" value="'+safe(values[name]||0)+'"></label>').join("")+'</div><label>Color</label><input name="color" maxlength="100" required value="'+safe(q.color||"")+'"><label>Front print</label><select name="front_print">'+["None","Left chest","Right chest","Both chest sides","Centered front","Full front"].map(v=>'<option '+(v===q.front_print?'selected':'')+'>'+v+'</option>').join("")+'</select><label>Back print</label><select name="back_print">'+["None","Below collar","Small back","Medium back","Full back","Custom back size"].map(v=>'<option '+(v===q.back_print?'selected':'')+'>'+v+'</option>').join("")+'</select><label>Notes</label><textarea name="notes" maxlength="3000">'+safe(q.notes||"")+'</textarea><button type="submit" class="btn btn-pink">Save changes</button> <button type="button" class="btn btn-outline" id="cancelEdit">Cancel</button></form>';
+ area.querySelector("#cancelEdit").onclick=()=>area.hidden=true;
+ area.querySelector("form").onsubmit=async e=>{
+  e.preventDefault();const form=e.target;
+  const sizes=Object.fromEntries(names.map(name=>[name,Number(form.elements['size-'+name].value||0)]));
+  const quantity=Object.values(sizes).reduce((a,b)=>a+b,0);
+  if(quantity<12||quantity>1000){alert("Orders require between 12 and 1,000 pieces.");return}
+  const patch={sizes,color:form.elements.color.value.trim(),front_print:form.elements.front_print.value,back_print:form.elements.back_print.value,notes:form.elements.notes.value.trim()};
+  const {error}=await sup.rpc("oct_update_my_quote",{p_quote:q.id,p_patch:patch});
+  if(error)alertError(error);else await refresh();
+ };
+ area.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+$("customerLogin").onsubmit=async e=>{
+ e.preventDefault();const btn=$("customerSend");btn.disabled=true;$("loginInfo").textContent="Sending secure login link...";
+ const email=$("customerEmail").value.trim();
+ const {error}=await sup.auth.signInWithOtp({email,options:{shouldCreateUser:true,emailRedirectTo:"https://sr-lhama.github.io/oct/customer.html"}});
+ btn.disabled=false;
+ $("loginInfo").textContent=error?"Unable to send the login link: "+error.message:"Check your email for your secure sign-in link.";
+};
+$("customerLogout").onclick=async()=>{await sup.auth.signOut();location.reload()};
+sup.auth.onAuthStateChange((event)=>{if(event==="SIGNED_IN"&&!current)start()});
+start();
+})();
+</script></body></html>
