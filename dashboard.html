@@ -120,6 +120,24 @@ const registry={
  team:{table:"profiles",fields:[],columns:[["full_name","Name"],["role","Role"],["created_at","Created"]]}
 };
 const dollar=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"});
+function addBusinessDays(start,days){
+ const d=new Date(start);
+ d.setUTCHours(12,0,0,0);
+ let remaining=days;
+ while(remaining>0){d.setUTCDate(d.getUTCDate()+1);if(d.getUTCDay()!==0&&d.getUTCDay()!==6)remaining--}
+ return d.toISOString().slice(0,10);
+}
+function remainingBusinessDays(dueDate){
+ if(!dueDate)return null;
+ const today=new Date();today.setUTCHours(12,0,0,0);
+ const due=new Date(dueDate+"T12:00:00Z");
+ if(!Number.isFinite(+due))return null;
+ let days=0;
+ if(due>=today){for(let d=new Date(today);d<due;){d.setUTCDate(d.getUTCDate()+1);if(d.getUTCDay()!==0&&d.getUTCDay()!==6)days++}}
+ else{for(let d=new Date(due);d<today;){d.setUTCDate(d.getUTCDate()+1);if(d.getUTCDay()!==0&&d.getUTCDay()!==6)days--}}
+ return due>=today?days:-days;
+}
+
 const formatValue=(key,value)=>{
  if(value===null||value===undefined||value==="")return "—";
  if(["total","amount","subtotal","tax","shipping","unit_price"].includes(key))return dollar.format(Number(value));
@@ -190,6 +208,7 @@ async function showEditor(page,existing){
  }
  if(page==="production"&&payload.status==="production"&&!payload.production_started_at&&!existing?.production_started_at){
  payload.production_started_at=new Date().toISOString();
+  if(!payload.due_date&&!existing?.due_date)payload.due_date=addBusinessDays(new Date(),7);
  }
  let newUploadPath=null;
  if(page==="artwork"){
@@ -240,7 +259,15 @@ async function loadReadOnlyData(pageId){
  const addable=cfg.fields.length&&pageId!=="production";
  const toolbar='<div style="display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-bottom:16px"><div><h3 style="margin:0">Supabase records</h3><p style="margin:5px 0">Showing '+rows.length+' most recent records</p></div>'+(addable?'<button id="newEntry" class="btn" type="button">+ New record</button>':"")+'</div>';
  const heads=cfg.columns.map(([k,l])=>'<th>'+safe(l)+'</th>').join("")+'<th>Action</th>';
- const line=rows.map((rec,i)=>'<tr>'+cfg.columns.map(([key])=>'<td>'+formatValue(key,rec[key])+'</td>').join("")+'<td>'+(cfg.fields.length?'<button type="button" class="btn secondary editRecord" data-index="'+i+'" style="padding:8px 11px;font-size:12px">Edit</button>':'<span style="color:#64748b">Read only</span>')+'</td></tr>').join("");
+ const line=rows.map((rec,i)=>'<tr>'+cfg.columns.map(([key])=>{
+ let formatted=formatValue(key,rec[key]);
+ if(pageId==="production"&&key==="due_date"&&rec.due_date&&!["completed","delivered","cancelled"].includes(rec.status)){
+ const remaining=remainingBusinessDays(rec.due_date);
+ const color=remaining!==null&&remaining<=3?"#b4233e":"#0f7155";
+ formatted+=' <small style="display:block;color:'+color+'">'+(remaining<0?Math.abs(remaining)+' business days overdue':remaining+' business days left')+'</small>';
+ }
+ return '<td>'+formatted+'</td>';
+ }).join("")+'<td>'+(cfg.fields.length?'<button type="button" class="btn secondary editRecord" data-index="'+i+'" style="padding:8px 11px;font-size:12px">Edit</button>':'<span style="color:#64748b">Read only</span>')+'</td></tr>').join("");
  target.innerHTML=toolbar+(rows.length?'<div style="overflow-x:auto"><table class="data-table" style="width:100%;border-collapse:collapse;font-size:13px;text-align:left"><thead><tr>'+heads+'</tr></thead><tbody>'+line+'</tbody></table></div>':'<p>No records yet. The legacy dataset is not present in Supabase.</p>');
  target.querySelectorAll("th,td").forEach(n=>{n.style.padding="12px 10px";n.style.borderBottom="1px solid #e3e9f2"});
  if(addable)target.querySelector("#newEntry").onclick=()=>showEditor(pageId,null);
