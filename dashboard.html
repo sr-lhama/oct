@@ -46,6 +46,7 @@ const SUPABASE_URL="https://xemugzorxsmzmuuiidgu.supabase.co";
 const SUPABASE_PUBLIC_KEY="sb_publishable_CIXSDcMhMfy5Vj-ak0YkzQ_2kO7Fix5";
 const pages=[
 {id:"overview",label:"Overview",icon:"◫"},
+{id:"inbox",label:"Quote Inbox",icon:"✉"},
 {id:"estimates",label:"Estimates",icon:"▤"},
 {id:"orders",label:"Orders",icon:"▣"},
 {id:"items",label:"Order items",icon:"▦"},
@@ -62,6 +63,7 @@ const client=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY,{aut
 let currentUser=null,profile=null;
 const safe=(s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const moduleDesc={
+inbox:["Quote Inbox","Website estimate requests received via Supabase.","Review artwork and convert a request to a draft estimate."],
 items:["Order Items","Manage garment styles, sizes, printing positions and quantities.","Order items tied to existing orders."],
 migration:["Import / Export","Move historical records and create backups.","Prepare data for migration."],
 estimates:["Estimates","Review customer quote requests, garment selections, pricing and approvals.","Estimate records will be connected after the existing ChatGPT Sites data is mapped and admin access policies are deployed."],
@@ -110,6 +112,7 @@ function showPage(id){
 
 let loadRevision=0;
 const registry={
+inbox:{table:"quote_requests",fields:[],columns:[["request_number","Request"],["customer_name","Customer"],["email","Email"],["product","Product"],["quantity","Qty"],["status","Status"]]},
  customers:{table:"customers",fields:[["name","Customer name","text",true],["company","Company","text"],["email","Email","email"],["phone","Phone","text"],["address","Address","text"]],columns:[["name","Customer"],["company","Company"],["email","Email"],["phone","Phone"]]},
  estimates:{table:"estimates",fields:[["estimate_number","Estimate number","text"],["customer_id","Customer","customers",true],["status","Status","text"],["subtotal","Subtotal","number"],["tax","Tax","number"],["shipping","Shipping","number"],["total","Total","number"],["notes","Notes","textarea"]],columns:[["estimate_number","Estimate"],["status","Status"],["total","Total"],["created_at","Created"]]},
  orders:{table:"orders",fields:[["order_number","Order number","text"],["customer_id","Customer","customers",true],["estimate_id","Related estimate","estimates"],["status","Status","select:received|awaiting_approval|payment_pending|production|completed|delivered|cancelled"],["total","Total","number"],["due_date","Due date","date"],["tracking_number","Tracking number","text"]],columns:[["order_number","Order"],["status","Status"],["total","Total"],["due_date","Due"]]},
@@ -238,7 +241,7 @@ async function loadReadOnlyData(pageId){
  if(pageId==="migration"){showMigration();return;}
  if(pageId==="settings"){const el=document.querySelector("#content .placeholder");if(el){el.innerHTML='<div><h3>Integration status</h3><p>Supabase: connected. Resend: SMTP configured in Supabase Auth. PayPal: server-side verification not migrated yet. GitHub Pages: hosting test environment.</p><p>Never paste API secrets into browser code or GitHub.</p><p><a href="https://sr-lhama.github.io/oct-auth-preview/portal.html" target="_blank" rel="noopener">Open customer portal ↗</a></p></div>'}return}
  if(pageId==="overview"){
- const specs=[["orders","Orders"],["estimates","Estimates"],["customers","Customers"],["artworks","Artwork"]];
+ const specs=[["orders","Orders"],["estimates","Estimates"],["customers","Customers"],["quote_requests","Website requests"],["artworks","Artwork"]];
  const results=await Promise.all(specs.map(async ([table,label])=>{
  const {count,error}=await client.from(table).select("id",{head:true,count:"exact"});
  return {label,count,error};
@@ -267,11 +270,37 @@ async function loadReadOnlyData(pageId){
  formatted+=' <small style="display:block;color:'+color+'">'+(remaining<0?Math.abs(remaining)+' business days overdue':remaining+' business days left')+'</small>';
  }
  return '<td>'+formatted+'</td>';
- }).join("")+'<td>'+(cfg.fields.length?'<button type="button" class="btn secondary editRecord" data-index="'+i+'" style="padding:8px 11px;font-size:12px">Edit</button>':'<span style="color:#64748b">Read only</span>')+'</td></tr>').join("");
+ }).join("")+'<td>'+(pageId==="inbox"?'<button type="button" class="btn secondary viewQuote" data-index="'+i+'" style="font-size:12px;padding:8px 10px">Details</button> '+(rec.converted_estimate_id?'<span>Converted</span>':'<button type="button" class="btn convertQuote" data-index="'+i+'" style="font-size:12px;padding:8px 10px">Convert</button>'):(cfg.fields.length?'<button type="button" class="btn secondary editRecord" data-index="'+i+'" style="padding:8px 11px;font-size:12px">Edit</button>':'<span style="color:#64748b">Read only</span>'))+'</td></tr>').join("");
  target.innerHTML=toolbar+(rows.length?'<div style="overflow-x:auto"><table class="data-table" style="width:100%;border-collapse:collapse;font-size:13px;text-align:left"><thead><tr>'+heads+'</tr></thead><tbody>'+line+'</tbody></table></div>':'<p>No records yet. The legacy dataset is not present in Supabase.</p>');
  target.querySelectorAll("th,td").forEach(n=>{n.style.padding="12px 10px";n.style.borderBottom="1px solid #e3e9f2"});
  if(addable)target.querySelector("#newEntry").onclick=()=>showEditor(pageId,null);
  target.querySelectorAll(".editRecord").forEach(n=>n.onclick=()=>showEditor(pageId,rows[Number(n.dataset.index)]));
+ if(pageId==="inbox"){
+  target.querySelectorAll(".convertQuote").forEach(b=>b.onclick=async()=>{
+   const rec=rows[Number(b.dataset.index)];
+   if(!window.confirm("Convert "+rec.request_number+" to a draft estimate? Pricing must be reviewed separately."))return;
+   b.disabled=true;
+   const {data,error}=await client.rpc("oct_convert_incoming_quote",{p_request:rec.id});
+   if(error){alertIn(target,"Unable to convert: "+error.message,true);b.disabled=false;return;}
+   alertIn(target,"Draft estimate created: "+data,false);loadReadOnlyData(pageId);
+  });
+  target.querySelectorAll(".viewQuote").forEach(b=>b.onclick=async()=>{
+   const rec=rows[Number(b.dataset.index)];closeEditor();
+   const overlay=document.createElement("div");overlay.id="recordEditor";overlay.style.cssText="position:fixed;inset:0;z-index:200;background:#091a35b5;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto";
+   const box=document.createElement("section");box.style.cssText="background:white;border-radius:15px;padding:25px;width:min(650px,100%);max-height:90vh;overflow:auto";
+   const fields=["request_number","customer_name","company","email","phone","product","color","quantity","sizes","front_print","back_print","front_dimensions","back_dimensions","delivery","shipping_address","need_by","notes","status","created_at"];
+   box.innerHTML='<h2 style="font-size:22px">Quote request details</h2>'+fields.map(k=>'<p style="font-size:13px;border-bottom:1px solid #e2e8f0;padding:7px 0"><strong>'+safe(k.replaceAll("_"," "))+'</strong>: '+safe(typeof rec[k]==="object"?JSON.stringify(rec[k]):rec[k]??"—")+'</p>').join("")+'<div id="quoteArtworks"></div><button class="btn secondary" id="closeQuote">Close</button>';
+   overlay.append(box);document.body.append(overlay);
+   box.querySelector("#closeQuote").onclick=()=>overlay.remove();
+   overlay.onclick=e=>{if(e.target===overlay)overlay.remove()};
+   const files=Object.values(rec.file_paths||{});
+   for(const path of files){
+    const {data:link,error}=await client.storage.from("order-artworks").createSignedUrl(String(path),600);
+    if(!error){const p=document.createElement("p"),a=document.createElement("a");a.href=link.signedUrl;a.target="_blank";a.rel="noopener noreferrer";a.textContent="View submitted artwork (secure link)";p.append(a);box.querySelector("#quoteArtworks").append(p);}
+   }
+  });
+ }
+
 }
 function csvEncode(rows){
  if(!rows.length)return "";
