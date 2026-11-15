@@ -68,7 +68,7 @@
   <main class="login-card">
     <img
       class="logo"
-      src="assets/images/logo-official.webp"
+      src="https://sr-lhama.github.io/oct/assets/images/logo-official.webp"
       alt="Orlando Custom Tees"
     >
 
@@ -89,15 +89,16 @@
     </form>
 
     <p id="message" role="status" aria-live="polite"></p>
+    <a id="nextLink" href="dashboard.html" style="display:none;margin-top:14px;padding:14px;background:#e83383;color:white;text-decoration:none;border-radius:8px;font-size:14px;font-weight:bold">Continue</a>
 
-    <a class="back" href="index.html">
+    <a class="back" href="https://sr-lhama.github.io/oct/">
       Back to Orlando Custom Tees
     </a>
   </main>
 
   <script>
     // Replace these values before testing.
-    const SUPABASE_URL = "https://xemugzorxsmzmuuuidgu.supabase.co";
+    const SUPABASE_URL = "https://xemugzorxsmzmuuiidgu.supabase.co";
     const SUPABASE_PUBLIC_KEY = "sb_publishable_CIXSDcMhMfy5Vj-ak0YkzQ_2kO7Fix5";
 
     const message = document.getElementById("message");
@@ -117,31 +118,54 @@
         { auth: { flowType: "pkce" } }
       );
 
-      async function initialize() {
-        try {
-          const code = new URLSearchParams(
-            window.location.search
-          ).get("code");
+    
+async function initialize() {
+  try {
+    const { data, error } = await client.auth.getUser();
 
-          if (code) {
-            const { error } =
-              await client.auth.exchangeCodeForSession(code);
-            if (error) throw error;
-            history.replaceState({}, "", window.location.pathname);
-          }
+    if (error) {
+      throw error;
+    }
 
-          const { data } = await client.auth.getUser();
-          if (data.user) {
-            message.textContent =
-              "Signed in successfully as " + data.user.email;
-            form.hidden = true;
-          }
-        } catch (error) {
-          message.textContent =
-            "Sign-in could not be completed. Please try again.";
-        }
-      }
+   
+if (data.user) {
+  const { data: profile, error: profileError } = await client
+    .from("profiles")
+    .select("role, full_name")
+    .eq("id", data.user.id)
+    .single();
 
+  if (profileError) {
+    console.error("Profile lookup error:", profileError);
+    message.textContent =
+      "Signed in, but unable to verify account permissions.";
+    form.hidden = true;
+    return;
+  }
+
+  if (profile.role === "admin") {
+    message.textContent =
+      "Administrator access confirmed. Welcome, " +
+      (profile.full_name || data.user.email) + "!";
+  } else {
+    message.textContent =
+      "Signed in successfully as " + data.user.email;
+  }
+
+  form.hidden = true;
+  const nextLink = document.getElementById("nextLink");
+  nextLink.href = profile.role === "admin" ? "dashboard.html" : "portal.html";
+  nextLink.textContent = profile.role === "admin" ? "Open Admin Dashboard" : "Track My Orders";
+  nextLink.style.display = "block";
+}
+
+  } catch (error) {
+    console.error("Authentication error:", error);
+
+    message.textContent =
+      "Sign-in could not be completed. Please try again.";
+  }
+}
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
         button.disabled = true;
@@ -177,4 +201,3 @@
   </script>
 </body>
 </html>
-
