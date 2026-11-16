@@ -472,7 +472,7 @@ async function octOpenOrderWorkspace(orderId){
  const sizes=quote?.sizes||data.sizes||{},qty=Number(quote?.quantity||Object.values(sizes).reduce((n,v)=>n+Number(v||0),0));
  const product=quote?.product||data.productName||"Apparel";
  const match=(catalogResp.data||[]).find(p=>p.name===product||product.includes(p.name)||p.name.includes(product));
- const unitFromOrder=Number(order.total||0)>0&&qty>0?Number(order.total)/qty/1.065:0;
+ const unitFromOrder=Number(estimate?.subtotal||0)>0&&qty>0?Number(estimate.subtotal)/qty:0;
  const unitStart=unitFromOrder||Number(match?.tiers?.[0]||0);
  const rows=[
   ["Customer",customer?.name||quote?.customer_name||data.name],["Company",customer?.company||quote?.company||data.company],
