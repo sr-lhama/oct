@@ -420,6 +420,18 @@ async function octLaunchArtStudio(order,quote,urls){
 }
 
 
+async function octExplainEmailError(error,data){
+ if(data?.error)return data.error;
+ if(error?.context){
+  try{
+   const body=await error.context.clone().json();
+   if(body?.error)return body.error;
+  }catch{}
+  if(error.context.status===503)return "O serviço de e-mail não está configurado no Supabase. Adicione RESEND_API_KEY em Edge Functions → Secrets.";
+  if(error.context.status===401||error.context.status===403)return "Sem autorização para enviar. Atualize o login administrativo.";
+ }
+ return error?.message||"Falha não identificada. Verifique os logs da função no Supabase.";
+}
 async function octChooseStudioOrder(){
  const {data:orders,error}=await client.from("orders").select("id,order_number,status").order("created_at",{ascending:false}).limit(40);
  if(error){window.alert("Unable to load current orders: "+error.message);return}
@@ -499,7 +511,7 @@ async function octOpenOrderWorkspace(orderId){
   const btn=panel.querySelector("#octReceiptNotice");btn.disabled=true;
   const {data,error}=await client.functions.invoke("oct-notify-quote",{body:{quote_id:quote.id}});
   btn.disabled=false;
-  panel.querySelector("#octWorkspaceMessage").textContent=error||!data?.ok?"Email not delivered: "+(data?.error||error?.message||"Provider unavailable"):"Customer receipt: "+(data.customer_sent?"sent":"pending")+" · Administrator receipt: "+(data.admin_sent?"sent":"pending");
+  panel.querySelector("#octWorkspaceMessage").textContent=error||!data?.ok?"E-mail não enviado: "+await octExplainEmailError(error,data):"Confirmação para o cliente: "+(data.customer_sent?"enviada":"pendente")+" · Administrador: "+(data.admin_sent?"enviada":"pendente");
  };
  const pricing=panel.querySelector("#octWorkspacePrice");
  const msg=panel.querySelector("#octWorkspaceMessage");
@@ -528,7 +540,7 @@ async function octOpenOrderWorkspace(orderId){
  panel.querySelector("#octSendEstimate").onclick=async()=>{
   const button=panel.querySelector("#octSendEstimate");button.disabled=true;
   const {data,error:mailError}=await client.functions.invoke("oct-email-estimate",{body:{order_id:order.id}});
-  if(mailError||!data?.ok){msg.textContent="O envio não foi concluído: "+(data?.error||mailError?.message||"Serviço de e-mail não configurado");button.disabled=false;return}
+  if(mailError||!data?.ok){msg.textContent="O e-mail do orçamento NÃO foi enviado: "+await octExplainEmailError(mailError,data);button.disabled=false;return}
   msg.textContent="Orçamento enviado e registrado como Enviado.";
   close();renderOctOverview();
  };
