@@ -130,7 +130,7 @@ document.querySelectorAll("[data-account-open]").forEach(link=>link.addEventList
 async function refresh(){
  const [quotes,orders,estimateResponse,historyResponse]=await Promise.all([
   sup.from("quote_requests").select("id,request_number,status,product,color,sizes,quantity,front_print,back_print,delivery,shipping_address,notes,created_at,file_paths,source_quote_id").order("created_at",{ascending:false}).limit(100),
-  sup.from("orders").select("id,order_number,status,total,due_date,tracking_number,created_at,legacy_payload,estimate_id,quote_review").order("created_at",{ascending:false}).limit(100),
+  sup.from("orders").select("id,order_number,status,total,due_date,tracking_number,tracking_url,shipping_carrier,fulfillment_method,pickup_address,created_at,legacy_payload,estimate_id,quote_review").order("created_at",{ascending:false}).limit(100),
  sup.from("estimates").select("id,estimate_number,status,subtotal,tax,shipping,total").limit(100),
  sup.from("order_status_history").select("order_id,new_status,notes,created_at").order("created_at",{ascending:true}).limit(500)
  ]);
@@ -166,7 +166,8 @@ async function refresh(){
    ?'<div class="account-order-detail sandbox-payment" data-order="'+safe(o.id)+'"><h4>PayPal Sandbox</h4><div class="account-actions"><button type="button" class="sandbox-create">Create test invoice</button><a class="btn btn-outline sandbox-pay" target="_blank" rel="noopener noreferrer" hidden>Open test invoice</a><button type="button" class="sandbox-status">Check test payment</button></div><p class="account-help sandbox-result" role="status">Test mode. No real payment.</p></div>':"";
   return '<article id="order-'+safe(o.id)+'" class="account-card account-order"><div class="account-meta"><strong>'+safe(o.order_number)+'</strong><span class="account-badge">'+safe(orderStatus)+'</span></div><h3 class="account-order-title">'+safe(d.productName||"Your custom apparel order")+'</h3>'+
    octCustomerTimeline(o.status)+
-   (o.tracking_number?'<p><strong>Tracking number</strong> '+safe(o.tracking_number)+'</p>':"")+
+   (o.tracking_number?'<p><strong>'+safe(o.shipping_carrier||"Tracking number")+'</strong> '+safe(o.tracking_number)+(typeof o.tracking_url==="string"&&/^https:\/\/[A-Za-z0-9.-]+[/?#]/.test(o.tracking_url)?' · <a href="'+safe(o.tracking_url)+'" target="_blank" rel="noopener noreferrer">Track package</a>':"")+'</p>':"")+
+   (o.status==="finished"&&o.fulfillment_method==="pickup"&&o.pickup_address?'<p><strong>Ready for pickup</strong><br>'+safe(o.pickup_address)+'</p>':"")+
    octCustomerProofs(orderProofs,reviewAvailable,!review&&o.status==="artwork_approval")+
    ((pricePublic||estimateAction)?'<div class="account-estimate">'+(pricePublic?'<strong>Estimate total · '+money(e.total)+'</strong>':"")+estimateAction+'</div>':"")+
    livePayment+sandboxPayment+
