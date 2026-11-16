@@ -1,0 +1,22 @@
+name: Launch browser audit
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  browser-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test browsers and Lighthouse
+        run: |
+          npm install --no-save playwright@1.51.1 lighthouse@12.6.0
+          npx playwright install --with-deps chromium webkit
+      - name: Responsive site checks and speed
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 &
+          node launch-audit.cjs
