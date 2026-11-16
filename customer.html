@@ -189,7 +189,7 @@ async function refresh(){
     link.hidden=!data.payment_url||data.paid;
     if(data.payment_url&&!data.paid)link.href=data.payment_url;
     check.hidden=!!data.paid;
-    message.textContent=data.paid?"Payment confirmed by PayPal.":({
+    message.textContent=data.status==="PAID_OFFLINE"?"Payment received by Orlando Custom Tees.":data.paid?"Payment confirmed by PayPal.":({
      PAYMENT_PENDING:"PayPal is processing your payment.",
      PARTIALLY_PAID:"PayPal has received a partial payment. Please pay the remaining balance.",
      CANCELLED:"This invoice was cancelled. Please contact our team.",
