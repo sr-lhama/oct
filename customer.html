@@ -61,9 +61,11 @@ function octCustomerProofs(proofs){
  '</div></div>').join("")+'</div>';
 }
 async function refresh(){
- const [quotes,orders]=await Promise.all([
+ const [quotes,orders,estimateResponse,historyResponse]=await Promise.all([
   sup.from("quote_requests").select("id,request_number,status,product,color,sizes,quantity,front_print,back_print,delivery,shipping_address,notes,created_at,file_paths,source_quote_id").order("created_at",{ascending:false}).limit(100),
-  sup.from("orders").select("id,order_number,status,total,due_date,tracking_number,created_at").order("created_at",{ascending:false}).limit(100)
+  sup.from("orders").select("id,order_number,status,total,due_date,tracking_number,created_at,legacy_payload,estimate_id").order("created_at",{ascending:false}).limit(100),
+ sup.from("estimates").select("id,estimate_number,status,subtotal,tax,shipping,total").limit(100),
+ sup.from("order_status_history").select("order_id,new_status,notes,created_at").order("created_at",{ascending:true}).limit(500)
  ]);
  if(quotes.error){$("customerQuotes").textContent="Unable to load requests: "+quotes.error.message;return}
  const qs=quotes.data||[],os=orders.data||[];
@@ -72,7 +74,25 @@ async function refresh(){
  $("quoteCount").textContent=String(qs.length);
  $("orderCount").textContent=orders.error?"—":String(os.length);
  $("customerQuotes").innerHTML=qs.length?qs.map(q=>'<article class="account-card" data-quote="'+safe(q.id)+'"><div class="account-meta"><strong>'+safe(q.request_number)+'</strong><span class="account-badge">'+safe(q.status||"new")+'</span><span>'+safe(new Date(q.created_at).toLocaleDateString("en-US"))+'</span></div><h3 style="font-size:18px;margin:13px 0 6px">'+safe(q.product)+'</h3><p>'+safe(q.color||"Color pending")+' · '+safe(q.quantity)+' pieces · Front: '+safe(q.front_print||"None")+' · Back: '+safe(q.back_print||"None")+'</p><p class="account-help">Sizes: '+safe(Object.entries(q.sizes||{}).filter(([k,v])=>Number(v)>0).map(([k,v])=>k+': '+v).join(" / "))+'</p><p class="account-help">Artwork: '+safe(Object.keys(q.file_paths||{}).length?'Saved with this request':'None uploaded')+'</p><div class="account-actions">'+Object.keys(q.file_paths||{}).map(which=>'<button type="button" class="viewArtwork" data-id="'+safe(q.id)+'" data-file="'+safe(which)+'">View '+safe(which==="frontArtwork"?"Front":"Back")+' Artwork</button>').join("")+'<button type="button" class="primary repeatQuote" data-id="'+safe(q.id)+'">Order Again</button><button type="button" class="messageQuote" data-id="'+safe(q.id)+'">Messages</button>'+(q.status==="new"?'<button type="button" class="editQuote" data-id="'+safe(q.id)+'">Edit Request</button>':'')+'</div><div class="account-drawer" id="drawer-'+safe(q.id)+'" hidden></div></article>').join(""):'<p>You have no requests yet. <a href="quote.html">Request your first estimate</a>.</p>';
- $("customerOrders").innerHTML=orders.error?'<p>Unable to load current orders.</p>':os.length?os.map(o=>'<div class="account-msg"><strong>'+safe(o.order_number)+'</strong> · <span class="account-badge">'+safe(o.status)+'</span><p>Due: '+safe(o.due_date||"To be confirmed")+' · '+(Number(o.total||0)>0&&!['generated','waiting'].includes(o.status)?'Total: '+money(o.total):'Estimate pending internal review')+'</p>'+ (o.tracking_number?'<p>Tracking: '+safe(o.tracking_number)+'</p>':'')+octCustomerTimeline(o.status)+octCustomerProofs(proofs.filter(a=>a.order_id===o.id))+'</div>').join(""):'<p>Orders will appear after your request becomes a confirmed order. Payment details will be available once invoices are integrated.</p>';
+ $("customerOrders").innerHTML=orders.error?'<p>Unable to load current orders.</p>':os.length?os.map(o=>{
+  const d=o.legacy_payload?.data||{},sizes=d.sizes||{},sizesText=Object.entries(sizes).filter(([k,v])=>Number(v)>0).map(([k,v])=>k+": "+v).join(" / ");
+  const e=(estimateResponse.data||[]).find(e=>e.id===o.estimate_id);
+  const history=(historyResponse.data||[]).filter(ev=>ev.order_id===o.id);
+  const pricePublic=!["generated","waiting"].includes(o.status)&&Number(e?.total||0)>0;
+  const detailRows=[
+   ["Garment",d.productName],["Color",d.color],["Size breakdown",sizesText],
+   ["Front print",d.front],["Back print",d.back],["Delivery date",o.due_date||"To be confirmed"],
+   ["Tracking number",o.tracking_number||"Pending"]
+  ];
+  if(pricePublic)detailRows.push(["Subtotal",money(e.subtotal)],["Estimated tax",money(e.tax)],["Shipping",money(e.shipping)],["Estimate total",money(e.total)]);
+  return '<article class="account-card" style="margin:14px 0"><div class="account-meta"><strong>'+safe(o.order_number)+'</strong><span class="account-badge">'+safe(o.status)+'</span></div><h3 style="font-size:19px;margin:12px 0">Your custom apparel order</h3>'+
+  octCustomerTimeline(o.status)+
+  '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px;margin-top:14px">'+detailRows.map(([k,v])=>'<div style="padding:10px;border:1px solid #e2eaf2;border-radius:8px"><small style="display:block;color:#6d7d91">'+safe(k)+'</small><strong>'+safe(v||"—")+'</strong></div>').join("")+'</div>'+
+  (pricePublic?'<h3 style="font-size:20px">Estimate total: '+money(e.total)+'</h3><p class="account-help">Prices and shipping are subject to the approved final estimate. No payment is collected here.</p>':'<p class="account-help">Price pending administrative approval. Our team will prepare your estimate.</p>')+
+  octCustomerProofs(proofs.filter(a=>a.order_id===o.id))+
+  '<h3 style="font-size:15px;margin:19px 0 8px">Order history</h3>'+
+  (history.length?history.map(h=>'<div style="border-left:3px solid #06a7dd;padding:7px 12px;margin:8px 0"><strong>'+safe(h.new_status)+'</strong><p class="account-help">'+safe(new Date(h.created_at).toLocaleString("en-US"))+' · '+safe(h.notes||"")+'</p></div>').join(""):'<p class="account-help">Order created. Updates will appear here.</p>')+'</article>';
+ }).join(""):'<p>Orders will appear after your request is converted to an estimate. Payment details will be available once invoices are integrated.</p>';
  $("customerOrders").querySelectorAll(".openProof").forEach(btn=>btn.onclick=async()=>{
   btn.disabled=true;const {data,error}=await sup.functions.invoke("oct-customer-artwork",{body:{artwork_id:btn.dataset.id}});btn.disabled=false;
   if(error||!data?.url){alertError("Unable to open the secured approval proof.");return}
