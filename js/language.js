@@ -101,8 +101,10 @@
     window.gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
     window.gtag('consent','update',{analytics_storage:'granted'});
     window.gtag('js',new Date());
-    window.gtag('config',measurementId,{send_page_view:false,allow_google_signals:false,allow_ad_personalization_signals:false});
     const pageLocation = url.origin + url.pathname;
+    const referrer = document.referrer ? new URL(document.referrer) : null;
+    const pageReferrer = referrer ? referrer.origin + referrer.pathname : '';
+    window.gtag('config',measurementId,{send_page_view:false,page_location:pageLocation,page_referrer:pageReferrer,allow_google_signals:false,allow_ad_personalization_signals:false});
     window.gtag('event','page_view',{send_to:measurementId,page_location:pageLocation,language:selected.tag});
     window.octAnalytics = {
       lead(kind) {

@@ -4,13 +4,14 @@ const { readFileSync } = require('node:fs');
 const assert = require('node:assert/strict');
 
 const origin = 'http://127.0.0.1:4173';
-const pages = ['/', '/apparel.html', '/product.html?id=team365-tt21', '/quote.html', '/contact.html', '/customer.html', '/work.html'];
+const pages = ['/', '/apparel.html', '/product.html?id=team365-tt21', '/quote.html', '/contact.html', '/customer.html', '/work.html', '/privacy.html'];
 
 async function viewport(engine, label, options) {
   const browser = await engine.launch();
   const context = await browser.newContext(options);
   const page = await context.newPage();
   const errors = [];
+  page.setDefaultTimeout(12000);
   page.on('pageerror', error => errors.push(error.message));
   try {
     for (const path of pages) {
@@ -35,7 +36,7 @@ async function viewport(engine, label, options) {
     const data = await page.evaluate(() => ({ consent:JSON.parse(localStorage.getItem('oct-cookie-preferences-v2')).choice, lang:document.documentElement.lang }));
     assert.deepEqual(data,{consent:'essential',lang:'pt-BR'});
   } catch (error) {
-    errors.push(label + ' ' + error.message);
+    errors.push(label + ' ' + page.url() + ' ' + error.message);
   } finally {
     await browser.close();
   }
@@ -47,13 +48,14 @@ async function audit() {
   issues.push(...await viewport(chromium,'Desktop 1440',{viewport:{width:1440,height:900}}));
   issues.push(...await viewport(chromium,'Tablet 768',{viewport:{width:768,height:1024},hasTouch:true}));
   issues.push(...await viewport(chromium,'Mobile 360',{viewport:{width:360,height:800},isMobile:true,hasTouch:true}));
+  issues.push(...await viewport(chromium,'Mobile 320',{viewport:{width:320,height:700},isMobile:true,hasTouch:true}));
   issues.push(...await viewport(webkit,'iPhone 13',{...devices['iPhone 13']}));
   for (const [mode,path] of [['mobile','/'],['desktop','/'],['mobile','/quote.html']]) {
     const args = [origin+path,'--only-categories=performance,accessibility,seo','--chrome-flags=--headless --no-sandbox','--output=json','--output-path=audit.json','--quiet'];
     if (mode === 'desktop') args.push('--preset=desktop');
     execFileSync('./node_modules/.bin/lighthouse',args,{stdio:'inherit',env:{...process.env,CHROME_PATH:chromium.executablePath()}});
     const report=JSON.parse(readFileSync('audit.json','utf8'));
-    console.log('LIGHTHOUSE',mode,path,JSON.stringify({performance:report.categories.performance.score,accessibility:report.categories.accessibility.score,seo:report.categories.seo.score,LCP:report.audits['largest-contentful-paint'].numericValue,CLS:report.audits['cumulative-layout-shift'].numericValue,TBT:report.audits['total-blocking-time'].numericValue}));
+    console.log('LIGHTHOUSE',mode,path,JSON.stringify({performance:report.categories.performance.score,accessibility:report.categories.accessibility.score,seo:report.categories.seo.score,LCP:report.audits['largest-contentful-paint'].numericValue,CLS:report.audits['cumulative-layout-shift'].numericValue,TBT:report.audits['total-blocking-time'].numericValue,a11y:Object.keys(report.audits).filter(id=>report.categories.accessibility.auditRefs.some(ref=>ref.id===id)&&report.audits[id].score===0),lcpElement:report.audits['largest-contentful-paint-element']?.details?.items?.[0]?.items?.[0]?.node?.selector}));
   }
   if (issues.length) throw new Error(issues.join('\n'));
 }
