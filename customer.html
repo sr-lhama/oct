@@ -4,6 +4,35 @@
 <style>
 .account-layout{min-height:70vh;max-width:1140px;padding:42px 22px 65px;margin:0 auto}.account-header{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:24px}.account-card{border:1px solid #dae8f2;border-radius:20px;background:white;padding:24px;box-shadow:0 6px 22px #0921480a;margin:15px 0}.account-card h2{font-size:22px}.account-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:14px}.account-card p{color:#596d83;font-size:14px}.account-meta{display:flex;gap:9px;flex-wrap:wrap;align-items:center;font-size:12px;color:#647185}.account-badge{background:#eaf6fc;border-radius:30px;color:#0877a3;padding:6px 11px;font-weight:800}.account-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.account-actions button{border:1px solid #c9dfe9;background:#fff;border-radius:9px;padding:9px 12px;color:#0b668a;font-weight:750;font-size:12px}.account-actions button.primary{background:#0aaee2;color:#fff;border-color:#0aaee2}.account-actions button:disabled{opacity:.55}.account-card input,.account-card textarea,.account-card select{border:1px solid #d0e1ec;padding:12px;border-radius:10px;width:100%;margin:5px 0 12px}.account-card textarea{min-height:100px}.account-card label{display:block;font-size:12px;font-weight:800;margin-top:10px}.account-card button{cursor:pointer}.account-card .btn{margin-top:9px}.account-msg{border-left:3px solid #07ade2;background:#eff8fc;padding:11px 13px;border-radius:7px;margin:9px 0;font-size:13px}.account-msg.staff{border-left-color:#ea1687;background:#fff6fa}.account-error{color:#ac2838}.account-help{font-size:12px;color:#647185}.account-sizes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.account-sizes input{text-align:center}.account-drawer{border-top:1px solid #e2ebf2;margin-top:16px;padding-top:12px}.account-summary{padding:15px;border-radius:12px;background:#f1f9fd}.account-summary strong{color:#14243d}#accountLoading{padding:25px;color:#657d95}
 @media(max-width:650px){.account-layout{padding:24px 13px 45px}.account-grid{grid-template-columns:1fr}.account-sizes{grid-template-columns:repeat(4,1fr)}}
+
+.account-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:8px 0 17px}
+.account-toolbar a{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border:1px solid #d4e5ef;border-radius:9px;font-weight:700;font-size:13px;color:#104563}
+.account-toolbar a:first-child{background:#edf8ff;border-color:#c0e3f3}
+.account-toolbar strong{border-radius:20px;padding:0 6px;background:#e6f4fa}
+.account-identity{margin-left:auto;font-size:12px;color:#506781;overflow-wrap:anywhere}
+#account-orders,#account-quotes,#account-messages,.account-order{scroll-margin-top:110px}
+.account-fold summary{cursor:pointer;font-weight:750;color:#183450}
+.account-fold:not([open]){padding-block:15px}
+.account-order-title{font-size:21px;margin:9px 0 12px}
+.account-progress{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;list-style:none;margin:0 0 19px;padding:0}
+.account-progress li{border-top:3px solid #dbe7ef;color:#526981;display:flex;align-items:center;gap:7px;padding:8px 0;font-size:13px;line-height:1.2}
+.account-progress .done,.account-progress [aria-current]{border-color:#00a4d2;color:#075b78}
+.account-progress [aria-current]{font-weight:750}
+.account-progress-icon{display:grid;place-items:center;flex:0 0 24px;height:24px;border-radius:50%;background:#edf5fa;font-size:15px}
+.account-progress [aria-current] .account-progress-icon{background:#007da5;color:white}
+.account-proofs{margin:15px 0}
+.account-proof-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.account-proof{border:1px solid #dbe7ef;border-radius:13px;padding:12px;min-width:0}
+.account-proof-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.account-proof-preview{width:100%;aspect-ratio:1;max-height:365px;display:block;object-fit:contain;border-radius:8px;background:#f5f8fb}
+.account-proof-preview[hidden]{display:none}
+.account-proof-note{margin:6px 0;color:#526981;font-size:13px}
+.account-revision{margin:9px 0 0}
+.account-revision textarea{display:block;width:100%;border:1px solid #bfd6e6;border-radius:7px;padding:8px;margin:5px 0}
+.account-order-detail{margin-top:13px;border-top:1px solid #e3edf4;padding-top:11px}
+.account-order-detail summary{cursor:pointer;font-size:14px;color:#17445d}
+.account-estimate{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:13px 14px;background:#eef8ff;border-radius:10px}
+@media(max-width:650px){.account-identity{width:100%;margin-left:0}.account-progress li{flex-direction:column;align-items:flex-start;font-size:11px}.account-proof-grid{grid-template-columns:1fr}.account-order{padding:15px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head><body>
@@ -12,11 +41,12 @@
 <div class="account-header"><div><span class="eyebrow">YOUR ORLANDO CUSTOM TEES ACCOUNT</span><h1 style="font-size:clamp(27px,4vw,43px);margin:9px 0">My Account</h1><p style="color:#66798f;margin:0">Track requests, reuse your artwork and contact our team.</p></div><button class="btn btn-outline" type="button" id="customerLogout" hidden>Sign out</button></div>
 <section id="customerAuth" class="account-card" hidden><h2>Sign in securely</h2><p>Enter the same email address you used to request an estimate. We'll send you a secure sign-in link. No password is required.</p><form id="customerLogin"><label for="customerEmail">Email address</label><input required type="email" id="customerEmail" autocomplete="email" placeholder="you@business.com"><button type="submit" class="btn btn-pink" id="customerSend">Email me a sign-in link</button></form><p class="account-help">Your first estimate does not require an account. Your email must be verified before requests become visible here.</p><p id="loginInfo" role="status"></p></section>
 <section id="customerContent" hidden>
-<div class="account-card"><h2>Welcome back</h2><p>Signed in as <strong id="customerIdentity"></strong></p><p class="account-help">Your new quote requests appear here after you submit the form. Payment and tracking are shown only when available.</p></div>
-<div class="account-grid"><div class="account-card"><h2>My Requests</h2><strong id="quoteCount">0</strong><p>Quote requests and reorder history</p></div><div class="account-card"><h2>My Orders</h2><strong id="orderCount">0</strong><p>Current order and production status</p></div></div>
-<section class="account-card"><h2>Quotes & Reorders</h2><div id="customerQuotes"><p>Loading your requests...</p></div></section>
-<section class="account-card"><h2>Order tracking</h2><div id="customerOrders"><p>Loading orders...</p></div></section>
-<section class="account-card"><h2>Messages</h2><p>Conversations submitted here remain associated with the corresponding quote. Email inbox synchronization is not enabled.</p><div id="customerMessages"><p>Select a quote to view its conversation.</p></div></section>
+<nav class="account-toolbar" aria-label="Account sections">
+<a href="#account-orders">My Orders <strong id="orderCount">0</strong></a><a href="#account-quotes" data-account-open="account-quotes">My Requests <strong id="quoteCount">0</strong></a><a href="#account-messages" data-account-open="account-messages">Messages</a>
+<span class="account-identity">Signed in as <strong id="customerIdentity"></strong></span></nav>
+<section class="account-card" id="account-orders"><h2>Order tracking</h2><div id="customerOrders"><p>Loading orders...</p></div></section>
+<details class="account-card account-fold" id="account-quotes"><summary>Quotes &amp; Reorders</summary><div id="customerQuotes"><p>Loading your requests...</p></div></details>
+<details class="account-card account-fold" id="account-messages"><summary>Messages</summary><div id="customerMessages"><p>Select a quote to view its conversation.</p></div></details>
 </section>
 <div id="accountLoading" role="status">Checking your secure session...</div>
 </main><footer class="footer"><div class="container"><div class="copyright"><span>© 2026 Orlando Custom Tees · Yama Services LLC</span><span><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a></span></div></div></footer>
@@ -45,22 +75,57 @@ async function start(){
  }catch(e){$("accountLoading").textContent="Unable to load customer information.";console.error(e)}
 }
 
+const orderProgress=[
+ {label:"Estimate & artwork",icon:"✎",states:["generated","sent","waiting","artwork_approval","not_converted"]},
+ {label:"Payment",icon:"$",states:["awaiting_payment"]},
+ {label:"Production",icon:"▤",states:["payment_confirmed","in_progress"]},
+ {label:"Fulfillment",icon:"□",states:["finished","delivered"]}
+];
+const customerStatus={
+ generated:"Preparing your estimate",sent:"Ready to review",waiting:"Revision in progress",
+ artwork_approval:"Artwork review",awaiting_payment:"Awaiting payment",payment_confirmed:"Payment confirmed",
+ in_progress:"In production",finished:"Order complete",delivered:"Delivered",not_converted:"Estimate available",cancelled:"Cancelled"
+};
 function octCustomerTimeline(status){
- const labels=[["generated","Generated"],["sent","Sent"],["waiting","Awaiting response"],["artwork_approval","Artwork approval"],["awaiting_payment","Awaiting payment"],["payment_confirmed","Payment confirmed"],["in_progress","In production"],["finished","Completed"],["delivered","Delivered"]];
- const idx=labels.findIndex(x=>x[0]===status);
- if(status==="not_converted")return '<p class="account-help">The original response window has ended. You may still review or request changes to this estimate.</p>';
- if(status==="cancelled")return '<p style="padding:11px;color:#a32e41;background:#fff0f1;border-radius:8px">This request was cancelled. Contact the team if you need help.</p>';
- return '<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:14px 0">'+labels.map(([id,name],i)=>
- '<div style="font-size:10px;text-align:center;border-top:3px solid '+(idx>=i?"#0ca8da":"#dfe8f0")+';padding:8px 2px;color:'+(idx>=i?"#056f96":"#8492a6")+'">'+safe(name)+'</div>'
- ).join("")+'</div>';
+ const currentIndex=orderProgress.findIndex(step=>step.states.includes(status));
+ if(currentIndex<0)return "";
+ return '<ol class="account-progress" aria-label="Order progress">'+orderProgress.map((step,i)=>
+  '<li'+(i<currentIndex||status==="delivered"?' class="done"':'')+(i===currentIndex?' aria-current="step"':'')+'><span class="account-progress-icon" aria-hidden="true">'+(i<currentIndex||status==="delivered"?"✓":step.icon)+'</span><span>'+step.label+'</span></li>'
+ ).join("")+'</ol>';
 }
-function octCustomerProofs(proofs,combined=false){
- if(!proofs.length)return '<p class="account-help">Artwork proof will appear here after the OCT team prepares it.</p>';
- return '<div style="background:#fff;border:1px solid #ead8ea;border-radius:12px;padding:13px;margin:12px 0"><h3 style="font-size:15px;margin-top:0">Artwork approval</h3>'+
- proofs.map((p,i)=>'<div style="padding:10px;border-top:1px solid #e8ebf1"><strong>'+safe(p.position==="front"?"Front artwork":"Back artwork")+'</strong> · '+safe(p.approval_status)+' · '+safe(new Date(p.created_at).toLocaleString("en-US"))+'<div class="account-actions"><button type="button" class="openProof" data-id="'+safe(p.id)+'">View mockup</button>'+
- (p.approval_status==="pending"&&!combined?'<button type="button" class="proofDecision primary" data-id="'+safe(p.id)+'" data-decision="approved">Approve</button><button type="button" class="proofDecision" data-id="'+safe(p.id)+'" data-decision="rejected">Request revision</button>':'')+
- '</div></div>').join("")+'</div>';
+function octCustomerProofs(proofs,reviewAvailable,legacyReview){
+ if(!proofs.length)return '<p class="account-help">Your artwork preview will appear here when it’s ready to review.</p>';
+ return '<section class="account-proofs"><h4>Artwork proofs</h4><div class="account-proof-grid">'+
+ [...proofs].sort((a,b)=>Number(a.position==="back")-Number(b.position==="back")).map(p=>{
+  const side=p.position==="front"?"Front":"Back", status={pending:"Awaiting review",approved:"Approved",rejected:"Changes requested"}[p.approval_status]||p.approval_status;
+  const approve=(reviewAvailable||legacyReview)&&p.approval_status==="pending";
+  const canRevise=(reviewAvailable&&p.approval_status!=="rejected")||(legacyReview&&approve);
+  return '<div class="account-proof" data-proof="'+safe(p.id)+'"><div class="account-proof-head"><strong>'+side+'</strong><span class="account-badge">'+safe(status)+'</span></div>'+
+   '<img class="account-proof-preview" alt="'+side+' garment mockup" hidden><p class="account-proof-note" role="status">Loading '+side.toLowerCase()+' preview…</p>'+
+   '<button type="button" class="proofRetry" hidden>Retry preview</button>'+
+   '<div class="account-actions">'+(approve?'<button type="button" class="proofDecision primary" data-decision="approved" disabled>Approve '+side+'</button>':'')+
+   (canRevise?'<button type="button" class="proofChanges">Request changes</button>':'')+'</div>'+
+   (canRevise?'<form class="account-revision" hidden><label>Changes for '+side.toLowerCase()+' artwork<textarea required maxlength="1000" rows="2"></textarea></label><button type="submit" class="primary">Send request</button></form>':'')+'</div>';
+ }).join("")+'</div></section>';
 }
+const previewLinks=new Map();
+async function loadProofImage(card,force=false){
+ const id=card.dataset.proof,image=card.querySelector("img"),note=card.querySelector(".account-proof-note"),retry=card.querySelector(".proofRetry");
+ retry.hidden=true;note.hidden=false;note.textContent="Loading preview…";
+ function failed(){previewLinks.delete(id);image.hidden=true;note.hidden=false;note.textContent="Preview unavailable. Please try again.";retry.hidden=false;}
+ try{
+  let link=previewLinks.get(id);
+  if(force||!link||link.expires<=Date.now()){
+   const {data,error}=await sup.functions.invoke("oct-customer-artwork",{body:{artwork_id:id}});
+   if(error||!data?.url){failed();return}
+   link={url:data.url,expires:Date.now()+Math.max(0,Number(data.expires_in||600)-30)*1000};previewLinks.set(id,link);
+  }
+  image.onload=()=>{image.hidden=false;note.hidden=true;const button=card.querySelector(".proofDecision");if(button)button.disabled=false};
+  image.onerror=failed;
+  image.src=link.url;
+ }catch{failed()}
+}
+document.querySelectorAll("[data-account-open]").forEach(link=>link.addEventListener("click",()=>{$(link.dataset.accountOpen).open=true}));
 async function refresh(){
  const [quotes,orders,estimateResponse,historyResponse]=await Promise.all([
   sup.from("quote_requests").select("id,request_number,status,product,color,sizes,quantity,front_print,back_print,delivery,shipping_address,notes,created_at,file_paths,source_quote_id").order("created_at",{ascending:false}).limit(100),
@@ -85,43 +150,63 @@ async function refresh(){
    ["Front print",d.front],["Back print",d.back],["Delivery date",o.due_date||"To be confirmed"],
    ["Tracking number",o.tracking_number||"Pending"]
   ];
-  if(pricePublic)detailRows.push(["Subtotal",money(e.subtotal)],["Estimated tax",money(e.tax)],["Shipping",money(e.shipping)],["Estimate total",money(e.total)]);
+  if(pricePublic)detailRows.push(["Subtotal",money(e.subtotal)],["Estimated tax",money(e.tax)],["Shipping",money(e.shipping)]);
   const review=o.quote_review, reviewIds=review?.proofs||[];
   const reviewAvailable=reviewIds.length>0&&["sent","not_converted"].includes(o.status)&&Number(e?.total)===Number(review.total);
-  const orderProofs=proofs.filter(a=>a.order_id===o.id&&(review?reviewIds.includes(a.id):!["generated","waiting"].includes(o.status)));
-  return '<article id="order-'+safe(o.id)+'" class="account-card" style="margin:14px 0"><div class="account-meta"><strong>'+safe(o.order_number)+'</strong><span class="account-badge">'+safe(o.status)+'</span></div><h3 style="font-size:19px;margin:12px 0">Your custom apparel order</h3>'+
-  octCustomerTimeline(o.status)+
-  '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px;margin-top:14px">'+detailRows.map(([k,v])=>'<div style="padding:10px;border:1px solid #e2eaf2;border-radius:8px"><small style="display:block;color:#6d7d91">'+safe(k)+'</small><strong>'+safe(v||"—")+'</strong></div>').join("")+'</div>'+
-  (pricePublic?'<h3 style="font-size:20px">Estimate total: '+money(e.total)+'</h3><p class="account-help">Prices and shipping are subject to the approved final estimate. No payment is collected here.</p>':'<p class="account-help">Price pending administrative approval. Our team will prepare your estimate.</p>')+
-  octCustomerProofs(orderProofs,!!review||o.status!=="artwork_approval")+
-  (reviewAvailable&&orderProofs.length===reviewIds.length?'<div class="account-actions"><button type="button" class="combinedDecision primary" data-order="'+safe(o.id)+'" data-decision="approved">Approve Artwork &amp; Estimate</button><button type="button" class="combinedDecision" data-order="'+safe(o.id)+'" data-decision="rejected">Request Changes</button></div>':'')+
-  '<h3 style="font-size:15px;margin:19px 0 8px">Order history</h3>'+
-  (history.length?history.map(h=>'<div style="border-left:3px solid #06a7dd;padding:7px 12px;margin:8px 0"><strong>'+safe(h.new_status)+'</strong><p class="account-help">'+safe(new Date(h.created_at).toLocaleString("en-US"))+' · '+safe(h.notes||"")+'</p></div>').join(""):'<p class="account-help">Order created. Updates will appear here.</p>')+'</article>';
- }).join(""):'<p>Orders will appear after your request is converted to an estimate. Payment details will be available once invoices are integrated.</p>';
+  const orderProofs=proofs.filter(p=>p.order_id===o.id&&(review?reviewIds.includes(p.id):!["generated","waiting"].includes(o.status)));
+  const ready=reviewAvailable&&orderProofs.length===reviewIds.length&&orderProofs.every(p=>p.approval_status==="approved");
+  const orderStatus=customerStatus[o.status]||"Order received";
+  const estimateAction=ready?'<button type="button" class="combinedDecision primary" data-order="'+safe(o.id)+'">Approve Estimate</button>':
+   reviewAvailable?'<span class="account-help">Approve each artwork proof to continue.</span>':
+   o.status==="waiting"?'<span class="account-help">We’re reviewing your requested changes.</span>':"";
+  return '<article id="order-'+safe(o.id)+'" class="account-card account-order"><div class="account-meta"><strong>'+safe(o.order_number)+'</strong><span class="account-badge">'+safe(orderStatus)+'</span></div><h3 class="account-order-title">'+safe(d.productName||"Your custom apparel order")+'</h3>'+
+   octCustomerTimeline(o.status)+
+   (o.tracking_number?'<p><strong>Tracking number</strong> '+safe(o.tracking_number)+'</p>':"")+
+   octCustomerProofs(orderProofs,reviewAvailable,!review&&o.status==="artwork_approval")+
+   ((pricePublic||estimateAction)?'<div class="account-estimate">'+(pricePublic?'<strong>Estimate total · '+money(e.total)+'</strong>':"")+estimateAction+'</div>':"")+
+   '<details class="account-fold account-order-detail"><summary>Order details</summary><div class="account-grid" style="gap:8px;margin:12px 0">'+detailRows.map(([k,v])=>'<div><small style="display:block;color:#536d83">'+safe(k)+'</small><strong>'+safe(v||"—")+'</strong></div>').join("")+'</div></details>'+
+   (history.length?'<details class="account-fold account-order-detail"><summary>Order history</summary>'+history.map(h=>'<p class="account-help"><strong>'+safe(customerStatus[h.new_status]||"Order updated")+'</strong> · '+safe(new Date(h.created_at).toLocaleString("en-US"))+'<br>'+safe(h.notes||"")+'</p>').join("")+'</details>':"")+'</article>';
+ }).join(""):'<p>Your order will appear here when your estimate is ready. <a href="#account-quotes" id="emptyOrderQuotes">View your requests</a>.</p>';
+ if($("emptyOrderQuotes"))$("emptyOrderQuotes").onclick=()=>{$("account-quotes").open=true};
  const focusedOrder=new URLSearchParams(location.search).get("order");
- if(focusedOrder)document.getElementById("order-"+focusedOrder)?.scrollIntoView({block:"start"});
+ const focusedCard=focusedOrder&&$("order-"+focusedOrder);
+ if(focusedCard&&!refresh.focused){focusedCard.scrollIntoView({block:"start"});refresh.focused=true}
  $("customerOrders").querySelectorAll(".combinedDecision").forEach(btn=>btn.onclick=async()=>{
   const order=os.find(record=>record.id===btn.dataset.order);
-  if(!order?.quote_review)return;
-  const decision=btn.dataset.decision;
-  if(!confirm(decision==="approved"?"Approve the artwork and the estimate total shown above?":"Request changes to this estimate or artwork?"))return;
+  if(!order?.quote_review||!confirm("Approve this estimate and proceed to payment?"))return;
   btn.disabled=true;
-  const {data,error}=await sup.rpc("oct_customer_quote_decision",{p_order:order.id,p_total:order.quote_review.total,p_proofs:order.quote_review.proofs,p_decision:decision});
-  if(error||data!==true){alertError("Unable to save your response. Refresh to check for a newer estimate.");btn.disabled=false;return}
+  const {data,error}=await sup.rpc("oct_customer_quote_decision",{p_order:order.id,p_total:order.quote_review.total,p_proofs:order.quote_review.proofs,p_decision:"approved"});
+  if(error||data!==true){alertError("Unable to approve the estimate. Refresh to check for a newer version.");btn.disabled=false;return}
   await refresh();
  });
- $("customerOrders").querySelectorAll(".openProof").forEach(btn=>btn.onclick=async()=>{
-  btn.disabled=true;const {data,error}=await sup.functions.invoke("oct-customer-artwork",{body:{artwork_id:btn.dataset.id}});btn.disabled=false;
-  if(error||!data?.url){alertError("Unable to open the secured approval proof.");return}
-  window.open(data.url,"_blank","noopener,noreferrer");
- });
- $("customerOrders").querySelectorAll(".proofDecision").forEach(btn=>btn.onclick=async()=>{
-  const decision=btn.dataset.decision;
-  if(!confirm(decision==="approved"?"Approve this artwork proof?":"Request a revision of this artwork?"))return;
-  btn.disabled=true;
-  const {data,error}=await sup.functions.invoke("oct-artwork-approval",{body:{artwork_id:btn.dataset.id,decision}});
-  if(error||!data?.ok){alertError(data?.error||error||"Unable to save approval");btn.disabled=false;return}
-  await refresh();
+ $("customerOrders").querySelectorAll(".account-order").forEach(card=>{
+  const order=os.find(o=>"order-"+o.id===card.id);
+  card.querySelectorAll("[data-proof]").forEach(proof=>{
+   loadProofImage(proof);
+   proof.querySelector(".proofRetry").onclick=()=>loadProofImage(proof,true);
+   const approve=proof.querySelector(".proofDecision"),changes=proof.querySelector(".proofChanges"),form=proof.querySelector("form");
+   async function decide(decision,note,button){
+    button.disabled=true;
+    let result;
+    if(order.quote_review)result=await sup.rpc("oct_customer_artwork_side_decision",{p_order:order.id,p_artwork:proof.dataset.proof,p_decision:decision,p_note:note});
+    else result=await sup.functions.invoke("oct-artwork-approval",{body:{artwork_id:proof.dataset.proof,decision}});
+    if(result.error||!(order.quote_review?result.data===true:result.data?.ok)){
+     alertError("Unable to save this response. Refresh to check for a newer proof.");button.disabled=false;return;
+    }
+    await refresh();
+   }
+   if(approve)approve.onclick=()=>decide("approved",null,approve);
+   if(changes)changes.onclick=()=>{
+    if(!order.quote_review){if(confirm("Request changes to this artwork?"))decide("rejected",null,changes);return}
+    form.hidden=!form.hidden;if(!form.hidden)form.querySelector("textarea").focus();
+   };
+   if(form)form.onsubmit=event=>{
+    event.preventDefault();
+    const field=form.querySelector("textarea"),note=field.value.trim();
+    if(!note){field.focus();return}
+    decide("rejected",note,form.querySelector("button"));
+   };
+  });
  });
  $("customerQuotes").querySelectorAll(".viewArtwork").forEach(btn=>btn.onclick=async()=>{
   btn.disabled=true;
@@ -141,6 +226,7 @@ async function refresh(){
  $("customerQuotes").querySelectorAll(".editQuote").forEach(btn=>btn.onclick=()=>openEditor(qs.find(q=>q.id===btn.dataset.id)));
 }
 async function openMessages(id){
+ $("account-messages").open=true;
  const target=$("customerMessages");
  target.scrollIntoView({behavior:"smooth",block:"start"});
  target.innerHTML='<h3>Conversation</h3><p>Loading messages...</p>';
