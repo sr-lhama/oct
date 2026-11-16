@@ -378,7 +378,7 @@ async function renderOctOverview(){
   return '<button type="button" class="oct-order" data-order="'+safe(o.id)+'"><small>'+safe(o.order_number||o.id)+'</small>'+
     '<strong>'+safe(raw.company||raw.name||"Cliente")+'</strong>'+
     '<p>'+safe(quantity)+' peças · '+safe(raw.productName||raw.productId||"Personalizado")+'</p>'+
-    '<em>'+dollar.format(Number(o.total||0))+'</em></button>';
+    '<em>'+(Number(o.total||0)>0?dollar.format(Number(o.total)):'Estimate pending')+'</em></button>';
  }).join(""):'<div class="oct-empty">Nenhum pedido nesta etapa</div>')+'</section>';
  }).join("");
  stageTarget.querySelectorAll("[data-order]").forEach(b=>b.onclick=async()=>{
@@ -662,7 +662,7 @@ async function loadReadOnlyData(pageId){
    const rec=rows[Number(b.dataset.index)];closeEditor();
    const overlay=document.createElement("div");overlay.id="recordEditor";overlay.style.cssText="position:fixed;inset:0;z-index:200;background:#091a35b5;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto";
    const box=document.createElement("section");box.style.cssText="background:white;border-radius:15px;padding:25px;width:min(650px,100%);max-height:90vh;overflow:auto";
-   const fields=["request_number","customer_name","company","email","phone","product","color","quantity","sizes","front_print","back_print","front_dimensions","back_dimensions","delivery","shipping_address","need_by","notes","status","created_at"];
+   const fields=["request_number","customer_name","company","email","phone","product","color","quantity","sizes","front_print","back_print","front_dimensions","back_dimensions","delivery","shipping_street","shipping_unit","shipping_city","shipping_state","shipping_zip","shipping_address","need_by","notes","status","created_at"];
    box.innerHTML='<h2 style="font-size:22px">Quote request details</h2>'+fields.map(k=>'<p style="font-size:13px;border-bottom:1px solid #e2e8f0;padding:7px 0"><strong>'+safe(k.replaceAll("_"," "))+'</strong>: '+safe(typeof rec[k]==="object"?JSON.stringify(rec[k]):rec[k]??"—")+'</p>').join("")+'<div id="quoteArtworks"></div><button class="btn secondary" id="closeQuote">Close</button>';
    overlay.append(box);document.body.append(overlay);
    box.querySelector("#closeQuote").onclick=()=>overlay.remove();
