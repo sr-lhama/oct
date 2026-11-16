@@ -497,7 +497,7 @@ async function octOpenOrderWorkspace(orderId){
  panel.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap"><div><small style="letter-spacing:1.6px;color:#e32183">ORLANDO CUSTOM TEES · CUSTOMER ORDER</small><h2 style="font-size:23px;margin:6px 0">'+safe(order.order_number)+'</h2><small>Current stage: '+safe(order.status)+' · '+qty+' pieces</small></div><button type="button" class="btn secondary" id="octCloseWorkspace">Close</button></div>'+
  '<h3 style="margin:23px 0 12px">Customer and order details</h3><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px">'+info+'</div>'+
  '<h3 style="margin:23px 0 12px">Original customer artwork & mockups</h3><div id="octWorkspaceArtwork" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px"><p>Loading secure files...</p></div>'+
- '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button type="button" class="btn" id="octLaunchStudio">✦ Open Artwork Studio</button><button type="button" class="btn secondary" id="octReceiptNotice">Send customer + admin receipt</button><button type="button" class="btn secondary" id="octOpenCustomerPortal">View customer portal</button></div>'+
+ '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button type="button" class="btn" id="octLaunchStudio">✦ Open Artwork Studio</button><button type="button" class="btn secondary" id="octReceiptNotice">Reenviar boas-vindas + cópias administrativas</button><button type="button" class="btn secondary" id="octOpenCustomerPortal">View customer portal</button></div>'+
  '<h3 style="margin:22px 0 10px">Internal estimate · Review before sending</h3>'+
  '<p style="font-size:12px;color:#69798c">Suggested unit prices come from your saved commercial catalog. Verify the right quantity tier, print locations and DTF costs before approving. Nothing is sent automatically by saving.</p>'+
  '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:9px 0">'+(match?.tiers||[]).map((v,i)=>'<button class="btn secondary octPriceTier" data-price="'+safe(v)+'">Catalog tier '+(i+1)+': '+dollar.format(Number(v))+'</button>').join('')+'</div>'+
@@ -509,9 +509,10 @@ async function octOpenOrderWorkspace(orderId){
  panel.querySelector("#octReceiptNotice").onclick=async()=>{
   if(!quote?.id){window.alert("This order is not linked to an original quote request");return}
   const btn=panel.querySelector("#octReceiptNotice");btn.disabled=true;
-  const {data,error}=await client.functions.invoke("oct-notify-quote",{body:{quote_id:quote.id}});
+  if(!window.confirm("Reenviar o e-mail de boas-vindas ao cliente e enviar a notificação para fabio@orlandocustomtees.com e orlandotshirt@gmail.com?"))return;
+  const {data,error}=await client.functions.invoke("oct-notify-quote",{body:{quote_id:quote.id,resend:true}});
   btn.disabled=false;
-  panel.querySelector("#octWorkspaceMessage").textContent=error||!data?.ok?"E-mail não enviado: "+await octExplainEmailError(error,data):"Confirmação para o cliente: "+(data.customer_sent?"enviada":"pendente")+" · Administrador: "+(data.admin_sent?"enviada":"pendente");
+  panel.querySelector("#octWorkspaceMessage").textContent=error||!data?.ok?"Falha no envio: "+await octExplainEmailError(error,data):"Resend aceitou os e-mails: cliente "+(data.customer_sent?"✓":"pendente")+" · cópias para Fábio e Gmail "+(data.admin_sent?"✓":"pendentes")+". Verifique a caixa de entrada ou spam para confirmar a entrega.";
  };
  const pricing=panel.querySelector("#octWorkspacePrice");
  const msg=panel.querySelector("#octWorkspaceMessage");
