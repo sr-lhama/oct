@@ -88,12 +88,12 @@ async function refresh(){
   if(pricePublic)detailRows.push(["Subtotal",money(e.subtotal)],["Estimated tax",money(e.tax)],["Shipping",money(e.shipping)],["Estimate total",money(e.total)]);
   const review=o.quote_review, reviewIds=review?.proofs||[];
   const reviewAvailable=reviewIds.length>0&&["sent","not_converted"].includes(o.status)&&Number(e?.total)===Number(review.total);
-  const orderProofs=proofs.filter(a=>a.order_id===o.id&&(!review||reviewIds.includes(a.id)));
+  const orderProofs=proofs.filter(a=>a.order_id===o.id&&(review?reviewIds.includes(a.id):!["generated","waiting"].includes(o.status)));
   return '<article id="order-'+safe(o.id)+'" class="account-card" style="margin:14px 0"><div class="account-meta"><strong>'+safe(o.order_number)+'</strong><span class="account-badge">'+safe(o.status)+'</span></div><h3 style="font-size:19px;margin:12px 0">Your custom apparel order</h3>'+
   octCustomerTimeline(o.status)+
   '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px;margin-top:14px">'+detailRows.map(([k,v])=>'<div style="padding:10px;border:1px solid #e2eaf2;border-radius:8px"><small style="display:block;color:#6d7d91">'+safe(k)+'</small><strong>'+safe(v||"—")+'</strong></div>').join("")+'</div>'+
   (pricePublic?'<h3 style="font-size:20px">Estimate total: '+money(e.total)+'</h3><p class="account-help">Prices and shipping are subject to the approved final estimate. No payment is collected here.</p>':'<p class="account-help">Price pending administrative approval. Our team will prepare your estimate.</p>')+
-  octCustomerProofs(orderProofs,!!review)+
+  octCustomerProofs(orderProofs,!!review||o.status!=="artwork_approval")+
   (reviewAvailable&&orderProofs.length===reviewIds.length?'<div class="account-actions"><button type="button" class="combinedDecision primary" data-order="'+safe(o.id)+'" data-decision="approved">Approve Artwork &amp; Estimate</button><button type="button" class="combinedDecision" data-order="'+safe(o.id)+'" data-decision="rejected">Request Changes</button></div>':'')+
   '<h3 style="font-size:15px;margin:19px 0 8px">Order history</h3>'+
   (history.length?history.map(h=>'<div style="border-left:3px solid #06a7dd;padding:7px 12px;margin:8px 0"><strong>'+safe(h.new_status)+'</strong><p class="account-help">'+safe(new Date(h.created_at).toLocaleString("en-US"))+' · '+safe(h.notes||"")+'</p></div>').join(""):'<p class="account-help">Order created. Updates will appear here.</p>')+'</article>';
