@@ -352,12 +352,30 @@ const OCT_STAGES=[
 async function renderOctOverview(){
  const stats=document.querySelector("#octOverviewStats"),stageTarget=document.querySelector("#octPipeline");
  if(!stageTarget)return;
- const [ordersResponse,ledgerResponse]=await Promise.all([
+ const [ordersResponse,ledgerResponse,quotesResponse]=await Promise.all([
  client.from("orders").select("id,legacy_id,order_number,status,total,created_at,legacy_payload,production_started_at,due_date").order("created_at",{ascending:false}).limit(500),
- client.from("legacy_records").select("payload").eq("source_table","ledger").limit(500)
+ client.from("legacy_records").select("payload").eq("source_table","ledger").limit(500),
+ client.from("quote_requests").select("id,request_number,customer_name,company,product,quantity,status,created_at,converted_estimate_id,file_paths").order("created_at",{ascending:false}).limit(80)
  ]);
  if(ordersResponse.error){stageTarget.textContent="Não foi possível carregar os pedidos: "+ordersResponse.error.message;return}
  const orders=ordersResponse.data||[];
+ const pendingQuotes=(quotesResponse.data||[]).filter(q=>!q.converted_estimate_id&&q.status!=='converted');
+
+ const incomingEl=document.getElementById("octIncomingQuotes");
+ if(incomingEl){
+  if(quotesResponse.error){
+   incomingEl.innerHTML='<strong>Solicitações do website</strong><p style="color:#ad2334">Não foi possível carregar solicitações: '+safe(quotesResponse.error.message)+'</p>';
+  }else{
+   const allQuotes=quotesResponse.data||[];
+   const unconverted=allQuotes.filter(q=>!q.converted_estimate_id&&q.status!=="converted");
+   incomingEl.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><div><strong style="font-size:17px">Solicitações do website</strong><p style="font-size:12px;color:#66778a;margin:5px 0">'+unconverted.length+' aguardando análise. Estas solicitações ainda não são estimates aprovados.</p></div><button type="button" class="btn" id="octOpenInbox">Ver todas as solicitações</button></div>'+
+    (unconverted.length?'<div style="display:grid;gap:9px;margin-top:13px">'+unconverted.slice(0,5).map(q=>
+    '<button type="button" data-open-inbox="1" style="text-align:left;display:flex;justify-content:space-between;align-items:center;gap:13px;flex-wrap:wrap;padding:12px;background:#f6faff;border:1px solid #d9e7f1;border-radius:10px;cursor:pointer"><span><strong>'+safe(q.request_number)+'</strong><br><small>'+safe(q.company||q.customer_name)+' · '+safe(q.product)+' · '+safe(q.quantity)+' peças</small></span><span style="font-weight:700;color:#0082ad">Ver solicitação ›</span></button>'
+    ).join("")+'</div>':'<p style="margin:12px 0 0;color:#8492a5;font-size:12px">Nenhuma solicitação aguardando revisão.</p>');
+   incomingEl.querySelectorAll("#octOpenInbox,[data-open-inbox]").forEach(btn=>btn.onclick=()=>showPage("inbox"));
+  }
+ }
+
  const ledger=(ledgerResponse.data||[]).map(x=>x.payload||{});
  const income=ledger.filter(x=>x.kind==="income").reduce((n,x)=>n+Number(x.amount||0)/100,0);
  const expense=ledger.filter(x=>x.kind==="expense").reduce((n,x)=>n+Number(x.amount||0)/100,0);
@@ -370,8 +388,9 @@ async function renderOctOverview(){
  if(stats)stats.innerHTML=metrics.map(([label,value,sub])=>'<div class="stat"><span>'+safe(label)+'</span><strong>'+safe(value)+'</strong><small>'+safe(sub)+'</small></div>').join("");
  stageTarget.innerHTML=OCT_STAGES.map(([key,label])=>{
  const group=orders.filter(o=>o.status===key);
- return '<section class="oct-stage" data-stage="'+key+'"><div class="oct-stage-title"><b>'+label+'</b><span class="oct-stage-count">'+group.length+'</span></div>'+
- (group.length?group.map(o=>{
+ const pending=key==='generated'?pendingQuotes:[];
+ return '<section class="oct-stage" data-stage="'+key+'"><div class="oct-stage-title"><b>'+label+'</b><span class="oct-stage-count">'+(group.length+pending.length)+'</span></div>'+
+ ((group.length+pending.length)?group.map(o=>{
   const detail=o.legacy_payload||{},raw=typeof detail.data==="string"?JSON.parse(detail.data):detail.data||{};
   const price=typeof detail.pricing==="string"?JSON.parse(detail.pricing):detail.pricing||{};
   const quantity=price.quantity??Object.values(raw.sizes||{}).reduce((n,v)=>n+Number(v||0),0);
@@ -379,8 +398,9 @@ async function renderOctOverview(){
     '<strong>'+safe(raw.company||raw.name||"Cliente")+'</strong>'+
     '<p>'+safe(quantity)+' peças · '+safe(raw.productName||raw.productId||"Personalizado")+'</p>'+
     '<em>'+(Number(o.total||0)>0?dollar.format(Number(o.total)):'Estimate pending')+'</em></button>';
- }).join(""):'<div class="oct-empty">Nenhum pedido nesta etapa</div>')+'</section>';
+ }).join('')+pending.map(q=>'<button type="button" class="oct-order" data-pending-quote="'+safe(q.id)+'"><small>'+safe(q.request_number)+' · WEBSITE</small><strong>'+safe(q.company||q.customer_name)+'</strong><p>'+safe(q.quantity)+' peças · '+safe(q.product)+'</p><em>Aguardando orçamento</em></button>').join(''):'<div class="oct-empty">Nenhum pedido nesta etapa</div>')+'</section>';
  }).join("");
+ stageTarget.querySelectorAll("[data-pending-quote]").forEach(b=>b.onclick=()=>showPage("inbox"));
  stageTarget.querySelectorAll("[data-order]").forEach(b=>b.onclick=async()=>{
   const selected=orders.find(o=>o.id===b.dataset.order);if(!selected)return;
   closeEditor();
@@ -416,7 +436,7 @@ async function renderOctOverview(){
 }
 function nav(){
  const mark=p=>'<button type="button" class="nav-btn" data-page="'+p.id+'" '+(p.id==="overview"?'aria-current="page"':'')+'><span class="nav-icon" aria-hidden="true">'+p.icon+'</span>'+safe(p.label)+'</button>';
- const primary=["overview","estimates","messages","hours","production","customers","catalog","suppliers","finance","team","settings"];
+ const primary=["overview","inbox","estimates","messages","hours","production","customers","catalog","suppliers","finance","team","settings"];
  const extra=pages.filter(p=>!primary.includes(p.id));
  const desktop=document.getElementById("desktopNav");
  desktop.innerHTML='<div style="color:#a1acbb;font-size:10px;letter-spacing:1.5px;padding:5px 12px">GESTÃO COMERCIAL</div>'+
@@ -436,6 +456,7 @@ function showPage(id){
  if(id==="overview"){
  content='<div class="oct-head"><div><small>ORLANDO CUSTOM TEES · GESTÃO</small><h2>Seu negócio, em movimento.</h2></div><button class="btn secondary" id="refreshOverview" type="button">↻ Atualizar</button></div>'+
  '<div class="stats" id="octOverviewStats"><div class="stat"><span>Estimates cadastrados</span><strong>…</strong></div><div class="stat"><span>Em produção</span><strong>…</strong></div><div class="stat"><span>Recebimentos registrados</span><strong>…</strong></div><div class="stat"><span>Saldo registrado</span><strong>…</strong></div></div>'+
+ '<section id="octIncomingQuotes" class="panel" style="margin:0 0 22px;padding:18px;border-left:4px solid #e32183"><p>Consultando novas solicitações recebidas pelo website...</p></section>'+
  '<section class="oct-workspace-card"><div class="kanban-header"><h3>Pipeline de pedidos</h3><div><button type="button" class="btn secondary" id="launchStudio">✦ Estúdio de Arte</button> <button type="button" class="btn" id="addEstimate">+ Criar estimate</button></div></div><div id="octPipeline" class="oct-pipeline"><p>Carregando pedidos reais...</p></div></section>'+
  '<p class="footer-note">Painel conectado ao Supabase. Histórico original preservado. Pagamentos somente após verificação externa.</p>';
  }else{
@@ -584,16 +605,8 @@ async function loadReadOnlyData(pageId){
  if(pageId==="migration"){showMigration();return;}
  if(pageId==="archive"){showLegacyArchive();return;}
  if(pageId==="settings"){const el=document.querySelector("#content .placeholder");if(el){el.innerHTML='<div><h3>Integration status</h3><p>Supabase: connected. Resend: SMTP configured in Supabase Auth. PayPal: server-side verification not migrated yet. GitHub Pages: hosting test environment.</p><p>Never paste API secrets into browser code or GitHub.</p><p><a href="https://sr-lhama.github.io/oct-auth-preview/portal.html" target="_blank" rel="noopener">Open customer portal ↗</a></p></div>'}return}
- if(pageId==="overview"){
- const specs=[["orders","Orders"],["estimates","Estimates"],["customers","Customers"],["quote_requests","Website requests"],["artworks","Artwork"]];
- const results=await Promise.all(specs.map(async ([table,label])=>{
- const {count,error}=await client.from(table).select("id",{head:true,count:"exact"});
- return {label,count,error};
- }));
- if(revision!==loadRevision||location.hash!=="#overview")return;
- const el=document.querySelector(".stats");if(el)el.innerHTML=results.map(x=>'<div class="stat"><span>'+safe(x.label)+'</span><strong>'+(x.error?"—":String(x.count??0))+'</strong><small>'+(x.error?safe(x.error.message):"Live Supabase total")+'</small></div>').join("");
- return;
- }
+ if(pageId==="overview"){return;}
+
  const cfg=registry[pageId];if(!cfg)return;
  const slot=document.querySelector("#content .placeholder");
  if(slot)slot.innerHTML='<div><strong>Loading '+safe(pageId)+'...</strong></div>';
