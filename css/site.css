@@ -224,3 +224,38 @@ body .benefitbar .inner { width: min(1460px, calc(100% - 56px)); }
   html[lang="es"] body .header-actions > .btn-outline[href^="customer.html"]::before { content: "Mi cuenta"; }
   html[lang="pt-BR"] body .header-actions > .btn-outline[href^="customer.html"]::before { content: "Minha conta"; }
 }
+
+.oct-cookie-notice[hidden] { display: none; }
+.oct-cookie-notice {
+  position: fixed;
+  z-index: 60;
+  inset: auto 14px max(14px, env(safe-area-inset-bottom)) 14px;
+  max-width: 980px;
+  max-height: 55dvh;
+  overflow: auto;
+  margin-inline: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  padding: 16px 20px;
+  border: 1px solid #d3deea;
+  border-radius: 14px;
+  background: #fff;
+  color: #162c44;
+  box-shadow: 0 6px 32px #091a3538;
+}
+.oct-cookie-copy { flex: 1 1 390px; }
+.oct-cookie-copy h2 { margin: 0 0 4px; font-size: 17px; }
+.oct-cookie-copy p { margin: 0 0 4px; font-size: 14px; }
+.oct-cookie-copy a { color: #174b72; text-decoration: underline; font-size: 13px; }
+.oct-cookie-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.oct-cookie-actions button { min-height: 42px; padding: 8px 14px; }
+.oct-cookie-settings { background: transparent; color: inherit; border: 0; padding: 4px 0; min-height: 32px; text-decoration: underline; cursor: pointer; }
+.oct-cookie-notice :is(a, button):focus-visible,.oct-cookie-settings:focus-visible { outline: 2px solid #0080ab; outline-offset: 3px; }
+@media(max-width: 520px) {
+  .oct-cookie-notice { padding: 12px 14px; gap: 10px; }
+  .oct-cookie-actions { width: 100%; }
+  .oct-cookie-actions button { flex: 1 1 auto; }
+}

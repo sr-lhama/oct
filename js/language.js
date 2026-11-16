@@ -67,6 +67,58 @@
     }
   }
 
+
+  const consentKey = 'oct-cookie-preferences-v1';
+  const consentLifetime = 180 * 24 * 60 * 60 * 1000;
+  const validChoice = value => value === 'all' || value === 'essential';
+  let choice;
+  try {
+    const previous = JSON.parse(localStorage.getItem(consentKey));
+    if (validChoice(previous?.choice) && previous.expires > Date.now()) choice = previous.choice;
+  } catch {}
+
+  const consent = document.createElement('section');
+  consent.className = 'oct-cookie-notice';
+  consent.hidden = Boolean(choice);
+  consent.id = 'oct-cookie-notice';
+  consent.setAttribute('aria-labelledby', 'oct-cookie-heading');
+  consent.innerHTML = '<div class="oct-cookie-copy"><h2 id="oct-cookie-heading">Cookie preferences</h2>' +
+    '<p>We use essential browser storage to remember your language and keep your account signed in. You can choose whether to allow optional cookies.</p>' +
+    '<a href="privacy.html#cookies">Read our cookie policy</a></div>' +
+    '<div class="oct-cookie-actions"><button type="button" class="btn btn-outline" data-choice="essential">Essential only</button>' +
+    '<button type="button" class="btn btn-pink" data-choice="all">Accept all</button></div>';
+  document.body.append(consent);
+
+  let settings;
+  let openedFromSettings = false;
+  if (footer) {
+    settings = document.createElement('button');
+    settings.type = 'button';
+    settings.className = 'oct-cookie-settings';
+    settings.textContent = 'Cookie settings';
+    settings.setAttribute('aria-controls', 'oct-cookie-notice');
+    settings.setAttribute('aria-expanded', String(!consent.hidden));
+    (footer.querySelector('.copyright') || footer.querySelector('.container') || footer).append(settings);
+    settings.addEventListener('click', () => {
+      openedFromSettings = true;
+      consent.hidden = false;
+      settings.setAttribute('aria-expanded', 'true');
+      consent.querySelector('[data-choice="' + (choice || 'essential') + '"]').focus();
+    });
+  }
+  consent.addEventListener('click', event => {
+    const button = event.target.closest('button[data-choice]');
+    if (!button || !validChoice(button.dataset.choice)) return;
+    choice = button.dataset.choice;
+    try {
+      localStorage.setItem(consentKey, JSON.stringify({choice, expires: Date.now() + consentLifetime}));
+    } catch {}
+    consent.hidden = true;
+    settings?.setAttribute('aria-expanded', 'false');
+    if (openedFromSettings) settings.focus();
+    openedFromSettings = false;
+  });
+
   const attributes = ['alt', 'title', 'aria-label', 'aria-roledescription', 'aria-valuetext', 'placeholder'];
   const exclusion = 'script,style,[translate="no"],.google-review-author h3,.oct-review-person strong';
   function updateLink(element) {
