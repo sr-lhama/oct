@@ -48,22 +48,23 @@ async function start(){
 function octCustomerTimeline(status){
  const labels=[["generated","Generated"],["sent","Sent"],["waiting","Awaiting response"],["artwork_approval","Artwork approval"],["awaiting_payment","Awaiting payment"],["payment_confirmed","Payment confirmed"],["in_progress","In production"],["finished","Completed"],["delivered","Delivered"]];
  const idx=labels.findIndex(x=>x[0]===status);
+ if(status==="not_converted")return '<p class="account-help">The original response window has ended. You may still review or request changes to this estimate.</p>';
  if(status==="cancelled")return '<p style="padding:11px;color:#a32e41;background:#fff0f1;border-radius:8px">This request was cancelled. Contact the team if you need help.</p>';
  return '<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:14px 0">'+labels.map(([id,name],i)=>
  '<div style="font-size:10px;text-align:center;border-top:3px solid '+(idx>=i?"#0ca8da":"#dfe8f0")+';padding:8px 2px;color:'+(idx>=i?"#056f96":"#8492a6")+'">'+safe(name)+'</div>'
  ).join("")+'</div>';
 }
-function octCustomerProofs(proofs){
+function octCustomerProofs(proofs,combined=false){
  if(!proofs.length)return '<p class="account-help">Artwork proof will appear here after the OCT team prepares it.</p>';
  return '<div style="background:#fff;border:1px solid #ead8ea;border-radius:12px;padding:13px;margin:12px 0"><h3 style="font-size:15px;margin-top:0">Artwork approval</h3>'+
  proofs.map((p,i)=>'<div style="padding:10px;border-top:1px solid #e8ebf1"><strong>'+safe(p.position==="front"?"Front artwork":"Back artwork")+'</strong> · '+safe(p.approval_status)+' · '+safe(new Date(p.created_at).toLocaleString("en-US"))+'<div class="account-actions"><button type="button" class="openProof" data-id="'+safe(p.id)+'">View mockup</button>'+
- (p.approval_status==="pending"?'<button type="button" class="proofDecision primary" data-id="'+safe(p.id)+'" data-decision="approved">Approve</button><button type="button" class="proofDecision" data-id="'+safe(p.id)+'" data-decision="rejected">Request revision</button>':'')+
+ (p.approval_status==="pending"&&!combined?'<button type="button" class="proofDecision primary" data-id="'+safe(p.id)+'" data-decision="approved">Approve</button><button type="button" class="proofDecision" data-id="'+safe(p.id)+'" data-decision="rejected">Request revision</button>':'')+
  '</div></div>').join("")+'</div>';
 }
 async function refresh(){
  const [quotes,orders,estimateResponse,historyResponse]=await Promise.all([
   sup.from("quote_requests").select("id,request_number,status,product,color,sizes,quantity,front_print,back_print,delivery,shipping_address,notes,created_at,file_paths,source_quote_id").order("created_at",{ascending:false}).limit(100),
-  sup.from("orders").select("id,order_number,status,total,due_date,tracking_number,created_at,legacy_payload,estimate_id").order("created_at",{ascending:false}).limit(100),
+  sup.from("orders").select("id,order_number,status,total,due_date,tracking_number,created_at,legacy_payload,estimate_id,quote_review").order("created_at",{ascending:false}).limit(100),
  sup.from("estimates").select("id,estimate_number,status,subtotal,tax,shipping,total").limit(100),
  sup.from("order_status_history").select("order_id,new_status,notes,created_at").order("created_at",{ascending:true}).limit(500)
  ]);
@@ -85,14 +86,30 @@ async function refresh(){
    ["Tracking number",o.tracking_number||"Pending"]
   ];
   if(pricePublic)detailRows.push(["Subtotal",money(e.subtotal)],["Estimated tax",money(e.tax)],["Shipping",money(e.shipping)],["Estimate total",money(e.total)]);
-  return '<article class="account-card" style="margin:14px 0"><div class="account-meta"><strong>'+safe(o.order_number)+'</strong><span class="account-badge">'+safe(o.status)+'</span></div><h3 style="font-size:19px;margin:12px 0">Your custom apparel order</h3>'+
+  const review=o.quote_review, reviewIds=review?.proofs||[];
+  const reviewAvailable=reviewIds.length>0&&["sent","not_converted"].includes(o.status)&&Number(e?.total)===Number(review.total);
+  const orderProofs=proofs.filter(a=>a.order_id===o.id&&(!review||reviewIds.includes(a.id)));
+  return '<article id="order-'+safe(o.id)+'" class="account-card" style="margin:14px 0"><div class="account-meta"><strong>'+safe(o.order_number)+'</strong><span class="account-badge">'+safe(o.status)+'</span></div><h3 style="font-size:19px;margin:12px 0">Your custom apparel order</h3>'+
   octCustomerTimeline(o.status)+
   '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px;margin-top:14px">'+detailRows.map(([k,v])=>'<div style="padding:10px;border:1px solid #e2eaf2;border-radius:8px"><small style="display:block;color:#6d7d91">'+safe(k)+'</small><strong>'+safe(v||"—")+'</strong></div>').join("")+'</div>'+
   (pricePublic?'<h3 style="font-size:20px">Estimate total: '+money(e.total)+'</h3><p class="account-help">Prices and shipping are subject to the approved final estimate. No payment is collected here.</p>':'<p class="account-help">Price pending administrative approval. Our team will prepare your estimate.</p>')+
-  octCustomerProofs(proofs.filter(a=>a.order_id===o.id))+
+  octCustomerProofs(orderProofs,!!review)+
+  (reviewAvailable&&orderProofs.length===reviewIds.length?'<div class="account-actions"><button type="button" class="combinedDecision primary" data-order="'+safe(o.id)+'" data-decision="approved">Approve Artwork &amp; Estimate</button><button type="button" class="combinedDecision" data-order="'+safe(o.id)+'" data-decision="rejected">Request Changes</button></div>':'')+
   '<h3 style="font-size:15px;margin:19px 0 8px">Order history</h3>'+
   (history.length?history.map(h=>'<div style="border-left:3px solid #06a7dd;padding:7px 12px;margin:8px 0"><strong>'+safe(h.new_status)+'</strong><p class="account-help">'+safe(new Date(h.created_at).toLocaleString("en-US"))+' · '+safe(h.notes||"")+'</p></div>').join(""):'<p class="account-help">Order created. Updates will appear here.</p>')+'</article>';
  }).join(""):'<p>Orders will appear after your request is converted to an estimate. Payment details will be available once invoices are integrated.</p>';
+ const focusedOrder=new URLSearchParams(location.search).get("order");
+ if(focusedOrder)document.getElementById("order-"+focusedOrder)?.scrollIntoView({block:"start"});
+ $("customerOrders").querySelectorAll(".combinedDecision").forEach(btn=>btn.onclick=async()=>{
+  const order=os.find(record=>record.id===btn.dataset.order);
+  if(!order?.quote_review)return;
+  const decision=btn.dataset.decision;
+  if(!confirm(decision==="approved"?"Approve the artwork and the estimate total shown above?":"Request changes to this estimate or artwork?"))return;
+  btn.disabled=true;
+  const {data,error}=await sup.rpc("oct_customer_quote_decision",{p_order:order.id,p_total:order.quote_review.total,p_proofs:order.quote_review.proofs,p_decision:decision});
+  if(error||data!==true){alertError("Unable to save your response. Refresh to check for a newer estimate.");btn.disabled=false;return}
+  await refresh();
+ });
  $("customerOrders").querySelectorAll(".openProof").forEach(btn=>btn.onclick=async()=>{
   btn.disabled=true;const {data,error}=await sup.functions.invoke("oct-customer-artwork",{body:{artwork_id:btn.dataset.id}});btn.disabled=false;
   if(error||!data?.url){alertError("Unable to open the secured approval proof.");return}
@@ -156,7 +173,7 @@ function openEditor(q){
 $("customerLogin").onsubmit=async e=>{
  e.preventDefault();const btn=$("customerSend");btn.disabled=true;$("loginInfo").textContent="Sending secure login link...";
  const email=$("customerEmail").value.trim();
- const {error}=await sup.auth.signInWithOtp({email,options:{shouldCreateUser:true,emailRedirectTo:"https://sr-lhama.github.io/oct/customer.html"}});
+ const {error}=await sup.auth.signInWithOtp({email,options:{shouldCreateUser:true,emailRedirectTo:location.origin+location.pathname+location.search}});
  btn.disabled=false;
  $("loginInfo").textContent=error?"Unable to send the login link: "+error.message:"Check your email for your secure sign-in link.";
 };
