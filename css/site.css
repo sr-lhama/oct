@@ -259,3 +259,5 @@ body .benefitbar .inner { width: min(1460px, calc(100% - 56px)); }
   .oct-cookie-actions { width: 100%; }
   .oct-cookie-actions button { flex: 1 1 auto; }
 }
+
+.product-page-tagline{font-family:'Outfit',Arial,sans-serif;font-weight:800;font-size:clamp(28px,5vw,58px);line-height:1.05;margin:12px 0}

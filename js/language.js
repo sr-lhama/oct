@@ -68,7 +68,7 @@
   }
 
 
-  const consentKey = 'oct-cookie-preferences-v1';
+  const consentKey = 'oct-cookie-preferences-v2';
   const consentLifetime = 180 * 24 * 60 * 60 * 1000;
   const validChoice = value => value === 'all' || value === 'essential';
   let choice;
@@ -76,6 +76,47 @@
     const previous = JSON.parse(localStorage.getItem(consentKey));
     if (validChoice(previous?.choice) && previous.expires > Date.now()) choice = previous.choice;
   } catch {}
+
+  // Set this to the public GA4 web-stream measurement ID before activating tracking.
+  const measurementId = '';
+  const analyticsEnabled = /^G-[A-Z0-9]+$/.test(measurementId)
+    && ['orlandocustomtees.com','www.orlandocustomtees.com'].includes(url.hostname)
+    && !url.pathname.endsWith('/customer.html');
+  let analyticsLoaded = false;
+  function applyAnalyticsConsent() {
+    if (!analyticsEnabled) return;
+    window['ga-disable-' + measurementId] = choice !== 'all';
+    if (choice !== 'all') {
+      if (!analyticsLoaded && !/(?:^|;\s*)_ga=/.test(document.cookie)) return;
+      for (const key of ['_ga','_ga_' + measurementId.slice(2)]) {
+        document.cookie = key + '=; Max-Age=0; path=/; Secure; SameSite=Lax';
+        document.cookie = key + '=; Max-Age=0; path=/; domain=orlandocustomtees.com; Secure; SameSite=Lax';
+      }
+      return;
+    }
+    if (analyticsLoaded) return;
+    analyticsLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+    window.gtag('consent','update',{analytics_storage:'granted'});
+    window.gtag('js',new Date());
+    window.gtag('config',measurementId,{send_page_view:false,allow_google_signals:false,allow_ad_personalization_signals:false});
+    const pageLocation = url.origin + url.pathname;
+    window.gtag('event','page_view',{send_to:measurementId,page_location:pageLocation,language:selected.tag});
+    window.octAnalytics = {
+      lead(kind) {
+        if (choice === 'all' && (kind === 'quote' || kind === 'contact')) {
+          window.gtag('event','generate_lead',{send_to:measurementId,form_name:kind,page_location:pageLocation});
+        }
+      }
+    };
+    const tag = document.createElement('script');
+    tag.async = true;
+    tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+    document.head.append(tag);
+  }
+  applyAnalyticsConsent();
 
   const consent = document.createElement('section');
   consent.className = 'oct-cookie-notice';
@@ -110,6 +151,7 @@
     const button = event.target.closest('button[data-choice]');
     if (!button || !validChoice(button.dataset.choice)) return;
     choice = button.dataset.choice;
+    applyAnalyticsConsent();
     try {
       localStorage.setItem(consentKey, JSON.stringify({choice, expires: Date.now() + consentLifetime}));
     } catch {}
