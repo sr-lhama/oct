@@ -15,9 +15,11 @@
     || languages[0];
   try { localStorage.setItem(storageKey, selected.code); } catch {}
 
-  const topBar = document.querySelector('.benefitbar .inner');
-  if (!topBar) return;
-  const social = topBar.querySelector('.social-links--top');
+  document.documentElement.lang = selected.tag;
+  let translate = value => value;
+  window.octLocale = {code: selected.code, tag: selected.tag, t: value => translate(value)};
+  const topBar = document.querySelector('.benefitbar .inner') || document.querySelector('.header .header-actions');
+  const social = topBar?.querySelector('.social-links--top');
   const bar = document.createElement('div');
   bar.className = 'oct-language-bar';
   const nav = document.createElement('nav');
@@ -42,7 +44,7 @@
     social.before(bar);
     bar.append(social);
   } else {
-    topBar.append(bar);
+    topBar?.append(bar);
   }
 
   const footer = document.querySelector('.footer');
@@ -65,33 +67,66 @@
     }
   }
 
-  if (selected.code === 'en') return;
+  const attributes = ['alt', 'title', 'aria-label', 'aria-roledescription', 'aria-valuetext', 'placeholder'];
+  const exclusion = 'script,style,[translate="no"],.google-review-author h3,.oct-review-person strong';
+  function updateLink(element) {
+    if (!element.matches('a[href]') || element.closest(exclusion)) return;
+    const href = element.getAttribute('href');
+    if (!href || href.startsWith('#')) return;
+    const target = new URL(href, url);
+    if (target.origin !== url.origin || !target.pathname.endsWith('.html')) return;
+    if (target.searchParams.get('lang') === selected.code) return;
+    if (selected.code === 'en' && !target.searchParams.has('lang')) return;
+    target.searchParams.set('lang', selected.code);
+    element.setAttribute('href', href.split(/[?#]/, 1)[0] + target.search + target.hash);
+  }
+  if (selected.code === 'en') {
+    document.querySelectorAll('a[href*="lang="]').forEach(updateLink);
+    return;
+  }
   const dictionaryUrl = new URL('locale-' + selected.code + '.json', document.currentScript.src);
-  const attributes = ['alt', 'title', 'aria-label', 'placeholder'];
-  const exclusion = 'script,style,textarea,[translate="no"],.google-review-author h3,.oct-review-person strong';
-
+  dictionaryUrl.search = new URL(document.currentScript.src).search;
   fetch(dictionaryUrl).then(response => {
     if (!response.ok) throw new Error('Translation unavailable');
     return response.json();
   }).then(dictionary => {
-    document.documentElement.lang = selected.tag;
-    const lookup = value => Object.hasOwn(dictionary, value) ? dictionary[value] : value;
+    const identifier = /\{(\w+)\}/g;
+    const normalize = value => value.trim().replace(/\s+/g, ' ');
+    const canonical = new Map(Object.keys(dictionary).map(key => [normalize(key), key]));
+    const lookup = value => {
+      const key = Object.hasOwn(dictionary, value) ? value : canonical.get(normalize(value));
+      return key === undefined ? value : dictionary[key];
+    };
+    const format = (key, values) => lookup(key).replace(identifier, (_, name) => values[name] ?? '');
     const patterns = [
-      [/^(\d+) (pieces|colors)$/, match => match[1] + ' ' + lookup(match[2])],
-      [/^(Go to banner|Illustrated example of) (.+)$/, match => lookup(match[1]) + ' ' + lookup(match[2])],
-      [/^Request (\S+) (received\..+)$/, match => lookup('Request') + ' ' + match[1] + ' ' + lookup(match[2])],
-      [/^(Unable to send your request\.) (.+)$/, match => lookup(match[1]) + ' ' + (lookup(match[2]) === match[2] ? lookup('Please try again.') : lookup(match[2]))],
+      [/^(\d+) (pieces|colors)$/, m => m[1] + ' ' + lookup(m[2])],
+      [/^(Go to banner|Illustrated example of) (.+)$/, m => lookup(m[1]) + ' ' + lookup(m[2])],
+      [/^Go to review page (\d+)$/, m => format('Go to review page {n}', {n:m[1]})],
+      [/^(\d+) catalog colors\. Select the color you prefer; availability is confirmed after review\.$/, m => format('{n} catalog colors. Select the color you prefer; availability is confirmed after review.', {n:m[1]})],
+      [/^Request (\S+) received\. (.+)$/, m => format('Request {id} received.', {id:m[1]}) + ' ' + m[2].split(/ (?=Our team will review)/).map(lookup).join(' ')],
+      [/^New request (\S+) created\. You can edit it while it remains new\.$/, m => format('New request {id} created. You can edit it while it remains new.', {id:m[1]})],
+      [/^(Unable to send your request\.) (.+)$/, m => lookup(m[1]) + ' ' + (lookup(m[2]) === m[2] ? lookup('Please try again.') : lookup(m[2]))],
+      [/^(Unable to load requests:|Unable to send the login link:|PayPal Sandbox status:) (.+)$/, m => lookup(m[1]) + ' ' + (m[1].startsWith('Unable') ? lookup('Please try again.') : lookup(m[2]))],
+      [/^(Estimate total|Artwork|Sizes|Front|Back)([:·])\s*(.+)$/, m => lookup(m[1]) + m[2] + ' ' + lookup(m[3])],
+      [/^(\d+) pieces · Front: (.*?) · Back: (.+)$/, m => m[1] + ' ' + lookup('pieces') + ' · ' + lookup('Front') + ': ' + lookup(m[2]) + ' · ' + lookup('Back') + ': ' + lookup(m[3])],
+      [/^Select (.+)$/, m => format('Select {color}', {color:lookup(m[1])})],
+      [/^(.+?) in (.+?) (?:—|-) (front|back|side)(?: view)?$/i, m => format('Garment image: {product} · {color} · {view}', {product:m[1],color:lookup(m[2]),view:lookup(m[3][0].toUpperCase()+m[3].slice(1).toLowerCase())})],
+      [/^(Front|Back|Side) photo$/, m => format('{view} photo', {view:lookup(m[1])})],
+      [/^(.+?) style (\S+)$/, m => format('{brand} style {style}', {brand:m[1],style:m[2]})],
+      [/^(.+) custom apparel campaign for Orlando Custom Tees$/, m => format('{name} custom apparel campaign for Orlando Custom Tees',{name:lookup(m[1])})],
+      [/^(.+?)\s*\|\s*Orlando Custom Tees$/, m => lookup(m[1]) + ' · Orlando Custom Tees'],
     ];
-    function translate(value) {
+    translate = value => {
       const key = value.trim();
       if (!key) return value;
-      if (Object.hasOwn(dictionary, key)) return value.replace(key, () => dictionary[key]);
+      const translated = lookup(key);
+      if (translated !== key) return value.replace(key, () => translated);
       for (const [pattern, replacement] of patterns) {
         const match = key.match(pattern);
         if (match) return value.replace(key, () => replacement(match));
       }
       return value;
-    }
+    };
     function updateAttributes(element) {
       if (element.closest(exclusion)) return;
       for (const attribute of attributes) {
@@ -103,27 +138,18 @@
     }
     function updateText(node) {
       const parent = node.parentElement;
-      if (!parent || parent.closest(exclusion)) return;
+      if (!parent || parent.closest(exclusion) || parent.tagName === 'TEXTAREA') return;
       const translated = translate(node.data);
       if (translated === node.data) return;
       if (parent.tagName === 'OPTION' && !parent.hasAttribute('value')) parent.value = parent.value;
       node.data = translated;
-    }
-    function updateLink(element) {
-      if (!element.matches('a[href]') || element.closest(exclusion)) return;
-      const href = element.getAttribute('href');
-      if (!href || href.startsWith('#')) return;
-      const target = new URL(href, url);
-      if (target.origin !== url.origin || !target.pathname.endsWith('.html') || target.searchParams.has('lang')) return;
-      target.searchParams.set('lang', selected.code);
-      element.setAttribute('href', href.split(/[?#]/, 1)[0] + target.search + target.hash);
     }
     function updateTree(root) {
       if (root.nodeType === Node.TEXT_NODE) return updateText(root);
       if (root.nodeType !== Node.ELEMENT_NODE) return;
       updateAttributes(root);
       updateLink(root);
-      for (const element of root.querySelectorAll('[alt],[title],[aria-label],[placeholder],a[href]')) {
+      for (const element of root.querySelectorAll(attributes.map(name => '[' + name + ']').concat('a[href]').join(','))) {
         updateAttributes(element);
         updateLink(element);
       }
@@ -152,6 +178,6 @@
     const notice = document.createElement('span');
     notice.textContent = 'Translation unavailable. The page is shown in English.';
     notice.setAttribute('role', 'status');
-    bar.append(notice);
+    (topBar ? bar : document.querySelector('main') || document.body).append(notice);
   });
 })();

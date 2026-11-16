@@ -213,3 +213,14 @@ body .benefitbar .inner { width: min(1460px, calc(100% - 56px)); }
   margin-top: 13px;
 }
 .footer .oct-language-bar--footer .social-links { margin: 0; }
+
+@media (max-width: 700px) {
+  html[lang] body .header-actions > .btn-outline[href^="customer.html"] {
+    border: 1px solid #d3e0ed; min-width: 0; padding-inline: 6px;
+  }
+  html[lang] body .header-actions > .btn-outline[href^="customer.html"]::before {
+    content: "Account"; color: #0a2346;
+  }
+  html[lang="es"] body .header-actions > .btn-outline[href^="customer.html"]::before { content: "Mi cuenta"; }
+  html[lang="pt-BR"] body .header-actions > .btn-outline[href^="customer.html"]::before { content: "Minha conta"; }
+}

@@ -155,7 +155,7 @@
         swatches.replaceChildren();
         for(const color of colors){
           const button=document.createElement('button');
-          button.type='button';button.className='oct-swatch';
+          button.type='button';button.className='oct-swatch';button.dataset.color=color.name;
           button.setAttribute('aria-label','Select '+color.name);
           button.setAttribute('aria-pressed',String(color.name===selectedColor));
           const dot=document.createElement('span');dot.className='oct-swatch-dot';
@@ -171,7 +171,7 @@
         function paintSelection(){
           const color=colors.find(c=>c.name===selectedColor);
           colorField.value=color?.name||'';
-          swatches.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.querySelector('.oct-swatch-label')?.textContent===selectedColor)));
+          swatches.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.color===selectedColor)));
           updateImages(product,color);
           sendColorEvent();
         }

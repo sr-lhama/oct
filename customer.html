@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
-<title>My Account | Orlando Custom Tees</title><link rel="icon" href="favicon.ico"><link rel="stylesheet" href="css/site.css">
+<title>My Account | Orlando Custom Tees</title><link rel="icon" href="favicon.ico"><link rel="stylesheet" href="css/site.css?v=locale4">
 <style>
 .account-layout{min-height:70vh;max-width:1140px;padding:42px 22px 65px;margin:0 auto}.account-header{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:24px}.account-card{border:1px solid #dae8f2;border-radius:20px;background:white;padding:24px;box-shadow:0 6px 22px #0921480a;margin:15px 0}.account-card h2{font-size:22px}.account-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:14px}.account-card p{color:#596d83;font-size:14px}.account-meta{display:flex;gap:9px;flex-wrap:wrap;align-items:center;font-size:12px;color:#647185}.account-badge{background:#eaf6fc;border-radius:30px;color:#0877a3;padding:6px 11px;font-weight:800}.account-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.account-actions button{border:1px solid #c9dfe9;background:#fff;border-radius:9px;padding:9px 12px;color:#0b668a;font-weight:750;font-size:12px}.account-actions button.primary{background:#0aaee2;color:#fff;border-color:#0aaee2}.account-actions button:disabled{opacity:.55}.account-card input,.account-card textarea,.account-card select{border:1px solid #d0e1ec;padding:12px;border-radius:10px;width:100%;margin:5px 0 12px}.account-card textarea{min-height:100px}.account-card label{display:block;font-size:12px;font-weight:800;margin-top:10px}.account-card button{cursor:pointer}.account-card .btn{margin-top:9px}.account-msg{border-left:3px solid #07ade2;background:#eff8fc;padding:11px 13px;border-radius:7px;margin:9px 0;font-size:13px}.account-msg.staff{border-left-color:#ea1687;background:#fff6fa}.account-error{color:#ac2838}.account-help{font-size:12px;color:#647185}.account-sizes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.account-sizes input{text-align:center}.account-drawer{border-top:1px solid #e2ebf2;margin-top:16px;padding-top:12px}.account-summary{padding:15px;border-radius:12px;background:#f1f9fd}.account-summary strong{color:#14243d}#accountLoading{padding:25px;color:#657d95}
 @media(max-width:650px){.account-layout{padding:24px 13px 45px}.account-grid{grid-template-columns:1fr}.account-sizes{grid-template-columns:repeat(4,1fr)}}
@@ -36,7 +36,8 @@
 @media(max-width:650px){.account-identity{width:100%;margin-left:0}.account-progress li{flex-direction:column;align-items:flex-start;font-size:11px}.account-proof-grid{grid-template-columns:1fr}.account-order{padding:15px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head><body>
+<script src="js/site.js" defer></script><script src="js/language.js?v=4" defer></script></head><body>
+<div class="benefitbar"><div class="container inner"></div></div>
 <header class="header"><div class="container header-inner"><a aria-label="Orlando Custom Tees homepage" href="index.html"><img alt="Orlando Custom Tees official logo" class="logo" height="165" src="assets/images/logo-header-animated.gif" width="527"/></a><nav aria-label="Main navigation" class="mainnav"><a href="index.html">Home</a><a href="apparel.html">Apparel</a><a href="business-uniforms-orlando.html">Uniforms</a><a href="work.html">Portfolio</a><a href="reviews.html">Reviews</a><a href="how-it-works.html">How It Works</a><a href="contact.html">Contact</a></nav><div class="header-actions"><a class="btn btn-outline btn-sm" href="customer.html" aria-label="Customer account and order tracking">My Account</a><a class="btn btn-pink btn-sm" href="quote.html">Get a Free Quote <span aria-hidden="true">→</span></a><button aria-controls="mobileMenu" aria-expanded="false" aria-label="Open navigation" class="menu-btn" data-menu-toggle="" type="button">☰</button></div></div><nav aria-label="Mobile navigation" class="mobile-menu" data-menu="" id="mobileMenu"><a href="index.html">Home</a><a href="apparel.html">Apparel</a><a href="business-uniforms-orlando.html">Uniforms</a><a href="work.html">Portfolio</a><a href="reviews.html">Reviews</a><a href="how-it-works.html">How It Works</a><a href="contact.html">Contact</a><a class="active" aria-current="page" href="customer.html">My Account</a></nav></header>
 <main class="account-layout">
 <div class="account-header"><div><span class="eyebrow">YOUR ORLANDO CUSTOM TEES ACCOUNT</span><h1 style="font-size:clamp(27px,4vw,43px);margin:9px 0">My Account</h1><p style="color:#66798f;margin:0">Track requests, reuse your artwork and contact our team.</p></div><button class="btn btn-outline" type="button" id="customerLogout" hidden>Sign out</button></div>
@@ -59,9 +60,14 @@ const KEY="sb_publishable_CIXSDcMhMfy5Vj-ak0YkzQ_2kO7Fix5";
 const sup=window.supabase.createClient(URL,KEY,{auth:{flowType:"pkce"}});
 const $=id=>document.getElementById(id);
 const safe=x=>String(x??"").replace(/[&<>"']/g,k=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[k]));
-const money=x=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(x||0));
+const tr=value=>window.octLocale?.t(value)??value;
+const localeTag=()=>window.octLocale?.tag||document.documentElement.lang||"en-US";
+const money=x=>new Intl.NumberFormat(localeTag(),{style:"currency",currency:"USD"}).format(Number(x||0));
 let current=null;
-function alertError(e){window.alert(typeof e==="string"?e:(e?.message||"Unable to complete this request."))}
+function alertError(error){
+ if(typeof error!=="string")console.error(error);
+ window.alert(tr(typeof error==="string"?error:"Unable to complete this request."));
+}
 async function start(){
  try{
   const {data,error}=await sup.auth.getUser();
@@ -140,7 +146,7 @@ async function refresh(){
  const proofs=proofResponse.data||[];
  $("quoteCount").textContent=String(qs.length);
  $("orderCount").textContent=orders.error?"—":String(os.length);
- $("customerQuotes").innerHTML=qs.length?qs.map(q=>'<article class="account-card" data-quote="'+safe(q.id)+'"><div class="account-meta"><strong>'+safe(q.request_number)+'</strong><span class="account-badge">'+safe(q.status||"new")+'</span><span>'+safe(new Date(q.created_at).toLocaleDateString("en-US"))+'</span></div><h3 style="font-size:18px;margin:13px 0 6px">'+safe(q.product)+'</h3><p>'+safe(q.color||"Color pending")+' · '+safe(q.quantity)+' pieces · Front: '+safe(q.front_print||"None")+' · Back: '+safe(q.back_print||"None")+'</p><p class="account-help">Sizes: '+safe(Object.entries(q.sizes||{}).filter(([k,v])=>Number(v)>0).map(([k,v])=>k+': '+v).join(" / "))+'</p><p class="account-help">Artwork: '+safe(Object.keys(q.file_paths||{}).length?'Saved with this request':'None uploaded')+'</p><div class="account-actions">'+Object.keys(q.file_paths||{}).map(which=>'<button type="button" class="viewArtwork" data-id="'+safe(q.id)+'" data-file="'+safe(which)+'">View '+safe(which==="frontArtwork"?"Front":"Back")+' Artwork</button>').join("")+'<button type="button" class="primary repeatQuote" data-id="'+safe(q.id)+'">Order Again</button><button type="button" class="messageQuote" data-id="'+safe(q.id)+'">Messages</button>'+(q.status==="new"?'<button type="button" class="editQuote" data-id="'+safe(q.id)+'">Edit Request</button>':'')+'</div><div class="account-drawer" id="drawer-'+safe(q.id)+'" hidden></div></article>').join(""):'<p>You have no requests yet. <a href="quote.html">Request your first estimate</a>.</p>';
+ $("customerQuotes").innerHTML=qs.length?qs.map(q=>'<article class="account-card" data-quote="'+safe(q.id)+'"><div class="account-meta"><strong>'+safe(q.request_number)+'</strong><span class="account-badge">'+safe(q.status||"new")+'</span><span>'+safe(new Date(q.created_at).toLocaleDateString(localeTag()))+'</span></div><h3 style="font-size:18px;margin:13px 0 6px">'+safe(q.product)+'</h3><p><span>'+safe(q.color||"Color pending")+'</span> · <span>'+safe(q.quantity)+' pieces · Front: '+safe(q.front_print||"None")+' · Back: '+safe(q.back_print||"None")+'</span></p><p class="account-help">Sizes: '+safe(Object.entries(q.sizes||{}).filter(([k,v])=>Number(v)>0).map(([k,v])=>k+': '+v).join(" / "))+'</p><p class="account-help">Artwork: '+safe(Object.keys(q.file_paths||{}).length?'Saved with this request':'None uploaded')+'</p><div class="account-actions">'+Object.keys(q.file_paths||{}).map(which=>'<button type="button" class="viewArtwork" data-id="'+safe(q.id)+'" data-file="'+safe(which)+'">View '+safe(which==="frontArtwork"?"Front":"Back")+' Artwork</button>').join("")+'<button type="button" class="primary repeatQuote" data-id="'+safe(q.id)+'">Order Again</button><button type="button" class="messageQuote" data-id="'+safe(q.id)+'">Messages</button>'+(q.status==="new"?'<button type="button" class="editQuote" data-id="'+safe(q.id)+'">Edit Request</button>':'')+'</div><div class="account-drawer" id="drawer-'+safe(q.id)+'" hidden></div></article>').join(""):'<p>You have no requests yet. <a href="quote.html">Request your first estimate</a>.</p>';
  $("customerOrders").innerHTML=orders.error?'<p>Unable to load current orders.</p>':os.length?os.map(o=>{
   const d=o.legacy_payload?.data||{},sizes=d.sizes||{},sizesText=Object.entries(sizes).filter(([k,v])=>Number(v)>0).map(([k,v])=>k+": "+v).join(" / ");
   const e=(estimateResponse.data||[]).find(e=>e.id===o.estimate_id);
@@ -148,7 +154,7 @@ async function refresh(){
   const pricePublic=!["generated","waiting"].includes(o.status)&&Number(e?.total||0)>0;
   const detailRows=[
    ["Garment",d.productName],["Color",d.color],["Size breakdown",sizesText],
-   ["Front print",d.front],["Back print",d.back],["Delivery date",o.due_date||"To be confirmed"],
+   ["Front print",d.front],["Back print",d.back],["Delivery date",o.due_date?new Date(o.due_date+"T12:00:00Z").toLocaleDateString(localeTag(),{timeZone:"UTC"}):"To be confirmed"],
    ["Tracking number",o.tracking_number||"Pending"]
   ];
   if(pricePublic)detailRows.push(["Subtotal",money(e.subtotal)],["Estimated tax",money(e.tax)],["Shipping",money(e.shipping)]);
@@ -172,7 +178,7 @@ async function refresh(){
    ((pricePublic||estimateAction)?'<div class="account-estimate">'+(pricePublic?'<strong>Estimate total · '+money(e.total)+'</strong>':"")+estimateAction+'</div>':"")+
    livePayment+sandboxPayment+
    '<details class="account-fold account-order-detail"><summary>Order details</summary><div class="account-grid" style="gap:8px;margin:12px 0">'+detailRows.map(([k,v])=>'<div><small style="display:block;color:#536d83">'+safe(k)+'</small><strong>'+safe(v||"—")+'</strong></div>').join("")+'</div></details>'+
-   (history.length?'<details class="account-fold account-order-detail"><summary>Order history</summary>'+history.map(h=>'<p class="account-help"><strong>'+safe(customerStatus[h.new_status]||"Order updated")+'</strong> · '+safe(new Date(h.created_at).toLocaleString("en-US"))+'<br>'+safe(h.notes||"")+'</p>').join("")+'</details>':"")+'</article>';
+   (history.length?'<details class="account-fold account-order-detail"><summary>Order history</summary>'+history.map(h=>'<p class="account-help"><strong>'+safe(customerStatus[h.new_status]||"Order updated")+'</strong> · '+safe(new Date(h.created_at).toLocaleString(localeTag()))+'<br><span translate="no">'+safe(h.notes||"")+'</span></p>').join("")+'</details>':"")+'</article>';
  }).join(""):'<p>Your order will appear here when your estimate is ready. <a href="#account-quotes" id="emptyOrderQuotes">View your requests</a>.</p>';
  if($("emptyOrderQuotes"))$("emptyOrderQuotes").onclick=()=>{$("account-quotes").open=true};
  const focusedOrder=new URLSearchParams(location.search).get("order");
@@ -230,7 +236,7 @@ async function refresh(){
     }else{
      message.textContent="PayPal Sandbox status: "+String(data?.status||"Unavailable").replaceAll("_"," ").toLowerCase()+".";
     }
-   }catch(error){message.textContent=error.message}
+   }catch(error){console.error(error);message.textContent="Unable to reach PayPal Sandbox."}
    finally{busy=false;create.disabled=status.disabled=false}
   }
   create.onclick=()=>update("create");status.onclick=()=>update("status");
@@ -238,7 +244,7 @@ async function refresh(){
  });
  $("customerOrders").querySelectorAll(".combinedDecision").forEach(btn=>btn.onclick=async()=>{
   const order=os.find(record=>record.id===btn.dataset.order);
-  if(!order?.quote_review||!confirm("Approve this estimate and proceed to payment?"))return;
+  if(!order?.quote_review||!confirm(tr("Approve this estimate and proceed to payment?")))return;
   btn.disabled=true;
   const {data,error}=await sup.rpc("oct_customer_quote_decision",{p_order:order.id,p_total:order.quote_review.total,p_proofs:order.quote_review.proofs,p_decision:"approved"});
   if(error||data!==true){alertError("Unable to approve the estimate. Refresh to check for a newer version.");btn.disabled=false;return}
@@ -262,7 +268,7 @@ async function refresh(){
    }
    if(approve)approve.onclick=()=>decide("approved",null,approve);
    if(changes)changes.onclick=()=>{
-    if(!order.quote_review){if(confirm("Request changes to this artwork?"))decide("rejected",null,changes);return}
+    if(!order.quote_review){if(confirm(tr("Request changes to this artwork?")))decide("rejected",null,changes);return}
     form.hidden=!form.hidden;if(!form.hidden)form.querySelector("textarea").focus();
    };
    if(form)form.onsubmit=event=>{
@@ -281,11 +287,11 @@ async function refresh(){
   window.open(data.url,"_blank","noopener,noreferrer");
  });
  $("customerQuotes").querySelectorAll(".repeatQuote").forEach(btn=>btn.onclick=async()=>{
-  if(!confirm("Create a new request using the same garment, sizes and saved artwork? Current pricing and availability will be reviewed again."))return;
+  if(!confirm(tr("Create a new request using the same garment, sizes and saved artwork? Current pricing and availability will be reviewed again.")))return;
   btn.disabled=true;
   const {data,error}=await sup.rpc("oct_reorder_quote",{p_source:btn.dataset.id});
   btn.disabled=false;
-  if(error)alertError(error);else{alert("New request "+data+" created. You can edit it while it remains new.");await refresh();}
+  if(error)alertError(error);else{alert(tr("New request "+data+" created. You can edit it while it remains new."));await refresh();}
  });
  $("customerQuotes").querySelectorAll(".messageQuote").forEach(btn=>btn.onclick=()=>openMessages(btn.dataset.id));
  $("customerQuotes").querySelectorAll(".editQuote").forEach(btn=>btn.onclick=()=>openEditor(qs.find(q=>q.id===btn.dataset.id)));
@@ -296,8 +302,8 @@ async function openMessages(id){
  target.scrollIntoView({behavior:"smooth",block:"start"});
  target.innerHTML='<h3>Conversation</h3><p>Loading messages...</p>';
  const {data,error}=await sup.from("customer_messages").select("id,body,sender_role,created_at").eq("quote_request_id",id).order("created_at",{ascending:true}).limit(200);
- if(error){target.textContent=error.message;return}
- target.innerHTML='<h3>Conversation for this request</h3>'+(data?.length?data.map(m=>'<div class="account-msg '+(m.sender_role==="staff"?"staff":"")+'"><small>'+safe(m.sender_role==="staff"?"Orlando Custom Tees":"You")+' · '+safe(new Date(m.created_at).toLocaleString("en-US"))+'</small><p>'+safe(m.body)+'</p></div>').join(""):'<p>No messages yet.</p>')+'<form id="msgForm"><label for="msgText">Write a message</label><textarea id="msgText" maxlength="4000" required placeholder="How can we help?"></textarea><button class="btn btn-pink" type="submit">Send message</button></form>';
+ if(error){console.error(error);target.textContent="Unable to load messages. Please try again.";return}
+ target.innerHTML='<h3>Conversation for this request</h3>'+(data?.length?data.map(m=>'<div class="account-msg '+(m.sender_role==="staff"?"staff":"")+'"><small>'+safe(m.sender_role==="staff"?"Orlando Custom Tees":"You")+' · '+safe(new Date(m.created_at).toLocaleString(localeTag()))+'</small><p translate="no">'+safe(m.body)+'</p></div>').join(""):'<p>No messages yet.</p>')+'<form id="msgForm"><label for="msgText">Write a message</label><textarea id="msgText" maxlength="4000" required placeholder="How can we help?"></textarea><button class="btn btn-pink" type="submit">Send message</button></form>';
  $("msgForm").onsubmit=async e=>{
   e.preventDefault();const body=$("msgText").value.trim();if(!body)return;
   const {error:sendError}=await sup.from("customer_messages").insert({quote_request_id:id,sender_user_id:current.id,sender_role:"customer",body});
@@ -314,7 +320,7 @@ function openEditor(q){
   e.preventDefault();const form=e.target;
   const sizes=Object.fromEntries(names.map(name=>[name,Number(form.elements['size-'+name].value||0)]));
   const quantity=Object.values(sizes).reduce((a,b)=>a+b,0);
-  if(quantity<12||quantity>1000){alert("Orders require between 12 and 1,000 pieces.");return}
+  if(quantity<12||quantity>1000){alert(tr("Orders require between 12 and 1,000 pieces."));return}
   const patch={sizes,color:form.elements.color.value.trim(),front_print:form.elements.front_print.value,back_print:form.elements.back_print.value,notes:form.elements.notes.value.trim()};
   const {error}=await sup.rpc("oct_update_my_quote",{p_quote:q.id,p_patch:patch});
   if(error)alertError(error);else await refresh();
