@@ -31,6 +31,7 @@
 .account-revision textarea{display:block;width:100%;border:1px solid #bfd6e6;border-radius:7px;padding:8px;margin:5px 0}
 .account-order-detail{margin-top:13px;border-top:1px solid #e3edf4;padding-top:11px}
 .account-order-detail summary{cursor:pointer;font-size:14px;color:#17445d}
+.sandbox-payment [hidden]{display:none!important}
 .account-estimate{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:13px 14px;background:#eef8ff;border-radius:10px}
 @media(max-width:650px){.account-identity{width:100%;margin-left:0}.account-progress li{flex-direction:column;align-items:flex-start;font-size:11px}.account-proof-grid{grid-template-columns:1fr}.account-order{padding:15px}}
 </style>
@@ -159,11 +160,14 @@ async function refresh(){
   const estimateAction=ready?'<button type="button" class="combinedDecision primary" data-order="'+safe(o.id)+'">Approve Estimate</button>':
    reviewAvailable?'<span class="account-help">Approve each artwork proof to continue.</span>':
    o.status==="waiting"?'<span class="account-help">We’re reviewing your requested changes.</span>':"";
+  const sandboxPayment=current?.email?.toLowerCase()==="orlandotshirt@gmail.com"&&o.status==="awaiting_payment"&&review?.decision==="approved"
+   ?'<div class="account-order-detail sandbox-payment" data-order="'+safe(o.id)+'"><h4>PayPal Sandbox</h4><div class="account-actions"><button type="button" class="sandbox-create">Create test invoice</button><a class="btn btn-outline sandbox-pay" target="_blank" rel="noopener noreferrer" hidden>Open test invoice</a><button type="button" class="sandbox-status">Check test payment</button></div><p class="account-help sandbox-result" role="status">Test mode. No real payment.</p></div>':"";
   return '<article id="order-'+safe(o.id)+'" class="account-card account-order"><div class="account-meta"><strong>'+safe(o.order_number)+'</strong><span class="account-badge">'+safe(orderStatus)+'</span></div><h3 class="account-order-title">'+safe(d.productName||"Your custom apparel order")+'</h3>'+
    octCustomerTimeline(o.status)+
    (o.tracking_number?'<p><strong>Tracking number</strong> '+safe(o.tracking_number)+'</p>':"")+
    octCustomerProofs(orderProofs,reviewAvailable,!review&&o.status==="artwork_approval")+
    ((pricePublic||estimateAction)?'<div class="account-estimate">'+(pricePublic?'<strong>Estimate total · '+money(e.total)+'</strong>':"")+estimateAction+'</div>':"")+
+   sandboxPayment+
    '<details class="account-fold account-order-detail"><summary>Order details</summary><div class="account-grid" style="gap:8px;margin:12px 0">'+detailRows.map(([k,v])=>'<div><small style="display:block;color:#536d83">'+safe(k)+'</small><strong>'+safe(v||"—")+'</strong></div>').join("")+'</div></details>'+
    (history.length?'<details class="account-fold account-order-detail"><summary>Order history</summary>'+history.map(h=>'<p class="account-help"><strong>'+safe(customerStatus[h.new_status]||"Order updated")+'</strong> · '+safe(new Date(h.created_at).toLocaleString("en-US"))+'<br>'+safe(h.notes||"")+'</p>').join("")+'</details>':"")+'</article>';
  }).join(""):'<p>Your order will appear here when your estimate is ready. <a href="#account-quotes" id="emptyOrderQuotes">View your requests</a>.</p>';
@@ -171,6 +175,39 @@ async function refresh(){
  const focusedOrder=new URLSearchParams(location.search).get("order");
  const focusedCard=focusedOrder&&$("order-"+focusedOrder);
  if(focusedCard&&!refresh.focused){focusedCard.scrollIntoView({block:"start"});refresh.focused=true}
+ $("customerOrders").querySelectorAll(".sandbox-payment").forEach(section=>{
+  const create=section.querySelector(".sandbox-create"),status=section.querySelector(".sandbox-status");
+  const link=section.querySelector(".sandbox-pay"),message=section.querySelector(".sandbox-result");
+  let busy=false;
+  async function update(action){
+   if(busy)return;
+   busy=true;create.disabled=status.disabled=true;
+   if(action==="create")message.textContent="Preparing your test invoice…";
+   try{
+    const {data,error}=await sup.functions.invoke("oct-paypal-sandbox",{body:{action,order_id:section.dataset.order}});
+    if(error){
+     let detail;try{detail=await error.context?.json()}catch{}
+     throw Error(detail?.error||"Unable to reach PayPal Sandbox.");
+    }
+    if(data?.paid){
+     link.hidden=true;create.hidden=true;status.hidden=true;
+     message.textContent="Sandbox payment confirmed. Your real order status is unchanged.";
+    }else if(data?.payment_url){
+     link.href=data.payment_url;link.hidden=false;create.hidden=true;
+     message.textContent="Test invoice ready. Pay with a PayPal Sandbox buyer, then check the payment here.";
+    }else if(data?.status==="DRAFT"){
+     message.textContent="Test invoice is in draft. Select Create test invoice to finish preparing it.";
+    }else if(data?.status==="NOT_CREATED"){
+     message.textContent="Test mode. Create a test invoice to begin.";
+    }else{
+     message.textContent="PayPal Sandbox status: "+String(data?.status||"Unavailable").replaceAll("_"," ").toLowerCase()+".";
+    }
+   }catch(error){message.textContent=error.message}
+   finally{busy=false;create.disabled=status.disabled=false}
+  }
+  create.onclick=()=>update("create");status.onclick=()=>update("status");
+  update("status");
+ });
  $("customerOrders").querySelectorAll(".combinedDecision").forEach(btn=>btn.onclick=async()=>{
   const order=os.find(record=>record.id===btn.dataset.order);
   if(!order?.quote_review||!confirm("Approve this estimate and proceed to payment?"))return;
