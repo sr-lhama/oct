@@ -68,7 +68,7 @@
   }
 
 
-  const consentKey = 'oct-cookie-preferences-v1';
+  const consentKey = 'oct-cookie-preferences-v2';
   const consentLifetime = 180 * 24 * 60 * 60 * 1000;
   const validChoice = value => value === 'all' || value === 'essential';
   let choice;
@@ -77,13 +77,58 @@
     if (validChoice(previous?.choice) && previous.expires > Date.now()) choice = previous.choice;
   } catch {}
 
+
+  const analyticsId = 'G-PHJXDTZGKW';
+  const publicAnalyticsPage = !/\/(customer|login|portal|dashboard)(\.html)?\/?$/i.test(location.pathname) && (location.hostname === 'orlandocustomtees.com' || location.hostname === 'www.orlandocustomtees.com');
+  let analyticsStarted = false;
+  function applyAnalyticsConsent() {
+    const allowed = publicAnalyticsPage && choice === 'all';
+    window['ga-disable-' + analyticsId] = !allowed;
+    if (!allowed) {
+      if (analyticsStarted && typeof window.gtag === 'function') window.gtag('consent', 'update', {analytics_storage:'denied'});
+      for (const cookie of document.cookie.split(';')) {
+        const name = cookie.split('=')[0].trim();
+        if (name === '_ga' || name.startsWith('_ga_')) {
+          for (const domain of ['', '; domain=' + location.hostname, '; domain=.orlandocustomtees.com']) document.cookie = name + '=; Max-Age=0; path=/' + domain;
+        }
+      }
+      return;
+    }
+    if (analyticsStarted) {
+      window.gtag('consent','update',{analytics_storage:'granted'});
+      return;
+    }
+    analyticsStarted = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){window.dataLayer.push(arguments)};
+    window.gtag('consent','default',{analytics_storage:'granted',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+    window.gtag('js', new Date());
+    const page = new URL(location.origin + location.pathname);
+    for (const key of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term']) {
+      const value = new URLSearchParams(location.search).get(key);
+      if (value && value.length <= 100 && !value.includes('@')) page.searchParams.set(key,value);
+    }
+    let referrer = '';
+    try { if(document.referrer) referrer = new URL(document.referrer).origin; } catch {}
+    window.gtag('config', analyticsId, {allow_google_signals:false,allow_ad_personalization_signals:false,send_page_view:false,page_location:page.href,page_referrer:referrer});
+    window.gtag('event','page_view',{page_location:page.href,page_referrer:referrer});
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + analyticsId;
+    document.head.append(script);
+  }
+  window.octTrackQuote = function() {
+    if (publicAnalyticsPage && choice === 'all' && analyticsStarted) window.gtag('event','generate_lead',{page_location:location.origin+location.pathname});
+  };
+  applyAnalyticsConsent();
+
   const consent = document.createElement('section');
   consent.className = 'oct-cookie-notice';
   consent.hidden = Boolean(choice);
   consent.id = 'oct-cookie-notice';
   consent.setAttribute('aria-labelledby', 'oct-cookie-heading');
   consent.innerHTML = '<div class="oct-cookie-copy"><h2 id="oct-cookie-heading">Cookie preferences</h2>' +
-    '<p>We use essential browser storage to remember your language and keep your account signed in. You can choose whether to allow optional cookies.</p>' +
+    '<p>We use essential browser storage to remember your language and keep your account signed in. With your permission, Google Analytics helps us understand website visits and quote requests.</p>' +
     '<a href="privacy.html#cookies">Read our cookie policy</a></div>' +
     '<div class="oct-cookie-actions"><button type="button" class="btn btn-outline" data-choice="essential">Essential only</button>' +
     '<button type="button" class="btn btn-pink" data-choice="all">Accept all</button></div>';
@@ -110,6 +155,7 @@
     const button = event.target.closest('button[data-choice]');
     if (!button || !validChoice(button.dataset.choice)) return;
     choice = button.dataset.choice;
+    applyAnalyticsConsent();
     try {
       localStorage.setItem(consentKey, JSON.stringify({choice, expires: Date.now() + consentLifetime}));
     } catch {}
