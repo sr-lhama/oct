@@ -1,0 +1,60 @@
+name: Publish to InterServer
+on:
+  workflow_dispatch:
+  push:
+    branches: [launch-ready]
+permissions:
+  contents: read
+concurrency:
+  group: interserver-production
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: launch-ready
+          persist-credentials: false
+      - name: Publish public files over verified FTPS
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          python - <<'PY'
+          import ftplib, ssl, os, pathlib, subprocess
+          root = pathlib.Path.cwd()
+          tracked = subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
+          allowed = {"about","apparel","assets","auto-repair-uniforms-orlando","birthday-shirts-orlando","birthday-shirts","business-uniforms-orlando","cleaning-company-uniforms-orlando","construction-uniforms-orlando","contact","css","custom-polos-orlando","custom-polos","custom-t-shirts-orlando","custom-t-shirts","customer","dtf-printing-orlando","dtf-printing","embroidery-orlando","event-t-shirts-orlando","event-tees","gallery","get-a-quote","how-it-works","hvac-plumbing-uniforms-orlando","hvac-uniforms-orlando","js","landscaping-shirts-orlando","landscaping-uniforms-orlando","portfolio","privacy","quote","restaurant-uniforms-orlando","reviews","services","terms","work"}
+          extensions = {'.html','.css','.js','.json','.svg','.ico','.png','.jpg','.jpeg','.webp','.avif','.gif','.woff','.woff2','.ttf','.mp4','.webm','.mp3','.wav','.webmanifest','.xml','.txt'}
+          files = []
+          for name in tracked:
+              if not name: continue
+              p = pathlib.PurePosixPath(name)
+              if any(x.startswith('.') for x in p.parts) or p.suffix.lower() not in extensions: continue
+              if (len(p.parts)>1 and p.parts[0] not in allowed) or (len(p.parts)==1 and p.suffix.lower() not in {".html",".ico",".png",".xml",".txt"}): continue
+              if (root/p).is_file() and not (root/p).is_symlink(): files.append(p)
+          expected = "index.html"
+          assert any(str(p)==expected for p in files)
+          with ftplib.FTP_TLS(context=ssl.create_default_context(), timeout=45) as ftp:
+              ftp.connect(os.environ["FTP_SERVER"],21)
+              ftp.login(os.environ["FTP_USERNAME"],os.environ["FTP_PASSWORD"])
+              ftp.prot_p()
+              assert expected in [n.rsplit("/",1)[-1] for n in ftp.nlst()], "Wrong document root"
+              for p in sorted(files,key=lambda p:(p.suffix=='.html',str(p))):
+                  path = str(p)
+                  if '\r' in path or '\n' in path: raise ValueError("Invalid path")
+                  for i in range(1,len(p.parts)):
+                      d = '/'.join(p.parts[:i])
+                      try: ftp.mkd(d)
+                      except ftplib.error_perm:
+                          current = ftp.pwd()
+                          ftp.cwd(d)
+                          ftp.cwd(current)
+                  tmp = path + '.oct-upload-tmp'
+                  with (root/p).open('rb') as f: ftp.storbinary('STOR '+tmp,f)
+                  ftp.rename(tmp,path)
+              print(f"Published {len(files)} public files; no remote files deleted.")
+          PY
