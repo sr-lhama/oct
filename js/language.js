@@ -68,7 +68,7 @@
   }
 
 
-  const consentKey = 'oct-cookie-preferences-v2';
+  const consentKey = 'oct-cookie-preferences-v3';
   const consentLifetime = 180 * 24 * 60 * 60 * 1000;
   const validChoice = value => value === 'all' || value === 'essential';
   let choice;
@@ -78,15 +78,16 @@
   } catch {}
 
   // Set this to the public GA4 web-stream measurement ID before activating tracking.
-  const measurementId = '';
+  const measurementId = 'G-PHJXDTZGKW';
   const analyticsEnabled = /^G-[A-Z0-9]+$/.test(measurementId)
     && ['orlandocustomtees.com','www.orlandocustomtees.com'].includes(url.hostname)
-    && !url.pathname.endsWith('/customer.html');
+    && ! /\/(customer|login|portal|dashboard)(\.html)?\/?$/i.test(url.pathname);
   let analyticsLoaded = false;
   function applyAnalyticsConsent() {
     if (!analyticsEnabled) return;
     window['ga-disable-' + measurementId] = choice !== 'all';
     if (choice !== 'all') {
+      if (analyticsLoaded) window.gtag('consent','update',{analytics_storage:'denied'});
       if (!analyticsLoaded && !/(?:^|;\s*)_ga=/.test(document.cookie)) return;
       for (const key of ['_ga','_ga_' + measurementId.slice(2)]) {
         document.cookie = key + '=; Max-Age=0; path=/; Secure; SameSite=Lax';
@@ -94,7 +95,7 @@
       }
       return;
     }
-    if (analyticsLoaded) return;
+    if (analyticsLoaded) { window.gtag('consent','update',{analytics_storage:'granted'}); return; }
     analyticsLoaded = true;
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { window.dataLayer.push(arguments); };
@@ -126,7 +127,7 @@
   consent.id = 'oct-cookie-notice';
   consent.setAttribute('aria-labelledby', 'oct-cookie-heading');
   consent.innerHTML = '<div class="oct-cookie-copy"><h2 id="oct-cookie-heading">Cookie preferences</h2>' +
-    '<p>We use essential browser storage to remember your language and keep your account signed in. You can choose whether to allow optional cookies.</p>' +
+    '<p>We use essential browser storage to remember your language and keep your account signed in. With your permission, Google Analytics helps us understand website visits and quote requests.</p>' +
     '<a href="privacy.html#cookies">Read our cookie policy</a></div>' +
     '<div class="oct-cookie-actions"><button type="button" class="btn btn-outline" data-choice="essential">Essential only</button>' +
     '<button type="button" class="btn btn-pink" data-choice="all">Accept all</button></div>';
