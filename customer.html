@@ -34,6 +34,9 @@
 .live-payment[hidden],.live-payment [hidden],.sandbox-payment [hidden]{display:none!important}
 .account-estimate{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:13px 14px;background:#eef8ff;border-radius:10px}
 @media(max-width:650px){.account-identity{width:100%;margin-left:0}.account-progress li{flex-direction:column;align-items:flex-start;font-size:11px}.account-proof-grid{grid-template-columns:1fr}.account-order{padding:15px}}
+#customerAuth[hidden],#customerContent[hidden],#customerLogout[hidden],#customerOtpForm[hidden]{display:none!important}
+#customerOtpForm{margin-top:18px;border-top:1px solid #dbe7ef;padding-top:16px}
+#customerOtp{max-width:320px;letter-spacing:5px;font-size:22px;text-align:center}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/site.js?v=launch2" defer></script><script src="js/language.js?v=7" defer></script></head><body>
@@ -41,7 +44,7 @@
 <header class="header"><div class="container header-inner"><a aria-label="Orlando Custom Tees homepage" href="index.html"><img alt="Orlando Custom Tees official logo" class="logo" height="165" src="assets/images/logo-header-animated.gif" width="527"/></a><nav aria-label="Main navigation" class="mainnav"><a href="index.html">Home</a><a href="apparel.html">Apparel</a><a href="business-uniforms-orlando.html">Uniforms</a><a href="work.html">Portfolio</a><a href="reviews.html">Reviews</a><a href="how-it-works.html">How It Works</a><a href="contact.html">Contact</a></nav><div class="header-actions"><a class="btn btn-outline btn-sm" href="customer.html" aria-label="Customer account and order tracking">My Account</a><a class="btn btn-pink btn-sm" href="quote.html">Get a Free Quote <span aria-hidden="true">→</span></a><button aria-controls="mobileMenu" aria-expanded="false" aria-label="Open navigation" class="menu-btn" data-menu-toggle="" type="button">☰</button></div></div><nav aria-label="Mobile navigation" class="mobile-menu" data-menu="" id="mobileMenu"><a href="index.html">Home</a><a href="apparel.html">Apparel</a><a href="business-uniforms-orlando.html">Uniforms</a><a href="work.html">Portfolio</a><a href="reviews.html">Reviews</a><a href="how-it-works.html">How It Works</a><a href="contact.html">Contact</a><a class="active" aria-current="page" href="customer.html">My Account</a></nav></header>
 <main class="account-layout">
 <div class="account-header"><div><span class="eyebrow">YOUR ORLANDO CUSTOM TEES ACCOUNT</span><h1 style="font-size:clamp(27px,4vw,43px);margin:9px 0">My Account</h1><p style="color:#66798f;margin:0">Track requests, reuse your artwork and contact our team.</p></div><button class="btn btn-outline" type="button" id="customerLogout" hidden>Sign out</button></div>
-<section id="customerAuth" class="account-card" hidden><h2>Sign in securely</h2><p>Enter the same email address you used to request an estimate. We'll send you a secure sign-in link. No password is required.</p><form id="customerLogin"><label for="customerEmail">Email address</label><input required type="email" id="customerEmail" autocomplete="email" placeholder="you@business.com"><button type="submit" class="btn btn-pink" id="customerSend">Email me a sign-in link</button></form><p class="account-help">Your first estimate does not require an account. Your email must be verified before requests become visible here.</p><p id="loginInfo" role="status"></p></section>
+<section id="customerAuth" class="account-card" hidden><h2>Sign in securely</h2><p>Enter the same email address you used to request an estimate. We'll send you a verification code and secure sign-in link. No password is required.</p><form id="customerLogin"><label for="customerEmail">Email address</label><input required type="email" id="customerEmail" autocomplete="email" placeholder="you@business.com"><button type="submit" class="btn btn-pink" id="customerSend">Send Sign-In Code or Link</button></form><form id="customerOtpForm" hidden><label for="customerOtp">Enter the verification code from your email</label><input id="customerOtp" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,8}" maxlength="8" placeholder="00000000" required><button type="submit" class="btn btn-pink" id="customerVerify">Verify &amp; Sign In</button><p class="account-help">You can also use the secure link in your email or request a new code above.</p></form><p class="account-help">Your first estimate does not require an account. Your email must be verified before requests become visible here.</p><p id="loginInfo" role="status"></p></section>
 <section id="customerContent" hidden>
 <nav class="account-toolbar" aria-label="Account sections">
 <a href="#account-orders">My Orders <strong id="orderCount">0</strong></a><a href="#account-quotes" data-account-open="account-quotes">My Requests <strong id="quoteCount">0</strong></a><a href="#account-messages" data-account-open="account-messages">Messages</a>
@@ -63,23 +66,25 @@ const safe=x=>String(x??"").replace(/[&<>"']/g,k=>({"&":"&amp;","<":"&lt;",">":"
 const tr=value=>window.octLocale?.t(value)??value;
 const localeTag=()=>window.octLocale?.tag||document.documentElement.lang||"en-US";
 const money=x=>new Intl.NumberFormat(localeTag(),{style:"currency",currency:"USD"}).format(Number(x||0));
-let current=null;
+let current=null,requestedEmail="",starting=false;
 function alertError(error){
  if(typeof error!=="string")console.error(error);
  window.alert(tr(typeof error==="string"?error:"Unable to complete this request."));
 }
 async function start(){
+ if(starting)return;starting=true;
  try{
   const {data,error}=await sup.auth.getUser();
   $("accountLoading").hidden=true;
-  if(error||!data.user){$("customerAuth").hidden=false;return}
+  if(error||!data.user){current=null;$("customerContent").hidden=true;$("customerLogout").hidden=true;$("customerAuth").hidden=false;return}
   current=data.user;
+  $("customerAuth").hidden=true;$("customerOtpForm").hidden=true;
   $("customerContent").hidden=false;$("customerLogout").hidden=false;
   $("customerIdentity").textContent=current.email||"Customer";
   const claim=await sup.rpc("oct_claim_my_quotes");
   if(claim.error)console.warn("Could not link some previous requests",claim.error);
   await refresh();
- }catch(e){$("accountLoading").textContent="Unable to load customer information.";console.error(e)}
+ }catch(e){$("accountLoading").textContent="Unable to load customer information.";console.error(e)}finally{starting=false}
 }
 
 const orderProgress=[
@@ -328,14 +333,32 @@ function openEditor(q){
  area.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 $("customerLogin").onsubmit=async e=>{
- e.preventDefault();const btn=$("customerSend");btn.disabled=true;$("loginInfo").textContent="Sending secure login link...";
+ e.preventDefault();const btn=$("customerSend");btn.disabled=true;$("loginInfo").textContent=tr("Sending secure login code...");
  const email=$("customerEmail").value.trim();
- const {error}=await sup.auth.signInWithOtp({email,options:{shouldCreateUser:true,emailRedirectTo:location.origin+location.pathname+location.search}});
- btn.disabled=false;
- $("loginInfo").textContent=error?"Unable to send the login link: "+error.message:"Check your email for your secure sign-in link.";
+ try{
+  const {error}=await sup.auth.signInWithOtp({email,options:{shouldCreateUser:true,emailRedirectTo:location.origin+location.pathname+location.search}});
+  if(error)throw error;
+  requestedEmail=email;$("customerOtpForm").reset();$("customerOtpForm").hidden=false;
+  $("loginInfo").textContent=tr("Check your email. Enter the verification code or use the secure sign-in link.");
+  $("customerOtp").focus();
+ }catch(e){$("loginInfo").textContent=tr("Unable to send the login code. Please try again.");}
+ finally{btn.disabled=false}
+};
+$("customerEmail").addEventListener("input",()=>{if($("customerEmail").value.trim()!==requestedEmail){requestedEmail="";$("customerOtpForm").hidden=true;$("loginInfo").textContent=""}});
+$("customerOtpForm").onsubmit=async e=>{
+ e.preventDefault();if(!requestedEmail)return;
+ const btn=$("customerVerify");btn.disabled=true;
+ $("loginInfo").textContent=tr("Verifying your code...");
+ try{
+  const {error}=await sup.auth.verifyOtp({email:requestedEmail,token:$("customerOtp").value.trim(),type:"email"});
+  if(error)throw error;
+  $("customerOtpForm").reset();$("customerOtpForm").hidden=true;
+  await start();
+ }catch(e){$("loginInfo").textContent=tr("Invalid or expired code. Try again or request a new email.");}
+ finally{btn.disabled=false}
 };
 $("customerLogout").onclick=async()=>{await sup.auth.signOut();location.reload()};
-sup.auth.onAuthStateChange((event)=>{if(event==="SIGNED_IN"&&!current)start()});
+sup.auth.onAuthStateChange((event)=>{if(event==="SIGNED_IN"&&!current)setTimeout(()=>start(),0)});
 start();
 })();
 </script></body></html>
