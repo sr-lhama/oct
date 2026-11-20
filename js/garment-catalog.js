@@ -121,6 +121,20 @@
       const backImg=form.querySelector('[data-oct-back-img]');
       const hint=document.getElementById('octColorHelp');
       const incomingColor=params.get('color');
+      const sizeFields = form.querySelectorAll('input[name^="size-"]');
+      const extendedSizes = new Set(['6210', 'TT11']);
+      const through4XL = new Set(['TT11L', 'TT21']);
+
+      function updateSizeFields(model) {
+        for (const field of sizeFields) {
+          const size = field.name.slice(5);
+          const disabled = model === '110M5' ? size !== 'One Size'
+            : size === 'One Size' || (size === '6XL' && !extendedSizes.has(model))
+              || (size === '5XL' && through4XL.has(model));
+          field.disabled = disabled;
+          field.closest('.field').hidden = disabled;
+        }
+      }
       let selectedColor='';
       const getProduct=()=>byName.get(productField.value);
       function sendColorEvent(){form.dispatchEvent(new CustomEvent('oct:colorchange',{bubbles:true}))}
@@ -136,6 +150,7 @@
       }
       function render(){
         const product=getProduct();
+        updateSizeFields(product?.model);
         const isCatalog=Boolean(product);
         controls.hidden=!isCatalog;
         manualWrapper.hidden=isCatalog;

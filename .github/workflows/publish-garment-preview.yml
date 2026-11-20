@@ -1,0 +1,59 @@
+name: Publish garment preview to InterServer
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-garment-preview.yml'
+      - 'quote.html'
+      - 'product.html'
+      - 'css/quote-artwork.css'
+      - 'js/artwork.js'
+      - 'js/quote-print-positions.js'
+      - 'js/garment-catalog.js'
+      - 'js/gildan-64000.js'
+      - 'js/quote-site.js'
+permissions:
+  contents: read
+concurrency:
+  group: oct-interserver-garment-preview
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Publish quote and product files over FTPS
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          python - <<'PY'
+          import ftplib
+          import os
+          import ssl
+          from pathlib import Path
+
+          files = [
+              "css/quote-artwork.css", "js/quote-print-positions.js",
+              "js/artwork.js", "js/garment-catalog.js",
+              "js/gildan-64000.js", "js/quote-site.js", "product.html", "quote.html",
+          ]
+
+          with ftplib.FTP_TLS(context=ssl.create_default_context(), timeout=30) as ftp:
+              ftp.connect(os.environ["FTP_SERVER"], 21)
+              ftp.login(os.environ["FTP_USERNAME"], os.environ["FTP_PASSWORD"])
+              ftp.prot_p()
+              for existing in ("index.html", "quote.html", "product.html", "css/site.css"):
+                  ftp.size(existing)
+              staged = [(path, path + ".upload-" + os.environ["GITHUB_RUN_ID"]) for path in files]
+              for path, temp in staged:
+                  with Path(path).open("rb") as source:
+                      ftp.storbinary("STOR " + temp, source)
+              for path, temp in staged:
+                  ftp.rename(temp, path)
+                  print("Published " + path)
+          PY

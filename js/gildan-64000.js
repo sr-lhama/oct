@@ -906,13 +906,48 @@
       [...thumbs.children].forEach((button, i) => button.setAttribute('aria-pressed', String(i === viewIndex)));
     }
 
+    const grade = main.querySelector('[data-product-grade]');
+    const totalLabel = main.querySelector('[data-product-total]');
+    for (const size of details?.sizes ?? ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL']) {
+      const label = document.createElement('label');
+      label.textContent = size;
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.name = 'size-' + size;
+      input.min = '0';
+      input.max = '1000';
+      input.step = '1';
+      input.value = '0';
+      input.addEventListener('input', updateQuoteLink);
+      label.append(input);
+      grade.append(label);
+    }
+
+    function updateQuoteLink() {
+      const query = new URLSearchParams({ product: details?.quoteName || 'Gildan 64000 Softstyle', color: color.name });
+      let total = 0;
+      let valid = true;
+      for (const input of grade.querySelectorAll('input')) {
+        if (!input.validity.valid) valid = false;
+        if (input.valueAsNumber > 0 && input.validity.valid) {
+          query.set(input.name, input.value);
+          total += input.valueAsNumber;
+        }
+      }
+      const canContinue = valid && (total === 0 || total >= 12) && total <= 1000;
+      if (canContinue) quote.href = 'quote.html?' + query;
+      else quote.removeAttribute('href');
+      quote.setAttribute('aria-disabled', String(!canContinue));
+      totalLabel.textContent = total + ' pieces selected · 12-piece minimum';
+    }
+
     function showColor(entry) {
       color = entry;
       views = Object.keys(viewLabels).filter(view => color.views[view]);
       colorName.textContent = color.name;
       const pantone = details ? (details.model === '6210' && color.name === 'White' ? '663 C' : '') : swatches[color.name]?.[1];
       pms.textContent = pantone ? ' · PMS ' + pantone : '';
-      quote.href = 'quote.html?' + new URLSearchParams({ product: details?.quoteName || 'Gildan 64000 Softstyle', color: color.name });
+      updateQuoteLink();
       for (const button of swatchGrid.children) button.setAttribute('aria-pressed', String(button.dataset.colorName === color.name));
       thumbs.replaceChildren(...views.map((view, index) => {
         const button = document.createElement('button');
