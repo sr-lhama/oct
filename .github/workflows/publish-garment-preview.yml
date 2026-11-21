@@ -8,6 +8,8 @@ on:
       - 'product.html'
       - '404.html'
       - 'birthday-shirts-orlando.html'
+      - 'assets/page-banners/oct-birthday-crew.webp'
+      - 'assets/page-banners/oct-disney-family-2027.webp'
       - 'customer.html'
       - 'dtf-printing.html'
       - 'css/dtf-page.css'
@@ -74,6 +76,8 @@ jobs:
               "assets/page-banners/oct-dtf-hero.webp",
               "assets/page-banners/oct-dtf-process.webp",
               "assets/page-banners/oct-dtf-detail.webp",
+              "assets/page-banners/oct-birthday-crew.webp",
+              "assets/page-banners/oct-disney-family-2027.webp",
               "birthday-shirts-orlando.html", "customer.html", "dtf-printing.html", "faq.html",
               "privacy.html", "services.html", "terms.html", "404.html", "product.html", "quote.html",
           ]
