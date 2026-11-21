@@ -21,7 +21,7 @@ on:
       - 'css/page-refresh.css'
       - 'assets/images/brand-gildan.webp'
       - 'assets/images/brand-nextlevel.webp'
-      - 'assets/page-banners/sr-lhama-404.webp'
+      - 'assets/page-banners/sr-lhama-lost.webp'
       - 'assets/page-banners/sr-lhama-privacy.webp'
       - 'assets/page-banners/sr-lhama-terms.webp'
       - 'js/product-banner.js'
@@ -67,7 +67,7 @@ jobs:
               "css/page-refresh.css", "js/product-banner.js", "js/locale-es.json", "js/locale-pt.json",
               "assets/images/brand-gildan.webp",
               "assets/images/brand-nextlevel.webp",
-              "assets/page-banners/sr-lhama-404.webp",
+              "assets/page-banners/sr-lhama-lost.webp",
               "assets/page-banners/sr-lhama-privacy.webp",
               "assets/page-banners/sr-lhama-terms.webp",
               "css/dtf-page.css",
