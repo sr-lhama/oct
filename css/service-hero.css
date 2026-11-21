@@ -3,12 +3,13 @@
 }
 
 .service-hero-grid {
+  --service-hero-background: #edf2fc;
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
   width: min(1460px, calc(100% - 56px));
   margin-inline: auto;
   overflow: hidden;
-  background: #edf2fc;
+  background: var(--service-hero-background);
 }
 
 .service-hero-media {
@@ -22,6 +23,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.service-hero-media::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(to right, transparent 62%, var(--service-hero-background) 100%);
 }
 
 .service-hero-media--panorama img {
@@ -47,6 +56,10 @@
   .service-hero-media {
     min-height: 0;
     aspect-ratio: 1.65;
+  }
+
+  .service-hero-media::after {
+    background: linear-gradient(to bottom, transparent 76%, var(--service-hero-background) 100%);
   }
 
   .service-hero-copy {
