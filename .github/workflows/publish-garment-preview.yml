@@ -1,4 +1,4 @@
-name: Publish garment preview to InterServer
+name: Publish OCT page and garment updates to InterServer
 on:
   push:
     branches: [main]
@@ -6,6 +6,18 @@ on:
       - '.github/workflows/publish-garment-preview.yml'
       - 'quote.html'
       - 'product.html'
+      - '404.html'
+      - 'birthday-shirts-orlando.html'
+      - 'customer.html'
+      - 'dtf-printing.html'
+      - 'faq.html'
+      - 'privacy.html'
+      - 'services.html'
+      - 'terms.html'
+      - 'css/page-refresh.css'
+      - 'js/product-banner.js'
+      - 'js/locale-es.json'
+      - 'js/locale-pt.json'
       - 'css/quote-artwork.css'
       - 'js/artwork.js'
       - 'js/quote-print-positions.js'
@@ -25,7 +37,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Publish quote and product files over FTPS
+      - name: Publish page and garment files over FTPS
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
@@ -40,7 +52,10 @@ jobs:
           files = [
               "css/quote-artwork.css", "js/quote-print-positions.js",
               "js/artwork.js", "js/garment-catalog.js",
-              "js/gildan-64000.js", "js/quote-site.js", "product.html", "quote.html",
+              "js/gildan-64000.js", "js/quote-site.js",
+              "css/page-refresh.css", "js/product-banner.js", "js/locale-es.json", "js/locale-pt.json",
+              "birthday-shirts-orlando.html", "customer.html", "dtf-printing.html", "faq.html",
+              "privacy.html", "services.html", "terms.html", "404.html", "product.html", "quote.html",
           ]
 
           with ftplib.FTP_TLS(context=ssl.create_default_context(), timeout=30) as ftp:
