@@ -10,6 +10,10 @@ on:
       - 'birthday-shirts-orlando.html'
       - 'customer.html'
       - 'dtf-printing.html'
+      - 'css/dtf-page.css'
+      - 'assets/page-banners/oct-dtf-hero.webp'
+      - 'assets/page-banners/oct-dtf-process.webp'
+      - 'assets/page-banners/oct-dtf-detail.webp'
       - 'faq.html'
       - 'privacy.html'
       - 'services.html'
@@ -66,6 +70,10 @@ jobs:
               "assets/page-banners/sr-lhama-404.webp",
               "assets/page-banners/sr-lhama-privacy.webp",
               "assets/page-banners/sr-lhama-terms.webp",
+              "css/dtf-page.css",
+              "assets/page-banners/oct-dtf-hero.webp",
+              "assets/page-banners/oct-dtf-process.webp",
+              "assets/page-banners/oct-dtf-detail.webp",
               "birthday-shirts-orlando.html", "customer.html", "dtf-printing.html", "faq.html",
               "privacy.html", "services.html", "terms.html", "404.html", "product.html", "quote.html",
           ]
