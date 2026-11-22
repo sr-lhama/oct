@@ -5,6 +5,8 @@ on:
     paths:
       - '.github/workflows/publish-garment-preview.yml'
       - 'scripts/build-public-site.py'
+      - 'scripts/dtf_pages.py'
+      - 'scripts/dtf-content.json'
       - 'scripts/publish-public-site.py'
       - 'scripts/public-site.htaccess'
       - 'assets/fonts/**'

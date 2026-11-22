@@ -74,7 +74,8 @@ def publish():
 
         write_config(updated)
         try:
-            for path in ('/', '/quote.html', '/products/gildan-64000.html', '/es/', '/pt/'):
+            for path in ('/', '/quote.html', '/products/gildan-64000.html', '/es/', '/pt/',
+                         '/dtf-printing.html', '/pt/dtf-vs-screen-printing.html', '/es/dtf-shirt-care.html'):
                 with urlopen(Request(origin + path, headers={'Cache-Control': 'no-cache'}), timeout=15) as result:
                     if result.status != 200:
                         raise RuntimeError(f'Unexpected response for {path}: {result.status}')

@@ -47,3 +47,17 @@ ol.dtf-cards h3 { display: inline; }
   .dtf-hero .dtf-image { grid-row: 1; height: auto; }
   .dtf-facts { justify-content: flex-start; text-align: left; }
 }
+
+.dtf-pricing p { max-width: 72ch; }
+.dtf-table-scroll { overflow-x: auto; }
+.dtf-pricing table { width: 100%; border-collapse: collapse; min-width: 600px; }
+.dtf-pricing th, .dtf-pricing td { text-align: left; padding: 12px; border-bottom: 1px solid #d9e3f2; }
+.dtf-pricing thead { background: var(--dtf-soft); }
+.dtf-guide-list { list-style: none; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+.dtf-guide-list li { padding: 20px; border: 1px solid #d9e3f2; border-radius: 16px; }
+.dtf-guide-list h3 { margin: 0 0 8px; font-size: 1.18rem; }
+.dtf-guide-list p { margin: 0; }
+.dtf-article { max-width: 820px; }
+.dtf-article h1 { font-size: clamp(2.2rem, 5vw, 4rem); margin: 18px 0; }
+.dtf-article h2 { margin-top: 32px; font-size: clamp(1.3rem, 3vw, 2rem); }
+.dtf-page table a, .dtf-guide-list a, .dtf-article nav a, .oct-dtf-related a { text-decoration: underline; text-underline-offset: .2em; }

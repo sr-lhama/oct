@@ -1,0 +1,394 @@
+{
+  "landing": {
+    "title": {
+      "en": "DTF Shirt Printing in Orlando, FL | Orlando Custom Tees",
+      "es": "Estampado DTF de camisetas en Orlando, Florida | Orlando Custom Tees",
+      "pt": "Estampa DTF em camisetas em Orlando, Flórida | Orlando Custom Tees"
+    },
+    "heading": {
+      "en": "Full-color DTF shirt printing in Orlando",
+      "es": "Estampado DTF a todo color en Orlando",
+      "pt": "Estampa DTF colorida em Orlando"
+    },
+    "description": {
+      "en": "Order finished DTF-printed T-shirts, polos and work uniforms in Orlando, FL. Standard minimum of 12 pieces, free digital mockup and a custom quote.",
+      "es": "Pide camisetas, polos y uniformes ya estampados en DTF en Orlando. Mínimo habitual de 12 piezas, muestra digital gratis y cotización personalizada.",
+      "pt": "Peça camisetas, polos e uniformes personalizados em Orlando com DTF colorido. Mínimo padrão de 12 peças, prévia digital grátis e orçamento personalizado."
+    },
+    "intro": {
+      "en": "We specialize in full-color DTF for finished custom apparel. Order printed T-shirts, polos and hoodies for your business, team or event. Send your artwork and size breakdown, then approve your digital mockup before production.",
+      "es": "Nos especializamos en DTF a todo color para prendas listas para usar. Pide camisetas, polos y sudaderas para tu empresa, equipo o evento. Envía tu diseño y cantidades por talla y aprueba la muestra digital antes de producir.",
+      "pt": "Somos especialistas em DTF colorido para roupas prontas para usar. Peça camisetas, polos e moletons para sua empresa, equipe ou evento. Envie a arte e a grade de tamanhos e aprove a prévia digital antes da produção."
+    },
+    "pricing_heading": {
+      "en": "DTF apparel options and pricing",
+      "es": "Opciones y precios para prendas en DTF",
+      "pt": "Opções e preços de peças em DTF"
+    },
+    "pricing_intro": {
+      "en": "Each quote is based on the garment, quantities by size, print dimensions and placement, and any artwork preparation. Tell us if you need shipping or have a firm deadline so we can include it in the estimate.",
+      "es": "Cada cotización depende de la prenda, las cantidades por talla, las medidas y posiciones del estampado y la preparación del diseño. Indica si necesitas envío o tienes una fecha límite.",
+      "pt": "O orçamento considera a peça, a quantidade por tamanho, as medidas e posições da estampa e a preparação da arte. Informe se precisa de envio ou se tem uma data limite."
+    },
+    "pricing_headers": [
+      {
+        "en": "Order option",
+        "es": "Tipo de pedido",
+        "pt": "Tipo de pedido"
+      },
+      {
+        "en": "Typical placement",
+        "es": "Posición habitual",
+        "pt": "Posição típica"
+      },
+      {
+        "en": "What to include",
+        "es": "Qué enviar",
+        "pt": "O que informar"
+      }
+    ],
+    "pricing_rows": [
+      {
+        "link": "custom-t-shirts-orlando.html",
+        "cells": [
+          {
+            "en": "Custom T-shirts",
+            "es": "Camisetas personalizadas",
+            "pt": "Camisetas personalizadas"
+          },
+          {
+            "en": "Front, back or both",
+            "es": "Frente, espalda o ambas",
+            "pt": "Frente, costas ou ambas"
+          },
+          {
+            "en": "Shirt color, size breakdown and art for each side",
+            "es": "Color, cantidades por talla y diseño de cada lado",
+            "pt": "Cor, grade de tamanhos e arte de cada lado"
+          }
+        ]
+      },
+      {
+        "link": "business-uniforms-orlando.html",
+        "cells": [
+          {
+            "en": "Work uniforms and polos",
+            "es": "Uniformes y polos",
+            "pt": "Uniformes e polos"
+          },
+          {
+            "en": "Left-chest logo, with optional back print",
+            "es": "Logo en el pecho izquierdo y estampado opcional atrás",
+            "pt": "Logo no peito esquerdo com estampa opcional nas costas"
+          },
+          {
+            "en": "Garment model, logo size and quantity",
+            "es": "Modelo, tamaño del logo y cantidad",
+            "pt": "Modelo da peça, tamanho do logo e quantidade"
+          }
+        ]
+      },
+      {
+        "link": "event-t-shirts-orlando.html",
+        "cells": [
+          {
+            "en": "Event and small-batch shirts",
+            "es": "Camisetas para eventos y pedidos pequeños",
+            "pt": "Camisetas para eventos e pedidos pequenos"
+          },
+          {
+            "en": "Group artwork on the front or back",
+            "es": "Diseño del grupo al frente o en la espalda",
+            "pt": "Arte do grupo na frente ou nas costas"
+          },
+          {
+            "en": "Event date and a combined size breakdown",
+            "es": "Fecha del evento y cantidades por talla",
+            "pt": "Data do evento e grade completa de tamanhos"
+          }
+        ]
+      },
+      {
+        "link": "product.html?id=premium-hoodie",
+        "cells": [
+          {
+            "en": "Custom hoodies",
+            "es": "Sudaderas personalizadas",
+            "pt": "Moletons personalizados"
+          },
+          {
+            "en": "Left chest, front or back",
+            "es": "Pecho izquierdo, frente o espalda",
+            "pt": "Peito esquerdo, frente ou costas"
+          },
+          {
+            "en": "Hoodie model, color and placement",
+            "es": "Modelo, color y posición",
+            "pt": "Modelo do moletom, cor e posição"
+          }
+        ]
+      }
+    ],
+    "faq": [
+      [
+        {
+          "en": "Do you sell DTF transfers or gang sheets?",
+          "es": "¿Venden transfers DTF o gang sheets?",
+          "pt": "Vocês vendem transfers DTF ou gang sheets?"
+        },
+        {
+          "en": "Our service is finished DTF-printed clothing. If you are ordering for a business, team or event, we help you choose the garments, apply the prints and deliver the finished pieces.",
+          "es": "Nuestro servicio es ropa ya estampada en DTF. Te ayudamos a elegir las prendas, aplicamos los estampados y entregamos las piezas terminadas.",
+          "pt": "Nosso serviço é roupa personalizada e pronta para usar. Ajudamos na escolha das peças, aplicamos as estampas e entregamos o pedido pronto."
+        }
+      ],
+      [
+        {
+          "en": "Do you offer screen printing?",
+          "es": "¿Ofrecen serigrafía?",
+          "pt": "Vocês fazem silk-screen?"
+        },
+        {
+          "en": "We specialize in DTF. It is a good fit for full-color designs, gradients and detailed logos on small-batch custom apparel.",
+          "es": "Nos especializamos en DTF, ideal para diseños a todo color, degradados y logos detallados en pedidos pequeños.",
+          "pt": "Somos especialistas em DTF, que funciona bem para artes coloridas, degradês e logos detalhados em pequenos lotes."
+        }
+      ],
+      [
+        {
+          "en": "Can I order a small batch of custom shirts?",
+          "es": "¿Puedo pedir pocas camisetas personalizadas?",
+          "pt": "Posso pedir um lote pequeno de camisetas?"
+        },
+        {
+          "en": "Our standard minimum is 12 pieces. You can mix sizes. If you need fewer pieces or want to mix garment styles, share the breakdown so we can review your request.",
+          "es": "El mínimo habitual es de 12 piezas y puedes combinar tallas. Si necesitas menos piezas o quieres combinar modelos, envíanos las cantidades para revisar tu pedido.",
+          "pt": "O mínimo padrão é de 12 peças e você pode misturar tamanhos. Se precisar de menos peças ou quiser combinar modelos, mande as quantidades para avaliarmos."
+        }
+      ],
+      [
+        {
+          "en": "Can my DTF shirts be ready this week?",
+          "es": "¿Pueden tener mis camisetas listas esta semana?",
+          "pt": "Minhas camisetas podem ficar prontas nesta semana?"
+        },
+        {
+          "en": "Typical production takes 7–10 business days after artwork approval and payment. Give us your date before ordering so we can check stock and confirm whether rush production is available.",
+          "es": "La producción suele tomar de 7 a 10 días hábiles después de aprobar el diseño y pagar. Indícanos tu fecha antes de pedir para que confirmemos el inventario y si hay disponibilidad urgente.",
+          "pt": "A produção normalmente leva de 7 a 10 dias úteis após a aprovação da arte e o pagamento. Informe sua data antes de fechar para confirmarmos o estoque e se há disponibilidade para produção urgente."
+        }
+      ]
+    ]
+  },
+  "guides": [
+    {
+      "slug": "dtf-vs-screen-printing",
+      "title": {
+        "en": "DTF vs. Screen Printing for Orlando Businesses",
+        "es": "DTF o serigrafía para empresas de Orlando",
+        "pt": "DTF ou silk-screen para empresas em Orlando"
+      },
+      "description": {
+        "en": "Compare the two methods for work shirts, detailed logos and small batches before choosing a print for your team.",
+        "es": "Compara las dos técnicas para uniformes, logos detallados y pedidos pequeños.",
+        "pt": "Compare as duas técnicas para uniformes, logos detalhados e pequenos lotes."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "When DTF works well",
+            "es": "Cuándo conviene el DTF",
+            "pt": "Quando o DTF funciona bem"
+          },
+          "text": {
+            "en": "A multicolor logo, gradient or illustrated design is a good candidate for DTF. The artwork is printed together on film and transferred to the garment, so each design color does not need its own screen. For a small run of uniforms, send the same logo with each proposed placement.",
+            "es": "Un logo multicolor, un degradado o una ilustración funcionan bien con DTF. El diseño se imprime en película y se aplica a la prenda, sin una pantalla por color. Para un lote pequeño de uniformes, envía el logo con las posiciones que tienes en mente.",
+            "pt": "Um logo multicolorido, um degradê ou uma ilustração funciona bem em DTF. A arte é impressa no filme e aplicada à peça, sem uma tela por cor. Para um lote pequeno de uniformes, envie o logo e indique as posições desejadas."
+          }
+        },
+        {
+          "heading": {
+            "en": "When screen printing may suit the job",
+            "es": "Cuándo puede convenir la serigrafía",
+            "pt": "Quando o silk-screen pode valer a pena"
+          },
+          "text": {
+            "en": "Screen printing can be a good choice for a large run of the same simple one- or two-color design. When comparing quotes, use the same garment, quantity, print locations and artwork so the numbers describe the same job.",
+            "es": "La serigrafía puede convenir para un lote grande de un mismo diseño sencillo de uno o dos colores. Compara cotizaciones para la misma prenda, cantidad, diseño y posiciones.",
+            "pt": "O silk-screen pode valer a pena para um lote grande com a mesma arte simples de uma ou duas cores. Compare orçamentos com a mesma peça, quantidade, arte e posições."
+          }
+        },
+        {
+          "heading": {
+            "en": "What to send for your DTF quote",
+            "es": "Qué enviar para cotizar en DTF",
+            "pt": "O que enviar para seu orçamento DTF"
+          },
+          "text": {
+            "en": "Send your logo, the garment color, quantities by size and an approximate width for each print. For a left-chest logo plus a full back, send both designs so we can review scale, contrast and legibility in the mockup.",
+            "es": "Envía el logo, el color de la prenda, las cantidades por talla y el ancho aproximado de cada estampado. Si quieres pecho y espalda, envía los dos diseños para revisar la escala, el contraste y la legibilidad.",
+            "pt": "Envie o logo, a cor da peça, a grade de tamanhos e a largura aproximada de cada estampa. Se quiser peito e costas, envie as duas artes para conferirmos escala, contraste e legibilidade na prévia."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "dtf-shirt-care",
+      "title": {
+        "en": "How Long Does a DTF Print Last? Care Guide",
+        "es": "¿Cuánto dura un estampado DTF? Guía de cuidados",
+        "pt": "Quanto dura uma estampa DTF? Guia de cuidados"
+      },
+      "description": {
+        "en": "Practical washing, drying and ironing advice for DTF-printed shirts and uniforms.",
+        "es": "Cómo lavar, secar y planchar camisetas y uniformes estampados en DTF.",
+        "pt": "Como lavar, secar e passar camisetas e uniformes estampados em DTF."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Wash inside out in cold water",
+            "es": "Lava al revés con agua fría",
+            "pt": "Lave do avesso com água fria"
+          },
+          "text": {
+            "en": "Turn the garment inside out and use cold water to reduce rubbing on the printed surface. Choose the wash cycle the garment label recommends. For team uniforms, share the same instructions with everyone taking a shirt home.",
+            "es": "Voltea la prenda y lávala en agua fría para reducir el roce sobre el estampado. Usa el ciclo indicado en la etiqueta. Comparte estas instrucciones con todo el equipo.",
+            "pt": "Vire a peça do avesso e lave com água fria para reduzir o atrito na estampa. Use o ciclo indicado na etiqueta. Se forem uniformes, compartilhe as instruções com a equipe."
+          }
+        },
+        {
+          "heading": {
+            "en": "Use gentle drying and ironing",
+            "es": "Seca y plancha con cuidado",
+            "pt": "Seque e passe com cuidado"
+          },
+          "text": {
+            "en": "Follow the garment label for drying. Air-dry when practical or use low heat if the label allows it. If the garment can be ironed, turn it inside out and avoid placing the iron directly on the print.",
+            "es": "Sigue la etiqueta para secar. Si puedes, deja secar al aire, o usa calor bajo si la etiqueta lo permite. Plancha del revés y evita el contacto directo de la plancha con el estampado.",
+            "pt": "Siga a etiqueta na secagem. Se possível, seque ao ar ou use temperatura baixa se indicada. Se for passar a peça, vire do avesso e evite encostar o ferro diretamente na estampa."
+          }
+        },
+        {
+          "heading": {
+            "en": "What affects print life",
+            "es": "Qué determina la duración",
+            "pt": "O que influencia a durabilidade"
+          },
+          "text": {
+            "en": "Fabric, wash frequency, abrasion and heat all affect wear. Give us a heads-up if the garment will be washed frequently or used for demanding work so we can discuss a suitable fabric and placement.",
+            "es": "El tejido, los lavados, el roce y el calor influyen en el desgaste. Avísanos si la prenda se lavará a menudo o se usará para trabajos exigentes para que podamos revisar el tejido y la posición.",
+            "pt": "Tecido, frequência de lavagem, atrito e calor influenciam o desgaste. Avise se a peça for lavada com frequência ou usada em trabalho intenso para avaliarmos o tecido e a posição da estampa."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "what-is-a-dtf-gang-sheet",
+      "title": {
+        "en": "What Is a DTF Gang Sheet?",
+        "es": "¿Qué es una gang sheet de DTF?",
+        "pt": "O que é uma gang sheet de DTF?"
+      },
+      "description": {
+        "en": "Understand how several designs share one sheet of transfer film and where that workflow fits.",
+        "es": "Entiende cómo se distribuyen varios diseños en una misma lámina de transferencia.",
+        "pt": "Entenda como várias artes compartilham uma folha de filme e quando esse formato faz sentido."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "How a gang sheet works",
+            "es": "Cómo funciona una gang sheet",
+            "pt": "Como funciona uma gang sheet"
+          },
+          "text": {
+            "en": "A gang sheet groups multiple logos or designs on a single sheet of DTF film. They may be copies of one artwork or different sizes, such as a small chest logo and a larger back design. Each transfer is separated before pressing.",
+            "es": "Una gang sheet reúne varios logos o diseños en una misma lámina DTF. Pueden ser copias o diferentes tamaños, como logo de pecho y diseño de espalda. Cada transfer se separa antes de aplicarlo.",
+            "pt": "Uma gang sheet reúne vários logos ou artes na mesma folha DTF. Podem ser cópias ou tamanhos diferentes, como logo no peito e arte maior nas costas. Cada transfer é separado antes da aplicação."
+          }
+        },
+        {
+          "heading": {
+            "en": "Who uses gang sheets",
+            "es": "Quién usa gang sheets",
+            "pt": "Quem usa gang sheets"
+          },
+          "text": {
+            "en": "It is useful for decorators who already have suitable blanks, a heat press and the transfer supplier’s application instructions. The sheet is an input to production. Placement, correct application and final inspection still need to happen for each garment.",
+            "es": "Es útil para quien ya tiene prendas, una prensa térmica y las instrucciones del proveedor. La lámina solo es parte de la producción. Cada prenda todavía necesita posicionamiento, aplicación y revisión.",
+            "pt": "É útil para quem já tem peças, prensa térmica e as instruções do fornecedor do transfer. A folha é uma etapa da produção. Cada peça ainda precisa de posicionamento, aplicação e conferência."
+          }
+        },
+        {
+          "heading": {
+            "en": "Ordering ready-to-wear shirts",
+            "es": "Pedir camisetas listas para usar",
+            "pt": "Como pedir camisetas prontas"
+          },
+          "text": {
+            "en": "If you are ordering uniforms or shirts for an event, send each artwork separately and tell us where it should go. We handle choosing the garment with you, printing and applying the design, and delivering the finished pieces.",
+            "es": "Si pides uniformes o camisetas para un evento, envía cada diseño por separado e indica la posición. Te ayudamos a elegir la prenda y nos encargamos del estampado y la entrega de las piezas listas.",
+            "pt": "Se você precisa de uniformes ou camisetas para um evento, envie cada arte separadamente e indique a posição. A gente ajuda a escolher a peça, aplica a estampa e entrega o pedido pronto."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "custom-shirt-order-minimum",
+      "title": {
+        "en": "How Many Custom Shirts Do I Need to Order?",
+        "es": "¿Cuántas camisetas personalizadas debo pedir?",
+        "pt": "Quantas camisetas personalizadas preciso pedir?"
+      },
+      "description": {
+        "en": "Plan a 12-piece custom shirt order in Orlando and build a size breakdown for your team or event.",
+        "es": "Planifica un pedido de 12 camisetas personalizadas en Orlando y reúne las tallas de tu grupo.",
+        "pt": "Planeje um pedido de 12 camisetas personalizadas em Orlando e organize os tamanhos da sua equipe ou evento."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Count pieces across sizes",
+            "es": "Cuenta las piezas de todas las tallas",
+            "pt": "Some as peças de todos os tamanhos"
+          },
+          "text": {
+            "en": "Our standard minimum is 12 pieces. For example, four small, five medium and three large shirts make a 12-piece order. Ask us about the garments and colors you want, since availability varies by style and size.",
+            "es": "El mínimo habitual es de 12 piezas. Por ejemplo, cuatro S, cinco M y tres L completan el pedido mínimo. Consulta los modelos y colores, ya que el inventario varía por talla.",
+            "pt": "O mínimo padrão é de 12 peças. Por exemplo, quatro camisetas P, cinco M e três G completam o pedido mínimo. Informe os modelos e as cores desejadas, pois a disponibilidade varia por peça e tamanho."
+          }
+        },
+        {
+          "heading": {
+            "en": "Group orders by garment and design",
+            "es": "Organiza el pedido por modelo y diseño",
+            "pt": "Organize o pedido por peça e arte"
+          },
+          "text": {
+            "en": "If you want one set of polo shirts for supervisors and another set of tees for the crew, list each group separately, with its own sizes, colors and artwork. We can review whether the styles can be combined in one quote.",
+            "es": "Si quieres polos para supervisores y camisetas para el resto del equipo, detalla cada grupo con sus tallas, colores y diseños. Revisaremos si podemos cotizarlos juntos.",
+            "pt": "Se quiser polos para supervisores e camisetas para a equipe, liste cada grupo com suas cores, tamanhos e artes. Podemos avaliar se os modelos entram no mesmo orçamento."
+          }
+        },
+        {
+          "heading": {
+            "en": "Work backward from the deadline",
+            "es": "Planifica a partir de la fecha límite",
+            "pt": "Faça as contas a partir da data de entrega"
+          },
+          "text": {
+            "en": "Allow time for the quote, garment confirmation, mockup approval and payment before production. Typical production takes 7–10 business days after approval and payment. Tell us early if you need fewer pieces or have a tight deadline.",
+            "es": "Deja tiempo para la cotización, confirmar las prendas, aprobar la muestra y pagar. La producción suele tardar de 7 a 10 días hábiles tras aprobación y pago. Avísanos si necesitas menos piezas o tienes poco tiempo.",
+            "pt": "Reserve tempo para o orçamento, confirmação das peças, aprovação da prévia e pagamento. A produção normalmente leva de 7 a 10 dias úteis após aprovação e pagamento. Avise cedo se precisar de menos peças ou tiver prazo apertado."
+          }
+        }
+      ]
+    }
+  ],
+  "guide_label": {
+    "en": "DTF printing guides",
+    "es": "Guías de estampado DTF",
+    "pt": "Guias de impressão DTF"
+  }
+}

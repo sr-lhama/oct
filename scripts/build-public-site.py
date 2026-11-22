@@ -8,6 +8,8 @@ from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from lxml import etree, html
 
+from dtf_pages import GUIDES, SERVICE, format_page
+
 ORIGIN = 'https://orlandocustomtees.com'
 LOCALES = {'en': 'en-US', 'es': 'es', 'pt': 'pt-BR'}
 SOCIAL_IMAGE = '/assets/images/orlando-custom-tees-share.jpg'
@@ -29,7 +31,7 @@ SOCIAL_PROFILES = [
     'https://wa.me/message/BKYBFEAJW4RJP1',
 ]
 VERSIONED = {'site.js', 'language.js', 'garment-catalog.js', 'gildan-64000.js', 'product-banner.js',
-             'site.css', 'locale-es.json', 'locale-pt.json'}
+             'site.css', 'dtf-page.css', 'locale-es.json', 'locale-pt.json'}
 ATTRS = {'alt', 'title', 'aria-label', 'aria-roledescription', 'aria-valuetext', 'placeholder'}
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -194,7 +196,7 @@ def base_product(page, slug, catalog, specs):
 
 
 def build(output, revision):
-    pages = {path.name for path in ROOT.glob('*.html')}
+    pages = {path.name for path in ROOT.glob('*.html')} | set(GUIDES)
     localized = pages - PRIVATE | {'products/' + slug + '.html' for slug in PRODUCTS}
     routes = pages | localized
     catalog = {record['model']: record for record in json.loads(
@@ -211,7 +213,8 @@ def build(output, revision):
     for filename in sorted(routes):
         slug = Path(filename).stem if filename.startswith('products/') else None
         for lang in (LOCALES if filename in localized else ['en']):
-            page = parse(ROOT / ('product.html' if slug else filename))
+            source = 'product.html' if slug else SERVICE if filename in GUIDES else filename
+            page = parse(ROOT / source)
             head = page.find('head')
             product = base_product(page, slug, catalog, specs) if slug else None
             page.set('lang', LOCALES[lang])
@@ -228,6 +231,7 @@ def build(output, revision):
                 if slug:
                     suffix = {'es': 'Estampado personalizado en Orlando', 'pt': 'Estampa personalizada em Orlando'}[lang]
                     head.find('title').text = PRODUCTS[slug][1] + ' | ' + suffix + ' | Orlando Custom Tees'
+            format_page(page, filename, lang)
             rewrite_links(page, filename, lang, localized, revision)
 
             url = ORIGIN + canonical_path(filename, lang)
@@ -245,7 +249,7 @@ def build(output, revision):
             social_alt = {'en': 'Orlando Custom Tees custom apparel', 'es': 'Ropa personalizada de Orlando Custom Tees',
                           'pt': 'Vestuário personalizado da Orlando Custom Tees'}[lang]
             for key, value in {'og:url': url, 'og:title': title, 'og:description': description,
-                               'og:site_name': 'Orlando Custom Tees', 'og:type': 'product' if product else 'website',
+                               'og:site_name': 'Orlando Custom Tees', 'og:type': 'product' if product else 'article' if filename in GUIDES else 'website',
                                'og:locale': LOCALES[lang].replace('-', '_') if lang != 'es' else 'es_US',
                                'og:image': ORIGIN + SOCIAL_IMAGE, 'og:image:width': '1200', 'og:image:height': '630',
                                'og:image:alt': social_alt}.items():
@@ -275,13 +279,15 @@ def build(output, revision):
             if product:
                 add_schema(head, {**product, '@id': url + '#product', 'url': url, 'description': description})
             service_page = filename.endswith('-orlando.html') or filename in {'dtf-printing.html', 'services.html'}
-            if product or service_page:
+            if product or service_page or filename in GUIDES:
                 home_labels = {'en': 'Home', 'es': 'Inicio', 'pt': 'Início'}
                 catalog_labels = {'en': 'Apparel', 'es': 'Ropa', 'pt': 'Vestuário'}
                 services_labels = {'en': 'Services', 'es': 'Servicios', 'pt': 'Serviços'}
                 trail = [(home_labels[lang], canonical_path('index.html', lang))]
                 if product:
                     trail.append((catalog_labels[lang], canonical_path('apparel.html', lang)))
+                elif filename in GUIDES:
+                    trail.append((lookup('DTF Printing'), canonical_path(SERVICE, lang)))
                 elif filename != 'services.html':
                     trail.append((services_labels[lang], canonical_path('services.html', lang)))
                 current_name = product['name'] if product else title.split(' | ', 1)[0]
@@ -291,7 +297,7 @@ def build(output, revision):
                 ]
                 items.append({'@type': 'ListItem', 'position': len(items) + 1, 'name': current_name})
                 add_schema(head, {'@type': 'BreadcrumbList', 'itemListElement': items})
-            if filename == 'how-it-works.html':
+            if filename in {'how-it-works.html', SERVICE}:
                 questions = []
                 for details in page.xpath('//main//details[summary]'):
                     question = ' '.join(details.find('summary').text_content().split())
