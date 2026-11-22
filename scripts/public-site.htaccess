@@ -1,0 +1,43 @@
+# BEGIN OCT public URLs and static assets
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.orlandocustomtees\.com(?::[0-9]+)?$ [NC]
+RewriteRule !^\.well-known/ https://orlandocustomtees.com%{REQUEST_URI} [R=301,L,NE]
+
+RewriteCond %{QUERY_STRING} (?:^|&)lang=es(?:&|$)
+RewriteCond %{QUERY_STRING} (?:^|&)id=(gildan-64000|next-level-6210|team365-tt11|team365-tt11l|team365-tt21|premium-hoodie|custom-cap)(?:&|$)
+RewriteRule ^product\.html$ /es/products/%1.html [R=301,L,NE]
+RewriteCond %{QUERY_STRING} (?:^|&)lang=pt(?:&|$)
+RewriteCond %{QUERY_STRING} (?:^|&)id=(gildan-64000|next-level-6210|team365-tt11|team365-tt11l|team365-tt21|premium-hoodie|custom-cap)(?:&|$)
+RewriteRule ^product\.html$ /pt/products/%1.html [R=301,L,NE]
+RewriteCond %{QUERY_STRING} (?:^|&)id=(gildan-64000|next-level-6210|team365-tt11|team365-tt11l|team365-tt21|premium-hoodie|custom-cap)(?:&|$)
+RewriteRule ^product\.html$ /products/%1.html [R=301,L,NE]
+
+RewriteCond %{QUERY_STRING} (?:^|&)lang=es(?:&|$)
+RewriteRule ^(?:index\.html)?$ /es/ [R=301,L,NE]
+RewriteCond %{QUERY_STRING} (?:^|&)lang=pt(?:&|$)
+RewriteRule ^(?:index\.html)?$ /pt/ [R=301,L,NE]
+RewriteCond %{QUERY_STRING} (?:^|&)lang=es(?:&|$)
+RewriteCond %{DOCUMENT_ROOT}/es/$1 -f
+RewriteRule ^([a-z0-9-]+\.html)$ /es/$1 [R=301,L,NE]
+RewriteCond %{QUERY_STRING} (?:^|&)lang=pt(?:&|$)
+RewriteCond %{DOCUMENT_ROOT}/pt/$1 -f
+RewriteRule ^([a-z0-9-]+\.html)$ /pt/$1 [R=301,L,NE]
+</IfModule>
+
+<IfModule mod_brotli.c>
+<IfModule mod_filter.c>
+AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain text/javascript application/javascript application/json application/xml text/xml image/svg+xml
+</IfModule>
+</IfModule>
+
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType text/css "access plus 1 day"
+ExpiresByType text/javascript "access plus 1 day"
+ExpiresByType application/javascript "access plus 1 day"
+ExpiresByType font/woff2 "access plus 30 days"
+ExpiresByType image/webp "access plus 7 days"
+ExpiresByType image/jpeg "access plus 7 days"
+</IfModule>
+# END OCT public URLs and static assets

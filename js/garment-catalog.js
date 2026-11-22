@@ -21,7 +21,7 @@
   const params = new URLSearchParams(location.search);
   const page = document.querySelector('[data-product-page]');
   const form = document.querySelector('[data-quote-form]');
-  const cards = document.querySelectorAll('.product-card .photo[href^="product.html?id="]');
+  const cards = document.querySelectorAll('.product-card .photo[data-catalog-product], .product-card .photo[href^="product.html?id="]');
 
   function showPhoto(image, product, color, view) {
     const path = color?.views[view];
@@ -83,7 +83,7 @@
     const byName = new Map(products.map(product => [names[product.model], product]));
 
     for (const card of cards) {
-      const id = new URL(card.href).searchParams.get('id');
+      const id = card.dataset.catalogProduct || new URL(card.href).searchParams.get('id');
       const product = byModel.get(modelsByPage[id]);
       if (!product) continue;
       const color = product.colors.find(entry => entry.views.Front);
@@ -91,7 +91,7 @@
     }
 
     if (page?.isConnected) {
-      const id = params.get('id') || 'gildan-64000';
+      const id = document.documentElement.dataset.product || params.get('id') || 'gildan-64000';
       const product = byModel.get(modelsByPage[id]);
       if (product) {
         const name = names[product.model];
@@ -105,7 +105,7 @@
           page.querySelector('[data-product-image]'), updateLink);
         page.querySelector('[data-example-colors]').hidden = true;
         page.querySelector('[data-product-name]').textContent = name;
-        document.title = name + ' | Orlando Custom Tees';
+        if (!document.documentElement.dataset.product) document.title = name + ' | Orlando Custom Tees';
         updateLink(preview(product, params.get('color'), true));
       }
     }

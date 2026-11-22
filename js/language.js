@@ -6,14 +6,13 @@
     {code: 'es', tag: 'es', flag: '<path fill="#aa151b" d="M0 0h24v16H0z"/><path fill="#f1bf00" d="M0 4h24v8H0z"/><path fill="#aa151b" d="M6 6h3v4H6z"/>' , label: 'Español'},
     {code: 'pt', tag: 'pt-BR', flag: '<path fill="#009b3a" d="M0 0h24v16H0z"/><path fill="#ffdf00" d="m12 2 9 6-9 6-9-6z"/><circle fill="#002776" cx="12" cy="8" r="3.5"/><path fill="none" stroke="#fff" stroke-width=".8" d="M8.8 7.2c2.3-.6 4.8.3 6.2 1.9"/>' , label: 'Português'},
   ];
-  const storageKey = 'oct-language';
   const url = new URL(location.href);
-  let saved;
-  try { saved = localStorage.getItem(storageKey); } catch {}
-  const selected = languages.find(entry => entry.code === url.searchParams.get('lang'))
-    || languages.find(entry => entry.code === saved)
+  const available = [...document.querySelectorAll('link[rel="alternate"][hreflang]:not([hreflang="x-default"])')];
+  const localizable = document.documentElement.hasAttribute('data-oct-localized');
+  const pathLanguage = url.pathname.match(/^\/(es|pt)(?:\/|$)/)?.[1];
+  const selected = languages.find(entry => entry.code === pathLanguage)
+    || languages.find(entry => !localizable && entry.code === url.searchParams.get('lang'))
     || languages[0];
-  try { localStorage.setItem(storageKey, selected.code); } catch {}
 
   document.documentElement.lang = selected.tag;
   let translate = value => value;
@@ -30,7 +29,14 @@
   for (const entry of languages) {
     const link = document.createElement('a');
     const destination = new URL(url);
-    destination.searchParams.set('lang', entry.code);
+    const alternate = available.find(item => item.hreflang === entry.tag);
+    if (alternate) {
+      destination.pathname = new URL(alternate.href).pathname;
+      destination.searchParams.delete('lang');
+      if (document.documentElement.dataset.product) destination.searchParams.delete('id');
+    } else {
+      destination.searchParams.set('lang', entry.code);
+    }
     link.href = destination.href;
     link.lang = entry.tag;
     link.hreflang = entry.tag;
@@ -68,7 +74,7 @@
   }
 
 
-  const consentKey = 'oct-cookie-preferences-v2';
+  const consentKey = 'oct-cookie-preferences-v3';
   const consentLifetime = 180 * 24 * 60 * 60 * 1000;
   const validChoice = value => value === 'all' || value === 'essential';
   let choice;
@@ -77,49 +83,61 @@
     if (validChoice(previous?.choice) && previous.expires > Date.now()) choice = previous.choice;
   } catch {}
 
-
-  const analyticsId = 'G-PHJXDTZGKW';
-  const publicAnalyticsPage = !/\/(customer|login|portal|dashboard)(\.html)?\/?$/i.test(location.pathname) && (location.hostname === 'orlandocustomtees.com' || location.hostname === 'www.orlandocustomtees.com');
-  let analyticsStarted = false;
+  // Set this to the public GA4 web-stream measurement ID before activating tracking.
+  const measurementId = 'G-PHJXDTZGKW';
+  const analyticsEnabled = /^G-[A-Z0-9]+$/.test(measurementId)
+    && ['orlandocustomtees.com','www.orlandocustomtees.com'].includes(url.hostname)
+    && ! /\/(customer|login|portal|dashboard)(\.html)?\/?$/i.test(url.pathname);
+  let analyticsLoaded = false;
   function applyAnalyticsConsent() {
-    const allowed = publicAnalyticsPage && choice === 'all';
-    window['ga-disable-' + analyticsId] = !allowed;
-    if (!allowed) {
-      if (analyticsStarted && typeof window.gtag === 'function') window.gtag('consent', 'update', {analytics_storage:'denied'});
-      for (const cookie of document.cookie.split(';')) {
-        const name = cookie.split('=')[0].trim();
-        if (name === '_ga' || name.startsWith('_ga_')) {
-          for (const domain of ['', '; domain=' + location.hostname, '; domain=.orlandocustomtees.com']) document.cookie = name + '=; Max-Age=0; path=/' + domain;
-        }
+    if (!analyticsEnabled) return;
+    window['ga-disable-' + measurementId] = choice !== 'all';
+    if (choice !== 'all') {
+      if (analyticsLoaded) window.gtag('consent','update',{analytics_storage:'denied'});
+      if (!analyticsLoaded && !/(?:^|;\s*)_ga=/.test(document.cookie)) return;
+      for (const key of ['_ga','_ga_' + measurementId.slice(2)]) {
+        document.cookie = key + '=; Max-Age=0; path=/; Secure; SameSite=Lax';
+        document.cookie = key + '=; Max-Age=0; path=/; domain=orlandocustomtees.com; Secure; SameSite=Lax';
       }
       return;
     }
-    if (analyticsStarted) {
-      window.gtag('consent','update',{analytics_storage:'granted'});
-      return;
-    }
-    analyticsStarted = true;
+    if (analyticsLoaded) { window.gtag('consent','update',{analytics_storage:'granted'}); return; }
+    analyticsLoaded = true;
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function(){window.dataLayer.push(arguments)};
-    window.gtag('consent','default',{analytics_storage:'granted',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
-    window.gtag('js', new Date());
-    const page = new URL(location.origin + location.pathname);
-    for (const key of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term']) {
-      const value = new URLSearchParams(location.search).get(key);
-      if (value && value.length <= 100 && !value.includes('@')) page.searchParams.set(key,value);
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+    window.gtag('consent','update',{analytics_storage:'granted'});
+    window.gtag('js',new Date());
+    const analyticsUrl = new URL(url.pathname, url.origin);
+    for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']) {
+      const value = url.searchParams.get(key);
+      if (value && /^[a-z0-9_.+-]{1,100}$/i.test(value)) analyticsUrl.searchParams.set(key, value);
     }
-    let referrer = '';
-    try { if(document.referrer) referrer = new URL(document.referrer).origin; } catch {}
-    window.gtag('config', analyticsId, {allow_google_signals:false,allow_ad_personalization_signals:false,send_page_view:false,page_location:page.href,page_referrer:referrer});
-    window.gtag('event','page_view',{page_location:page.href,page_referrer:referrer});
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + analyticsId;
-    document.head.append(script);
+    const pageLocation = analyticsUrl.href;
+    const referrer = document.referrer ? new URL(document.referrer) : null;
+    const pageReferrer = referrer ? referrer.origin + referrer.pathname : '';
+    window.gtag('config',measurementId,{send_page_view:false,page_location:pageLocation,page_referrer:pageReferrer,allow_google_signals:false,allow_ad_personalization_signals:false});
+    window.gtag('event','page_view',{send_to:measurementId,page_location:pageLocation,language:selected.tag});
+    window.octAnalytics = {
+      lead(kind) {
+        if (choice === 'all' && (kind === 'quote' || kind === 'contact')) {
+          window.gtag('event','generate_lead',{send_to:measurementId,form_name:kind,page_location:pageLocation});
+        }
+      }
+    };
+    document.addEventListener('click', event => {
+      const link = event.target.closest?.('a[href]');
+      if (choice !== 'all' || !link) return;
+      const destination = new URL(link.href, document.baseURI);
+      const channel = destination.protocol === 'tel:' ? 'phone'
+        : ['wa.me', 'api.whatsapp.com', 'www.whatsapp.com'].includes(destination.hostname) ? 'whatsapp' : '';
+      if (channel) window.gtag('event', channel + '_click', {send_to:measurementId,page_location:pageLocation});
+    });
+    const tag = document.createElement('script');
+    tag.async = true;
+    tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+    document.head.append(tag);
   }
-  window.octTrackQuote = function() {
-    if (publicAnalyticsPage && choice === 'all' && analyticsStarted) window.gtag('event','generate_lead',{page_location:location.origin+location.pathname});
-  };
   applyAnalyticsConsent();
 
   const consent = document.createElement('section');
@@ -129,7 +147,7 @@
   consent.setAttribute('aria-labelledby', 'oct-cookie-heading');
   consent.innerHTML = '<div class="oct-cookie-copy"><h2 id="oct-cookie-heading">Cookie preferences</h2>' +
     '<p>We use essential browser storage to remember your language and keep your account signed in. With your permission, Google Analytics helps us understand website visits and quote requests.</p>' +
-    '<a href="privacy.html#cookies">Read our cookie policy</a></div>' +
+    '<a href="/privacy.html#cookies">Read our cookie policy</a></div>' +
     '<div class="oct-cookie-actions"><button type="button" class="btn btn-outline" data-choice="essential">Essential only</button>' +
     '<button type="button" class="btn btn-pink" data-choice="all">Accept all</button></div>';
   document.body.append(consent);
@@ -171,12 +189,18 @@
     if (!element.matches('a[href]') || element.closest(exclusion)) return;
     const href = element.getAttribute('href');
     if (!href || href.startsWith('#')) return;
-    const target = new URL(href, url);
+    const target = new URL(href, document.baseURI);
     if (target.origin !== url.origin || !target.pathname.endsWith('.html')) return;
-    if (target.searchParams.get('lang') === selected.code) return;
-    if (selected.code === 'en' && !target.searchParams.has('lang')) return;
-    target.searchParams.set('lang', selected.code);
-    element.setAttribute('href', href.split(/[?#]/, 1)[0] + target.search + target.hash);
+    if (/^\/(es|pt)\//.test(target.pathname)) return;
+    if (selected.code === 'en') return;
+    if (localizable && !/^\/(customer|product|404)\.html$/.test(target.pathname)) {
+      target.searchParams.delete('lang');
+      target.pathname = '/' + selected.code + (target.pathname === '/index.html' ? '/' : target.pathname);
+      element.setAttribute('href', target.pathname + target.search + target.hash);
+    } else if (target.searchParams.get('lang') !== selected.code) {
+      target.searchParams.set('lang', selected.code);
+      element.setAttribute('href', target.pathname + target.search + target.hash);
+    }
   }
   if (selected.code === 'en') {
     document.querySelectorAll('a[href*="lang="]').forEach(updateLink);

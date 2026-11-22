@@ -1,7 +1,7 @@
 (() => {
   const params = new URLSearchParams(location.search);
   const template = document.querySelector('#gildan-64000-template');
-  const id = params.get('id') || 'gildan-64000';
+  const id = document.documentElement.dataset.product || params.get('id') || 'gildan-64000';
   const models = {
     "next-level-6210": {
       "model": "6210",
@@ -1015,7 +1015,7 @@
     renderSwatches();
     showColor(color);
     document.querySelector('#main').replaceWith(main);
-    document.title = product.brand + ' ' + main.querySelector('h1').textContent + ' | Orlando Custom Tees';
+    if (!document.documentElement.dataset.product) document.title = product.brand + ' ' + main.querySelector('h1').textContent + ' | Orlando Custom Tees';
     if (location.hash === '#gildan-details') main.querySelector('#gildan-details').scrollIntoView();
   }
 

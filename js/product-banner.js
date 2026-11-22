@@ -11,8 +11,9 @@
     ['custom-cap', ['Flexfit', 'assets/catalog/Marcas/Flexfit_High_Brand.webp']],
     ['workwear', ['Orlando Custom Tees', 'assets/images/logo-official.webp']]
   ]);
-  const id = new URLSearchParams(location.search).get('id');
+  const id = document.documentElement.dataset.product || new URLSearchParams(location.search).get('id');
   const [name, image] = brands.get(id) ?? gildan;
+  if (!document.querySelector('[data-product-banner-name]')) return;
   document.querySelector('[data-product-banner-name]').textContent = name;
   document.querySelector('[data-product-banner-brand]').src = image;
 })();

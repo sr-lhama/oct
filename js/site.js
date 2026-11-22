@@ -58,11 +58,11 @@
     'workwear':{name:'Team Workwear',subtitle:'Visible, functional uniforms',description:'Practical garment options for service crews, outdoor teams, and businesses. Availability varies by product.',type:'Work Uniforms',material:'Varies by style',colors:[['#e6fc1a','Safety yellow'],['#fa7115','Safety orange'],['#162b63','Navy']]}
   };
   const productNode=document.querySelector('[data-product-page]');
-  if(productNode){const params=new URLSearchParams(location.search);const id=params.get('id')||'gildan-64000';const d=productMap[id]||productMap['gildan-64000'];
-    document.title=d.name+' | Orlando Custom Tees';
-    for(let k of ['name','subtitle','description','type','material'])document.querySelectorAll('[data-product-'+k+']').forEach(el=>el.textContent=d[k]);
-    document.querySelectorAll('[data-product-image]').forEach(el=>{el.src='assets/products/'+(productMap[id]?id:'gildan-64000')+'.webp';el.alt='Illustrated example of '+d.name;});
-    document.querySelectorAll('[data-product-link]').forEach(el=>el.href='quote.html?product='+encodeURIComponent(d.name));
+  if(productNode){const params=new URLSearchParams(location.search);const id=document.documentElement.dataset.product||params.get('id')||'gildan-64000';const d=productMap[id]||productMap['gildan-64000'];
+    if (!document.documentElement.dataset.product) document.title=d.name+' | Orlando Custom Tees';
+    if (!document.documentElement.dataset.product) for(let k of ['name','subtitle','description','type','material'])document.querySelectorAll('[data-product-'+k+']').forEach(el=>el.textContent=d[k]);
+    if (!document.documentElement.dataset.product) document.querySelectorAll('[data-product-image]').forEach(el=>{el.src='assets/products/'+(productMap[id]?id:'gildan-64000')+'.webp';el.alt='Illustrated example of '+d.name;});
+    if (!document.documentElement.dataset.product) document.querySelectorAll('[data-product-link]').forEach(el=>el.href='quote.html?product='+encodeURIComponent(d.name));
     const sw=document.querySelector('[data-product-swatches]');if(sw){d.colors.forEach(([color,label],i)=>{const b=document.createElement('button');b.className='swatch'+(i===0?' selected':'');b.style.background=color;b.setAttribute('aria-label',label);b.title=label;b.addEventListener('click',()=>{sw.querySelectorAll('button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');const t=document.querySelector('[data-color-label]');if(t)t.textContent=label;});sw.appendChild(b)});const t=document.querySelector('[data-color-label]');if(t)t.textContent=d.colors[0][1];}
   }
   const quote=document.querySelector('[data-quote-form]');
@@ -181,7 +181,7 @@
         const receipt = await response.json();
         if (!response.ok || !receipt.request_id) throw new Error(receipt.error || 'Please try again.');
         requestKey = crypto.randomUUID();
-        window.octTrackQuote?.();
+        if (!receipt.existing) window.octAnalytics?.lead('quote');
         quote.reset();
         show('Request ' + receipt.request_id + ' received. '+(receipt.email?.customer_sent?'A confirmation was sent to your email. ':'Your request is saved; no confirmation email has been sent yet. ')+'Our team will review your details and prepare the estimate. You can follow this request in My Account.', 'ok');
       } catch (error) {

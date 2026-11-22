@@ -4,6 +4,18 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/publish-garment-preview.yml'
+      - 'scripts/build-public-site.py'
+      - 'scripts/publish-public-site.py'
+      - 'scripts/public-site.htaccess'
+      - 'assets/fonts/**'
+      - 'assets/images/logo-card.webp'
+      - 'assets/images/logo-header-animated.webp'
+      - 'assets/images/orlando-custom-tees-share.jpg'
+      - '*.html'
+      - 'robots.txt'
+      - 'css/site.css'
+      - 'js/site.js'
+      - 'js/language.js'
       - 'quote.html'
       - 'product.html'
       - '404.html'
@@ -43,7 +55,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
         with:
@@ -115,3 +127,14 @@ jobs:
                   ftp.rename(temp, ".htaccess")
                   print("Configured the branded 404 error document")
           PY
+
+      - name: Build crawlable public pages
+        run: |
+          python -m pip install 'lxml==6.1.1'
+          python scripts/build-public-site.py "$RUNNER_TEMP/oct-public" --revision "$GITHUB_SHA"
+      - name: Publish canonical products and languages
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: python scripts/publish-public-site.py "$RUNNER_TEMP/oct-public"
