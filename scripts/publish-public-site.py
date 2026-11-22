@@ -78,15 +78,17 @@ def publish():
                 with urlopen(Request(origin + path, headers={'Cache-Control': 'no-cache'}), timeout=15) as result:
                     if result.status != 200:
                         raise RuntimeError(f'Unexpected response for {path}: {result.status}')
-            check = 'https://www.orlandocustomtees.com/quote.html?verify=public-urls-' + os.environ['GITHUB_RUN_ID']
-            try:
-                build_opener(NoRedirect).open(check, timeout=15).close()
-            except HTTPError as error:
-                expected = origin + '/quote.html?verify=public-urls-' + os.environ['GITHUB_RUN_ID']
-                if error.code != 301 or error.headers.get('Location') != expected:
+            route = '/quote.html?verify=public-urls-' + os.environ['GITHUB_RUN_ID']
+            opener = build_opener(NoRedirect)
+            for source_origin in ('http://orlandocustomtees.com', 'http://www.orlandocustomtees.com',
+                                  'https://www.orlandocustomtees.com'):
+                try:
+                    opener.open(source_origin + route, timeout=15).close()
+                except HTTPError as error:
+                    if error.code == 301 and error.headers.get('Location') == origin + route:
+                        continue
                     raise
-            else:
-                raise RuntimeError('The www URL did not return the expected permanent redirect')
+                raise RuntimeError(f'{source_origin} did not return the expected HTTPS redirect')
         except Exception:
             write_config(previous)
             raise

@@ -267,10 +267,30 @@ def build(output, revision):
                 styles[0].set('href', '/css/home-bundle.css?v=' + revision)
                 for node in styles[1:]:
                     head.remove(node)
+            if filename == 'services.html':
+                for node in head.xpath('meta[@name="robots" and contains(@content, "noindex")]'):
+                    head.remove(node)
             if filename == 'product.html':
                 set_meta(head, 'robots', 'noindex,follow', 'name')
             if product:
                 add_schema(head, {**product, '@id': url + '#product', 'url': url, 'description': description})
+            service_page = filename.endswith('-orlando.html') or filename in {'dtf-printing.html', 'services.html'}
+            if product or service_page:
+                home_labels = {'en': 'Home', 'es': 'Inicio', 'pt': 'Início'}
+                catalog_labels = {'en': 'Apparel', 'es': 'Ropa', 'pt': 'Vestuário'}
+                services_labels = {'en': 'Services', 'es': 'Servicios', 'pt': 'Serviços'}
+                trail = [(home_labels[lang], canonical_path('index.html', lang))]
+                if product:
+                    trail.append((catalog_labels[lang], canonical_path('apparel.html', lang)))
+                elif filename != 'services.html':
+                    trail.append((services_labels[lang], canonical_path('services.html', lang)))
+                current_name = product['name'] if product else title.split(' | ', 1)[0]
+                items = [
+                    {'@type': 'ListItem', 'position': index, 'name': name, 'item': ORIGIN + path}
+                    for index, (name, path) in enumerate(trail, 1)
+                ]
+                items.append({'@type': 'ListItem', 'position': len(items) + 1, 'name': current_name})
+                add_schema(head, {'@type': 'BreadcrumbList', 'itemListElement': items})
             if filename == 'how-it-works.html':
                 questions = []
                 for details in page.xpath('//main//details[summary]'):

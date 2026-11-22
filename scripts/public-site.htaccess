@@ -3,6 +3,9 @@
 RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.orlandocustomtees\.com(?::[0-9]+)?$ [NC]
 RewriteRule !^\.well-known/ https://orlandocustomtees.com%{REQUEST_URI} [R=301,L,NE]
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^orlandocustomtees\.com(?::[0-9]+)?$ [NC]
+RewriteRule !^\.well-known/ https://orlandocustomtees.com%{REQUEST_URI} [R=301,L,NE]
 
 RewriteCond %{QUERY_STRING} (?:^|&)lang=es(?:&|$)
 RewriteCond %{QUERY_STRING} (?:^|&)id=(gildan-64000|next-level-6210|team365-tt11|team365-tt11l|team365-tt21|premium-hoodie|custom-cap)(?:&|$)
@@ -23,6 +26,10 @@ RewriteRule ^([a-z0-9-]+\.html)$ /es/$1 [R=301,L,NE]
 RewriteCond %{QUERY_STRING} (?:^|&)lang=pt(?:&|$)
 RewriteCond %{DOCUMENT_ROOT}/pt/$1 -f
 RewriteRule ^([a-z0-9-]+\.html)$ /pt/$1 [R=301,L,NE]
+</IfModule>
+
+<IfModule mod_headers.c>
+Header always set Strict-Transport-Security "max-age=604800"
 </IfModule>
 
 <IfModule mod_brotli.c>
