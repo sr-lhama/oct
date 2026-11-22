@@ -221,6 +221,9 @@
     };
     const format = (key, values) => lookup(key).replace(identifier, (_, name) => values[name] ?? '');
     const patterns = [
+      [/^(\d+) pieces selected · 12-piece minimum$/, m => format('{n} pieces selected · 12-piece minimum', {n:m[1]})],
+      [/^(Front|Back) file attached: (.*?)(?: · (PDF saved with the request; shirt preview uses PNG or JPG\.))?$/, m => format(m[1] + ' file attached: {file}', {file:m[2]}) + (m[3] ? ' · ' + lookup(m[3]) : '')],
+      [/^(.+) · (\d+(?:\.\d+)? × \d+(?:\.\d+)? in)$/, m => lookup(m[1]) + ' · ' + m[2]],
       [/^(\d+) (pieces|colors)$/, m => m[1] + ' ' + lookup(m[2])],
       [/^(Go to banner|Illustrated example of) (.+)$/, m => lookup(m[1]) + ' ' + lookup(m[2])],
       [/^Go to review page (\d+)$/, m => format('Go to review page {n}', {n:m[1]})],

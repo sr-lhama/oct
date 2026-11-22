@@ -88,7 +88,7 @@ def translate_page(page, lookup):
             element.set(attribute, preserve_space(element.get(attribute)))
 
 
-def rewrite_links(page, filename, lang, localized):
+def rewrite_links(page, filename, lang, localized, revision):
     current = canonical_path(filename, lang)
     nested = filename.startswith('products/') or lang != 'en'
     for element in page.xpath('//*[@href or @src]'):
@@ -125,7 +125,7 @@ def rewrite_links(page, filename, lang, localized):
                 path = canonical_path(path or 'index.html', lang).lstrip('/')
                 query.pop('lang', None)
             if path.rsplit('/', 1)[-1] in VERSIONED:
-                query['v'] = ['seo1']
+                query['v'] = [revision]
             if path or value.startswith(ORIGIN):
                 element.set(attribute, urlunsplit(('', '', '/' + path, urlencode(query, doseq=True), link.fragment)))
 
@@ -228,7 +228,7 @@ def build(output, revision):
                 if slug:
                     suffix = {'es': 'Estampado personalizado en Orlando', 'pt': 'Estampa personalizada em Orlando'}[lang]
                     head.find('title').text = PRODUCTS[slug][1] + ' | ' + suffix + ' | Orlando Custom Tees'
-            rewrite_links(page, filename, lang, localized)
+            rewrite_links(page, filename, lang, localized, revision)
 
             url = ORIGIN + canonical_path(filename, lang)
             for element in head.xpath('link[@rel="canonical" or @hreflang]'):
