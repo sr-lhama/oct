@@ -191,8 +191,6 @@ def base_product(page, slug, catalog, specs):
         original.xpath('.//*[@data-product-image]')[0].set('src', photo)
         original.xpath('.//*[@data-product-image]')[0].set('alt', name)
         original.xpath('.//*[@data-product-link]')[0].set('href', '/quote.html?' + urlencode({'product': name}))
-    return {'@type': 'Product', 'name': name, 'sku': model, 'mpn': model,
-            'image': ORIGIN + photo, 'brand': {'@type': 'Brand', 'name': product['brand']}}
 
 
 def build(output, revision):
@@ -216,7 +214,8 @@ def build(output, revision):
             source = 'product.html' if slug else SERVICE if filename in GUIDES else filename
             page = parse(ROOT / source)
             head = page.find('head')
-            product = base_product(page, slug, catalog, specs) if slug else None
+            if slug:
+                base_product(page, slug, catalog, specs)
             page.set('lang', LOCALES[lang])
             if filename in localized:
                 page.set('data-oct-localized', '')
@@ -249,7 +248,7 @@ def build(output, revision):
             social_alt = {'en': 'Orlando Custom Tees custom apparel', 'es': 'Ropa personalizada de Orlando Custom Tees',
                           'pt': 'Vestuário personalizado da Orlando Custom Tees'}[lang]
             for key, value in {'og:url': url, 'og:title': title, 'og:description': description,
-                               'og:site_name': 'Orlando Custom Tees', 'og:type': 'product' if product else 'article' if filename in GUIDES else 'website',
+                               'og:site_name': 'Orlando Custom Tees', 'og:type': 'product' if slug else 'article' if filename in GUIDES else 'website',
                                'og:locale': LOCALES[lang].replace('-', '_') if lang != 'es' else 'es_US',
                                'og:image': ORIGIN + SOCIAL_IMAGE, 'og:image:width': '1200', 'og:image:height': '630',
                                'og:image:alt': social_alt}.items():
@@ -276,21 +275,19 @@ def build(output, revision):
                     head.remove(node)
             if filename == 'product.html':
                 set_meta(head, 'robots', 'noindex,follow', 'name')
-            if product:
-                add_schema(head, {**product, '@id': url + '#product', 'url': url, 'description': description})
             service_page = filename.endswith('-orlando.html') or filename in {'dtf-printing.html', 'services.html'}
-            if product or service_page or filename in GUIDES:
+            if slug or service_page or filename in GUIDES:
                 home_labels = {'en': 'Home', 'es': 'Inicio', 'pt': 'Início'}
                 catalog_labels = {'en': 'Apparel', 'es': 'Ropa', 'pt': 'Vestuário'}
                 services_labels = {'en': 'Services', 'es': 'Servicios', 'pt': 'Serviços'}
                 trail = [(home_labels[lang], canonical_path('index.html', lang))]
-                if product:
+                if slug:
                     trail.append((catalog_labels[lang], canonical_path('apparel.html', lang)))
                 elif filename in GUIDES:
                     trail.append((lookup('DTF Printing'), canonical_path(SERVICE, lang)))
                 elif filename != 'services.html':
                     trail.append((services_labels[lang], canonical_path('services.html', lang)))
-                current_name = product['name'] if product else title.split(' | ', 1)[0]
+                current_name = PRODUCTS[slug][1] if slug else title.split(' | ', 1)[0]
                 items = [
                     {'@type': 'ListItem', 'position': index, 'name': name, 'item': ORIGIN + path}
                     for index, (name, path) in enumerate(trail, 1)
