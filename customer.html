@@ -300,19 +300,57 @@ async function refresh(){
  $("customerQuotes").querySelectorAll(".messageQuote").forEach(btn=>btn.onclick=()=>openMessages(btn.dataset.id));
  $("customerQuotes").querySelectorAll(".editQuote").forEach(btn=>btn.onclick=()=>openEditor(qs.find(q=>q.id===btn.dataset.id)));
 }
-async function openMessages(id){
- $("account-messages").open=true;
- const target=$("customerMessages");
+let customerChatTimer;
+function openMessages(id){
+ const section=$("account-messages"),target=$("customerMessages"),userId=current?.id;
+ if(!userId)return;
+ clearInterval(customerChatTimer);
+ section.open=true;
+ target.innerHTML='<h3>'+safe(tr("Conversation for this request"))+'</h3><div id="msgHistory" role="log" tabindex="0" style="max-height:24rem;overflow:auto;overflow-wrap:anywhere"></div><p id="msgStatus" role="status"></p><form id="msgForm"><label for="msgText">'+safe(tr("Write a message"))+'</label><textarea id="msgText" maxlength="4000" required placeholder="'+safe(tr("How can we help?"))+'"></textarea><button class="btn btn-pink" type="submit">'+safe(tr("Send message"))+'</button></form>';
  target.scrollIntoView({behavior:"smooth",block:"start"});
- target.innerHTML='<h3>Conversation</h3><p>Loading messages...</p>';
- const {data,error}=await sup.from("customer_messages").select("id,body,sender_role,created_at").eq("quote_request_id",id).order("created_at",{ascending:true}).limit(200);
- if(error){console.error(error);target.textContent="Unable to load messages. Please try again.";return}
- target.innerHTML='<h3>Conversation for this request</h3>'+(data?.length?data.map(m=>'<div class="account-msg '+(m.sender_role==="staff"?"staff":"")+'"><small>'+safe(m.sender_role==="staff"?"Orlando Custom Tees":"You")+' · '+safe(new Date(m.created_at).toLocaleString(localeTag()))+'</small><p translate="no">'+safe(m.body)+'</p></div>').join(""):'<p>No messages yet.</p>')+'<form id="msgForm"><label for="msgText">Write a message</label><textarea id="msgText" maxlength="4000" required placeholder="How can we help?"></textarea><button class="btn btn-pink" type="submit">Send message</button></form>';
- $("msgForm").onsubmit=async e=>{
-  e.preventDefault();const body=$("msgText").value.trim();if(!body)return;
-  const {error:sendError}=await sup.from("customer_messages").insert({quote_request_id:id,sender_user_id:current.id,sender_role:"customer",body});
-  if(sendError)alertError(sendError);else openMessages(id);
+ const history=$("msgHistory"),status=$("msgStatus"),form=$("msgForm"),input=$("msgText");
+ const active=()=>history.isConnected&&current?.id===userId;
+ let loading=false,rendered;
+ async function load(){
+  if(loading||!active())return;
+  loading=true;
+  try{
+   const {data,error}=await sup.from("customer_messages").select("id,body,sender_role,created_at").eq("quote_request_id",id).order("created_at",{ascending:false}).order("id",{ascending:false}).limit(200);
+   if(!active())return;
+   if(error)throw error;
+   const rows=(data||[]).reverse();
+   const keys=rows.map(m=>m.id).join(",");
+   if(keys!==rendered){
+    const follow=rendered===undefined||history.scrollHeight-history.scrollTop-history.clientHeight<48;
+    history.innerHTML=rows.length?rows.map(m=>'<div class="account-msg '+(m.sender_role==="staff"?"staff":"")+'"><small>'+safe(m.sender_role==="staff"?"Orlando Custom Tees":tr("You"))+' · '+safe(new Date(m.created_at).toLocaleString(localeTag()))+'</small><p translate="no" style="white-space:pre-wrap">'+safe(m.body)+'</p></div>').join(""):'<p>'+safe(tr("No messages yet."))+'</p>';
+    if(follow)history.scrollTop=history.scrollHeight;
+    rendered=keys;
+   }
+  }catch(error){
+   if(active()&&rendered===undefined)history.textContent=tr("Unable to load messages. Please try again.");
+  }finally{loading=false}
+ }
+ form.onsubmit=async e=>{
+  e.preventDefault();
+  const body=input.value.trim(),button=form.querySelector("button");
+  if(!body||button.disabled||!active())return;
+  button.disabled=true;
+  status.textContent="";
+  try{
+   const {error}=await sup.from("customer_messages").insert({quote_request_id:id,sender_user_id:userId,sender_role:"customer",body});
+   if(error)throw error;
+   if(input.value.trim()===body)input.value="";
+   if(active())await load();
+  }catch(error){
+   if(active())status.textContent=tr("Unable to send your message. Please try again.");
+  }finally{button.disabled=false}
  };
+ void load();
+ const timer=setInterval(()=>{
+  if(!active()){clearInterval(timer);return}
+  if(section.open&&!document.hidden)void load();
+ },4000);
+ customerChatTimer=timer;
 }
 function openEditor(q){
  if(!q)return;
