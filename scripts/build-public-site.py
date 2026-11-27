@@ -224,6 +224,18 @@ def build(output, revision):
                 head.insert(head.index(charset) + 1 if charset is not None else 0, etree.Element('base', href='/'))
             lookup = lambda value: dictionaries.get(lang, {}).get(' '.join(value.split()), value)
             translate_page(page, lookup)
+            # Explicit campaign copy takes priority over the general dictionary.
+            if lang != 'en':
+                for node in page.xpath(f'//*[@data-{lang}]'):
+                    node.text = node.get(f'data-{lang}')
+            if filename == 'school-shirts-orlando.html':
+                translations = {
+                    'es': ('Camisetas escolares, para equipos y graduación 2027 | Orlando Custom Tees', 'Camisetas escolares personalizadas, graduación 2027, equipos deportivos y orgullo escolar en Orlando, Florida. Mínimo de 12 piezas y maqueta digital gratis.'),
+                    'pt': ('Camisetas escolares, times e formatura 2027 | Orlando Custom Tees', 'Camisetas personalizadas para escolas, formatura 2027, equipes esportivas e torcidas em Orlando, FL. Mínimo de 12 peças e mockup digital grátis.'),
+                }
+                if lang in translations:
+                    head.find('title').text, description_text = translations[lang]
+                    head.find('meta[@name="description"]').set('content', description_text)
             if lang != 'en':
                 for meta in head.xpath('meta[@name="description"]'):
                     meta.set('content', lookup(meta.get('content')))
@@ -245,16 +257,18 @@ def build(output, revision):
 
             title = head.findtext('title')
             description = meta_content(head, 'description') if head.find('meta[@name="description"]') is not None else title
+            social_image = '/assets/schools/school-spirit.webp' if filename == 'school-shirts-orlando.html' else SOCIAL_IMAGE
+            social_width, social_height = ('830', '465') if filename == 'school-shirts-orlando.html' else ('1200', '630')
             social_alt = {'en': 'Orlando Custom Tees custom apparel', 'es': 'Ropa personalizada de Orlando Custom Tees',
                           'pt': 'Vestuário personalizado da Orlando Custom Tees'}[lang]
             for key, value in {'og:url': url, 'og:title': title, 'og:description': description,
                                'og:site_name': 'Orlando Custom Tees', 'og:type': 'product' if slug else 'article' if filename in GUIDES else 'website',
                                'og:locale': LOCALES[lang].replace('-', '_') if lang != 'es' else 'es_US',
-                               'og:image': ORIGIN + SOCIAL_IMAGE, 'og:image:width': '1200', 'og:image:height': '630',
+                               'og:image': ORIGIN + social_image, 'og:image:width': social_width, 'og:image:height': social_height,
                                'og:image:alt': social_alt}.items():
                 set_meta(head, key, value)
             for key, value in {'card': 'summary_large_image', 'title': title, 'description': description,
-                               'image': ORIGIN + SOCIAL_IMAGE, 'image:alt': social_alt}.items():
+                               'image': ORIGIN + social_image, 'image:alt': social_alt}.items():
                 set_meta(head, 'twitter:' + key, value, 'name')
 
             if filename == 'index.html':
