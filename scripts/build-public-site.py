@@ -31,7 +31,7 @@ SOCIAL_PROFILES = [
     'https://wa.me/message/BKYBFEAJW4RJP1',
 ]
 VERSIONED = {'site.js', 'language.js', 'garment-catalog.js', 'gildan-64000.js', 'product-banner.js',
-             'site.css', 'dtf-page.css', 'locale-es.json', 'locale-pt.json'}
+             'site.css', 'dtf-page.css', 'locale-es.json', 'locale-pt.json', 'quote-site.js'}
 ATTRS = {'alt', 'title', 'aria-label', 'aria-roledescription', 'aria-valuetext', 'placeholder'}
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -227,7 +227,11 @@ def build(output, revision):
             # Explicit campaign copy takes priority over the general dictionary.
             if lang != 'en':
                 for node in page.xpath(f'//*[@data-{lang}]'):
-                    node.text = node.get(f'data-{lang}')
+                    value = node.get(f'data-{lang}')
+                    if node.tag == 'meta':
+                        node.set('content', value)
+                    else:
+                        node.text = value
             if filename == 'school-shirts-orlando.html':
                 translations = {
                     'es': ('Camisetas escolares, para equipos y graduación 2027 | Orlando Custom Tees', 'Camisetas escolares personalizadas, graduación 2027, equipos deportivos y orgullo escolar en Orlando, Florida. Mínimo de 12 piezas y maqueta digital gratis.'),

@@ -68,6 +68,12 @@
   const quote=document.querySelector('[data-quote-form]');
   if(quote){
     const params=new URLSearchParams(location.search);if(params.has('product')){const sel=quote.querySelector('[name="product"]');if(sel){const wanted=params.get('product');const match=Array.from(sel.options).find(o=>o.value===wanted);if(match)sel.value=wanted;else{const op=document.createElement('option');op.value=wanted;op.textContent=wanted;op.selected=true;sel.append(op);}}}
+    const designTemplates = {"OCT-SC-01":"School Pride","OCT-SC-02":"Spirit Squad","OCT-SC-03":"Field Trip Crew","OCT-SC-04":"Teacher Crew","OCT-SC-05":"School Club","OCT-SC-06":"House Pride","OCT-SC-07":"School Family","OCT-SC-08":"PTA / PTO Team","OCT-GR-01":"Class of 2027","OCT-GR-02":"Senior 2027","OCT-GR-03":"Kindergarten Graduate","OCT-GR-04":"5th Grade Graduation","OCT-GR-05":"8th Grade Graduation","OCT-GR-06":"Proud Grad Family","OCT-GR-07":"Senior Squad","OCT-GR-08":"Signature Class","OCT-SP-01":"Basketball Team","OCT-SP-02":"Soccer Team","OCT-SP-03":"Football Team","OCT-SP-04":"Baseball Team","OCT-SP-05":"Volleyball Team","OCT-SP-06":"Cheer Squad","OCT-SP-07":"Game Day Fan","OCT-SP-08":"Proud Sports Parent"};
+    const designCode = params.get('design');
+    const notesField = quote.querySelector('[name="notes"]');
+    if (notesField && designCode && Object.prototype.hasOwnProperty.call(designTemplates, designCode) && !notesField.value.trim()) {
+      notesField.value = 'Selected school design: ' + designCode + ' — ' + designTemplates[designCode] + '\nSchool/team name: \nPreferred design colors: \nCustomization (names/numbers/year): ';
+    }
     const result = quote.querySelector('[data-form-result]');
     const submit = quote.querySelector('[type="submit"]');
     const label = submit.innerHTML;
