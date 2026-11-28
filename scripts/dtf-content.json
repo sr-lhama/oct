@@ -182,6 +182,381 @@
   },
   "guides": [
     {
+      "slug": "what-is-dtf",
+      "title": {
+        "en": "What is DTF printing?",
+        "es": "¿Qué es la impresión DTF?",
+        "pt": "O que é impressão DTF?"
+      },
+      "description": {
+        "en": "Get to know the full-color process behind your custom apparel, from artwork to finished garment.",
+        "es": "Conoce el proceso a todo color que convierte tu diseño en una prenda personalizada.",
+        "pt": "Conheça a tecnologia que transforma sua arte em uma estampa colorida, do arquivo à peça pronta."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "From a digital file to a wearable design",
+            "es": "Del archivo digital a la prenda",
+            "pt": "Do arquivo digital à camiseta"
+          },
+          "text": {
+            "en": "DTF stands for Direct to Film. The design is printed on a special film with color and a white backing where needed. An adhesive layer allows the artwork to bond to the garment under controlled heat and pressure.",
+            "es": "DTF significa Direct to Film. El diseño se imprime en una película especial con color y una base blanca cuando se necesita. Un adhesivo permite fijar la imagen a la prenda mediante calor y presión controlados.",
+            "pt": "DTF significa Direct to Film, ou impressão direta no filme. A arte é impressa em um filme especial, com cores e uma base branca quando necessário. Uma camada adesiva permite fixá-la ao tecido com calor e pressão controlados."
+          }
+        },
+        {
+          "heading": {
+            "en": "Why it works for custom logos",
+            "es": "Por qué funciona para logotipos",
+            "pt": "Por que funciona tão bem para logotipos"
+          },
+          "text": {
+            "en": "A single design can include gradients, illustrations, fine details and multiple colors. Unlike methods that require separate screens for each ink, DTF can accommodate detailed logos without charging by the number of colors alone. The artwork still needs enough resolution and legible details at the selected size.",
+            "es": "Un diseño puede incluir degradados, ilustraciones, detalles finos y varios colores. A diferencia de los métodos que necesitan pantallas separadas por tinta, DTF permite logotipos detallados sin cobrar únicamente por cantidad de colores. La resolución y legibilidad al tamaño elegido siguen siendo importantes.",
+            "pt": "Uma mesma arte pode reunir degradês, ilustrações, detalhes finos e várias cores. Diferentemente de técnicas que exigem telas separadas por tinta, o DTF não depende apenas do número de cores para definir o preço. Resolução e legibilidade no tamanho escolhido continuam essenciais."
+          }
+        },
+        {
+          "heading": {
+            "en": "Which garments are suitable?",
+            "es": "¿Qué prendas son adecuadas?",
+            "pt": "Em quais tecidos pode ser usado?"
+          },
+          "text": {
+            "en": "Cotton, cotton-poly blends and many performance polyester garments can be decorated with DTF. We select the appropriate garment and transfer for each project, since coatings, dyes and fabric sensitivity vary. T-shirts, polos and hoodies are common choices.",
+            "es": "El algodón, las mezclas de algodón y poliéster y muchas prendas deportivas de poliéster admiten DTF. Seleccionamos la prenda y transferencia adecuadas, ya que los acabados, tintes y sensibilidad al calor varían. Camisetas, polos y sudaderas son opciones frecuentes.",
+            "pt": "Algodão, mesclas de algodão com poliéster e muitas peças de poliéster esportivo aceitam DTF. Selecionamos a combinação adequada de tecido e estampa, pois tratamentos, corantes e sensibilidade ao calor variam. Camisetas, polos e moletons são ótimas opções."
+          }
+        },
+        {
+          "heading": {
+            "en": "What happens at Orlando Custom Tees",
+            "es": "Cómo trabajamos en Orlando Custom Tees",
+            "pt": "Como trabalhamos na Orlando Custom Tees"
+          },
+          "text": {
+            "en": "We review your file, recommend a garment and print placement, and send a digital mockup for approval. After approval and payment, we apply the transfer with professional equipment and inspect the finished apparel. You receive ready-to-wear pieces, not loose transfer sheets.",
+            "es": "Revisamos tu archivo, recomendamos prenda y ubicación y enviamos una vista digital para aprobación. Tras aprobar y pagar, aplicamos la transferencia con equipo profesional y revisamos las prendas. Recibes ropa lista para usar, no películas sueltas.",
+            "pt": "Analisamos a arte, recomendamos a peça e o posicionamento e enviamos um mockup digital para aprovação. Após aprovar e pagar, aplicamos a estampa com equipamento profissional e conferimos o resultado. Você recebe vestuário pronto para usar, não folhas de transfer."
+          }
+        },
+        {
+          "heading": {
+            "en": "How long will it last?",
+            "es": "¿Cuánto dura?",
+            "pt": "Qual é a durabilidade?"
+          },
+          "text": {
+            "en": "A professionally applied DTF print can handle regular wear and washing. Its lifespan depends on the garment, application and care. Follow the washing and drying guides in this collection instead of relying on a fixed number of washes.",
+            "es": "Una impresión DTF aplicada profesionalmente puede resistir el uso y lavado habituales. Su vida útil depende de la prenda, aplicación y cuidados. Sigue las guías de lavado y secado de esta colección, en vez de depender de un número fijo de lavados.",
+            "pt": "Uma estampa DTF aplicada profissionalmente pode resistir ao uso e às lavagens do dia a dia. Sua vida útil depende do tecido, da aplicação e dos cuidados. Siga os guias de lavagem e secagem desta coleção, em vez de contar com um número fixo de lavagens."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "dtf-shirt-care",
+      "title": {
+        "en": "How to care for your DTF-printed apparel",
+        "es": "Cómo cuidar tus prendas estampadas en DTF",
+        "pt": "Como cuidar das suas camisetas com DTF"
+      },
+      "description": {
+        "en": "Keep your prints vibrant and your uniforms looking professional with simple habits from first wear to storage.",
+        "es": "Mantén tus estampados vivos y tus uniformes impecables con hábitos sencillos desde el primer uso hasta el guardado.",
+        "pt": "Mantenha as cores vivas e seus uniformes bem apresentados com cuidados simples, do primeiro uso ao armazenamento."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Start with the first wash",
+            "es": "Empieza por el primer lavado",
+            "pt": "Comece pela primeira lavagem"
+          },
+          "text": {
+            "en": "Allow at least 24 hours after pressing before the first wash unless the specific transfer instructions say otherwise. Check your garment label and the care instructions supplied with your order.",
+            "es": "Espera al menos 24 horas después del prensado para el primer lavado, salvo que las instrucciones específicas indiquen otra cosa. Revisa la etiqueta y las indicaciones de cuidado del pedido.",
+            "pt": "Aguarde pelo menos 24 horas após a aplicação antes da primeira lavagem, salvo orientação específica do transfer. Confira a etiqueta da peça e as instruções fornecidas com seu pedido."
+          }
+        },
+        {
+          "heading": {
+            "en": "Reduce friction during cleaning",
+            "es": "Reduce el roce al lavar",
+            "pt": "Reduza o atrito na lavagem"
+          },
+          "text": {
+            "en": "Turn garments inside out before placing them in the washer. Close zippers on other items and avoid mixing printed apparel with heavy towels, jeans or abrasive workwear. Choose a mild detergent and cold water.",
+            "es": "Voltea las prendas del revés antes de lavarlas. Cierra las cremalleras de otras piezas y evita mezclarlas con toallas pesadas, vaqueros o ropa abrasiva. Usa detergente suave y agua fría.",
+            "pt": "Vire as peças do avesso antes de colocá-las na máquina. Feche zíperes das outras roupas e evite misturá-las com toalhas pesadas, jeans ou peças abrasivas. Prefira sabão suave e água fria."
+          }
+        },
+        {
+          "heading": {
+            "en": "Protect the print from heat and chemicals",
+            "es": "Protege el estampado del calor y químicos",
+            "pt": "Proteja a estampa do calor e dos produtos químicos"
+          },
+          "text": {
+            "en": "Air-drying is preferred. If machine drying is allowed, use low heat and remove garments promptly. Avoid bleach, harsh stain removers on the artwork and direct contact with an iron; skip fabric softeners, especially for performance wear.",
+            "es": "Es preferible secar al aire. Si se permite secadora, usa temperatura baja y retira las prendas pronto. Evita lejía, quitamanchas agresivos sobre el diseño y contacto directo con la plancha; evita suavizantes, sobre todo en ropa deportiva.",
+            "pt": "Prefira secar naturalmente. Se a secadora for permitida, use temperatura baixa e retire as peças logo ao final. Evite alvejante, removedores agressivos sobre a arte e contato direto com o ferro; dispense amaciante, especialmente em tecidos performance."
+          }
+        },
+        {
+          "heading": {
+            "en": "Store without stressing the graphic",
+            "es": "Guarda sin forzar el diseño",
+            "pt": "Guarde sem forçar o desenho"
+          },
+          "text": {
+            "en": "Hang clean dry shirts or fold loosely around the printed area. Avoid pressing a sharp fold through a large logo or leaving apparel in a hot car for long periods. Keep garments dry and away from prolonged direct sun.",
+            "es": "Cuelga las camisetas limpias y secas o dóblalas sin apretar el estampado. Evita crear un pliegue marcado sobre un logotipo grande o dejar la ropa mucho tiempo en un auto caliente. Guarda en un lugar seco y sin sol directo prolongado.",
+            "pt": "Pendure as camisetas limpas e secas ou dobre sem pressionar a área estampada. Evite vincos fortes no meio de um logo grande ou deixar roupas por muito tempo no carro quente. Guarde em local seco e protegido do sol direto prolongado."
+          }
+        },
+        {
+          "heading": {
+            "en": "If the print looks damaged",
+            "es": "Si el estampado parece dañado",
+            "pt": "Se notar algum dano"
+          },
+          "text": {
+            "en": "Do not pull at lifted corners or try to re-press the graphic at home. Photograph the issue and contact our team with the order details, garment type and care history so we can help assess it.",
+            "es": "No tires de las esquinas levantadas ni intentes volver a prensar el diseño en casa. Fotografía el problema y contacta al equipo con los datos del pedido, tipo de prenda y cuidados realizados.",
+            "pt": "Não puxe bordas levantadas nem tente reaplicar a estampa em casa. Fotografe o problema e fale com nossa equipe informando o pedido, tipo de peça e os cuidados adotados para podermos avaliar."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "how-to-wash-dtf-shirts",
+      "title": {
+        "en": "How to wash DTF shirts: a step-by-step guide",
+        "es": "Cómo lavar camisetas DTF paso a paso",
+        "pt": "Como lavar camisetas DTF: passo a passo"
+      },
+      "description": {
+        "en": "A practical laundry routine to preserve printed graphics, logos and fabric quality.",
+        "es": "Una rutina de lavado práctica para proteger los diseños, logotipos y tejidos.",
+        "pt": "Um guia prático de lavagem para preservar as estampas, os logotipos e a qualidade do tecido."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "1. Sort and check labels",
+            "es": "1. Separa y revisa las etiquetas",
+            "pt": "1. Separe as roupas e confira a etiqueta"
+          },
+          "text": {
+            "en": "Separate light and dark colors and keep heavy fabrics out of the load. Check pockets and garment care labels. If there is a stain, spot-treat the fabric gently without scrubbing the printed surface.",
+            "es": "Separa colores claros y oscuros y deja fuera los tejidos pesados. Revisa bolsillos y etiquetas. Si hay manchas, trata la tela con suavidad sin frotar el estampado.",
+            "pt": "Separe roupas claras das escuras e deixe tecidos pesados fora da carga. Confira os bolsos e etiquetas. Se houver manchas, trate o tecido suavemente sem esfregar a estampa."
+          }
+        },
+        {
+          "heading": {
+            "en": "2. Turn the shirt inside out",
+            "es": "2. Voltea la camiseta del revés",
+            "pt": "2. Vire a camiseta do avesso"
+          },
+          "text": {
+            "en": "Place the printed side toward the inside to limit abrasion against the drum and other clothes. A mesh laundry bag can provide extra protection for delicate pieces.",
+            "es": "Coloca el estampado hacia dentro para reducir el roce con el tambor y otras prendas. Una bolsa de malla puede proteger más las piezas delicadas.",
+            "pt": "Deixe a estampa voltada para dentro para limitar o atrito com o tambor e com outras roupas. Uma bolsa de lavagem em tela pode oferecer proteção extra para peças delicadas."
+          }
+        },
+        {
+          "heading": {
+            "en": "3. Select cold water and a gentle cycle",
+            "es": "3. Selecciona agua fría y ciclo suave",
+            "pt": "3. Selecione água fria e ciclo delicado"
+          },
+          "text": {
+            "en": "Use a mild detergent in the recommended amount and a gentle wash cycle. Do not overcrowd the washer or add bleach. For hand washing, gently move the shirt in cool soapy water and rinse without twisting.",
+            "es": "Usa detergente suave en la dosis recomendada y un ciclo delicado. No llenes demasiado la lavadora ni añadas lejía. A mano, mueve suavemente la camiseta en agua fría jabonosa y enjuaga sin retorcer.",
+            "pt": "Use sabão suave na quantidade recomendada e um ciclo delicado. Não sobrecarregue a máquina nem adicione alvejante. Na lavagem à mão, movimente suavemente a camiseta na água fria com sabão e enxágue sem torcer."
+          }
+        },
+        {
+          "heading": {
+            "en": "4. Air-dry or choose low heat",
+            "es": "4. Seca al aire o con temperatura baja",
+            "pt": "4. Seque ao ar livre ou em baixa temperatura"
+          },
+          "text": {
+            "en": "Remove the garment promptly, smooth it gently and hang in a shaded, ventilated area. If using a dryer is permitted by the label, choose low heat and keep the shirt inside out. Avoid leaving it crumpled in the drum.",
+            "es": "Retira la prenda enseguida, alísala suavemente y cuélgala en un lugar ventilado y a la sombra. Si la etiqueta permite secadora, elige temperatura baja y conserva la camiseta del revés. Evita dejarla arrugada en el tambor.",
+            "pt": "Retire a peça logo, alise suavemente e pendure em local ventilado e à sombra. Se a etiqueta permitir secadora, escolha temperatura baixa e mantenha a camiseta do avesso. Não deixe a peça amontoada no tambor."
+          }
+        },
+        {
+          "heading": {
+            "en": "5. Finish and store",
+            "es": "5. Termina y guarda",
+            "pt": "5. Finalize e guarde"
+          },
+          "text": {
+            "en": "Wait until the shirt is completely dry before folding or hanging it in the closet. If ironing is allowed, use the fabric's lowest suitable heat on the reverse and avoid the print entirely.",
+            "es": "Espera hasta que se seque por completo antes de doblar o guardar. Si se permite planchar, utiliza la temperatura más baja adecuada por el revés y evita por completo el estampado.",
+            "pt": "Espere a secagem completa antes de dobrar ou pendurar no armário. Se puder passar a peça, use a menor temperatura adequada ao tecido, pelo avesso, e evite totalmente a área estampada."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "prevent-dtf-print-wrinkles",
+      "title": {
+        "en": "How to prevent wrinkles in DTF prints",
+        "es": "Cómo evitar arrugas en estampados DTF",
+        "pt": "Como evitar que a estampa DTF fique enrugada"
+      },
+      "description": {
+        "en": "Learn what causes creases and how to keep printed shirts smooth without damaging the artwork.",
+        "es": "Descubre por qué aparecen pliegues y cómo mantener la prenda lisa sin dañar el diseño.",
+        "pt": "Entenda por que aparecem vincos e como manter as camisetas lisas sem danificar a estampa."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Understand the source of wrinkles",
+            "es": "Entiende el origen de las arrugas",
+            "pt": "Entenda a origem dos vincos"
+          },
+          "text": {
+            "en": "Fabric and print respond differently to heat, moisture and compression. A cotton shirt may shrink slightly while the print remains stable; a shirt left tightly folded or overheated may develop creases. Minor fabric texture is not always a defect.",
+            "es": "La tela y el estampado reaccionan de manera distinta al calor, humedad y presión. El algodón puede encogerse ligeramente mientras el estampado permanece estable; la ropa doblada con fuerza o sobrecalentada puede marcarse. Una ligera textura no siempre es un defecto.",
+            "pt": "Tecido e estampa respondem de formas diferentes ao calor, à umidade e à compressão. Uma camiseta de algodão pode encolher um pouco enquanto a estampa permanece estável; roupas dobradas com força ou superaquecidas podem criar marcas. Uma leve textura nem sempre é defeito."
+          }
+        },
+        {
+          "heading": {
+            "en": "Prevent creases in the washer",
+            "es": "Evita los pliegues durante el lavado",
+            "pt": "Previna vincos na máquina"
+          },
+          "text": {
+            "en": "Wash cold, inside out and with room for garments to move. A gentle cycle and lighter load help prevent clothes from twisting around larger items. Avoid wringing the printed area after hand washing.",
+            "es": "Lava en frío, del revés y con espacio para que las prendas se muevan. Un ciclo suave y una carga ligera ayudan a evitar que se enreden con piezas grandes. No retuerzas el estampado tras lavar a mano.",
+            "pt": "Lave com água fria, do avesso e com espaço para as peças se movimentarem. O ciclo suave e uma carga leve ajudam a evitar que elas se enrosquem em itens maiores. Não torça a área estampada após lavar à mão."
+          }
+        },
+        {
+          "heading": {
+            "en": "Smooth the garment while damp",
+            "es": "Alisa la prenda mientras está húmeda",
+            "pt": "Alise a camiseta ainda úmida"
+          },
+          "text": {
+            "en": "Remove the garment soon after washing and shape it gently on a flat surface. Let it finish drying on a hanger or drying rack. If a dryer is permitted, low heat and prompt removal help limit deep creases.",
+            "es": "Retira la prenda pronto después del lavado y dale forma suavemente sobre una superficie plana. Termina de secarla en una percha o tendedero. Si se permite secadora, usa calor bajo y retira enseguida.",
+            "pt": "Retire a peça logo após lavar e ajeite delicadamente em uma superfície plana. Termine a secagem em cabide ou varal. Se a secadora for permitida, use baixa temperatura e retire logo para reduzir vincos profundos."
+          }
+        },
+        {
+          "heading": {
+            "en": "Never iron the graphic directly",
+            "es": "Nunca planches directamente el diseño",
+            "pt": "Nunca passe o ferro sobre a estampa"
+          },
+          "text": {
+            "en": "For ordinary fabric wrinkles, iron only if the care label permits: turn the shirt inside out, choose the lowest suitable setting and work around the printed area. Avoid steam or excessive heat on the graphic itself. Do not try to flatten a damaged print with a home press.",
+            "es": "Para arrugas de la tela, plancha solo si la etiqueta lo permite: da la vuelta a la prenda, elige la menor temperatura adecuada y trabaja alrededor del diseño. Evita vapor o calor excesivo sobre el estampado. No intentes aplanar una impresión dañada con una prensa doméstica.",
+            "pt": "Para amassados no tecido, passe somente se a etiqueta permitir: vire a peça do avesso, escolha a menor temperatura adequada e trabalhe ao redor da estampa. Evite vapor ou calor excessivo sobre o desenho. Não tente recuperar uma estampa danificada com prensa doméstica."
+          }
+        },
+        {
+          "heading": {
+            "en": "Avoid sharp folds in storage",
+            "es": "Evita dobleces fuertes al guardar",
+            "pt": "Evite dobras fortes ao guardar"
+          },
+          "text": {
+            "en": "Use a hanger for large back graphics or fold the shirt so the artwork stays flat. If a print remains distorted after gentle care, send us a photo instead of trying to stretch or heat it.",
+            "es": "Usa una percha para estampados grandes en la espalda o dobla la camiseta sin marcar el diseño. Si sigue deformado tras un cuidado suave, envíanos una foto en vez de intentar estirarlo o calentarlo.",
+            "pt": "Use cabide quando houver uma estampa grande nas costas ou dobre a camiseta mantendo a arte plana. Se a estampa continuar deformada após cuidados suaves, envie-nos uma foto em vez de tentar esticar ou aquecer."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "how-to-wash-polyester",
+      "title": {
+        "en": "How to wash polyester performance shirts",
+        "es": "Cómo lavar camisetas de poliéster técnico",
+        "pt": "Como lavar camisetas de poliéster e uniformes performance"
+      },
+      "description": {
+        "en": "Care for lightweight work shirts, polos and DTF-printed polyester without compromising the fabric.",
+        "es": "Cuida las camisetas laborales ligeras, polos y poliéster con DTF sin perjudicar la tela.",
+        "pt": "Aprenda a cuidar de camisetas leves, polos e uniformes de poliéster com DTF sem prejudicar o tecido."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Know your performance fabric",
+            "es": "Conoce el tejido técnico",
+            "pt": "Conheça o tecido performance"
+          },
+          "text": {
+            "en": "Polyester is common in active work uniforms because it is lightweight and quick-drying. Some garments feature moisture-wicking finishes or UV protection. Care requirements vary by model, so read the garment label and do not assume that all performance fabrics tolerate bleach.",
+            "es": "El poliéster es común en uniformes activos por su ligereza y secado rápido. Algunas prendas tienen tratamientos de evacuación de humedad o protección UV. Revisa la etiqueta de cada modelo y no supongas que todos toleran lejía.",
+            "pt": "O poliéster é comum em uniformes de trabalho ativo por ser leve e secar rapidamente. Alguns modelos oferecem tecnologia de gerenciamento de umidade ou proteção UV. Consulte a etiqueta de cada modelo e não presuma que todo tecido performance tolera alvejante."
+          }
+        },
+        {
+          "heading": {
+            "en": "Wash workwear after use",
+            "es": "Lava los uniformes después de usar",
+            "pt": "Lave os uniformes após o uso"
+          },
+          "text": {
+            "en": "For crews in landscaping, painting or pool service, wash sweaty or soiled shirts after use. Separate them by color and from abrasive or heavily contaminated items. Choose cold water, mild detergent and a gentle cycle; turn DTF-printed pieces inside out.",
+            "es": "Para equipos de jardinería, pintura o piscinas, lava las camisetas sudadas o sucias después del uso. Separa por color y de objetos abrasivos o muy contaminados. Usa agua fría, detergente suave y ciclo delicado; voltea las prendas DTF del revés.",
+            "pt": "Para equipes de jardinagem, pintura ou serviços de piscina, lave as camisetas suadas ou sujas após o uso. Separe por cor e de itens abrasivos ou muito contaminados. Use água fria, sabão suave e ciclo delicado; vire peças DTF do avesso."
+          }
+        },
+        {
+          "heading": {
+            "en": "Skip softener and harsh products",
+            "es": "Evita suavizante y productos agresivos",
+            "pt": "Evite amaciante e produtos agressivos"
+          },
+          "text": {
+            "en": "Fabric softener can leave a coating that interferes with some moisture-wicking finishes. Bleach and strong cleaners may damage dyes, fibers or the printed artwork. Treat stains gently using a product approved for the fabric and avoid applying it directly to the logo.",
+            "es": "El suavizante puede dejar una película que afecta algunos acabados de evacuación de humedad. La lejía y limpiadores fuertes pueden dañar tintes, fibras o diseños. Trata manchas con un producto compatible con la tela, sin aplicar directamente sobre el logotipo.",
+            "pt": "O amaciante pode deixar resíduos que interferem em alguns tratamentos de gerenciamento de umidade. Alvejante e limpadores fortes podem danificar corantes, fibras ou a estampa. Trate manchas com produto compatível com o tecido, sem aplicar diretamente no logo."
+          }
+        },
+        {
+          "heading": {
+            "en": "Avoid overheating",
+            "es": "Evita el exceso de calor",
+            "pt": "Evite temperaturas elevadas"
+          },
+          "text": {
+            "en": "Hang polyester garments to dry in a ventilated, shaded area. If the label allows machine drying, use the lowest heat setting and remove promptly. Heat can distort synthetic fibers; never place an iron directly on a DTF logo.",
+            "es": "Cuelga las prendas de poliéster para secar en un lugar ventilado y a la sombra. Si la etiqueta permite secadora, elige temperatura mínima y retira pronto. El calor puede deformar fibras sintéticas; nunca pongas la plancha sobre un logotipo DTF.",
+            "pt": "Pendure as peças de poliéster para secar em local ventilado e à sombra. Se a etiqueta permitir secadora, use a menor temperatura e retire logo. O calor pode deformar fibras sintéticas; nunca encoste o ferro diretamente no logotipo DTF."
+          }
+        },
+        {
+          "heading": {
+            "en": "Keep uniforms ready for the next shift",
+            "es": "Prepara los uniformes para el próximo turno",
+            "pt": "Deixe os uniformes prontos para o próximo dia"
+          },
+          "text": {
+            "en": "Rotate between clean shirts and store them only when completely dry. Models such as Team 365 TT11, TT11L and TT21 are options to discuss when selecting uniforms for an active crew. Our team can recommend a garment for your work environment.",
+            "es": "Alterna camisetas limpias y guárdalas solo cuando estén completamente secas. Modelos como Team 365 TT11, TT11L y TT21 son opciones al elegir uniformes para equipos activos. Podemos recomendarte una prenda para tu entorno de trabajo.",
+            "pt": "Faça um rodízio de peças limpas e guarde somente quando estiverem totalmente secas. Modelos como Team 365 TT11, TT11L e TT21 são opções na escolha de uniformes para equipes ativas. Podemos recomendar uma peça adequada ao seu ambiente de trabalho."
+          }
+        }
+      ]
+    },
+    {
       "slug": "dtf-vs-screen-printing",
       "title": {
         "en": "DTF vs. Screen Printing for Orlando Businesses",
@@ -228,57 +603,6 @@
             "en": "Send your logo, the garment color, quantities by size and an approximate width for each print. For a left-chest logo plus a full back, send both designs so we can review scale, contrast and legibility in the mockup.",
             "es": "Envía el logo, el color de la prenda, las cantidades por talla y el ancho aproximado de cada estampado. Si quieres pecho y espalda, envía los dos diseños para revisar la escala, el contraste y la legibilidad.",
             "pt": "Envie o logo, a cor da peça, a grade de tamanhos e a largura aproximada de cada estampa. Se quiser peito e costas, envie as duas artes para conferirmos escala, contraste e legibilidade na prévia."
-          }
-        }
-      ]
-    },
-    {
-      "slug": "dtf-shirt-care",
-      "title": {
-        "en": "How Long Does a DTF Print Last? Care Guide",
-        "es": "¿Cuánto dura un estampado DTF? Guía de cuidados",
-        "pt": "Quanto dura uma estampa DTF? Guia de cuidados"
-      },
-      "description": {
-        "en": "Practical washing, drying and ironing advice for DTF-printed shirts and uniforms.",
-        "es": "Cómo lavar, secar y planchar camisetas y uniformes estampados en DTF.",
-        "pt": "Como lavar, secar e passar camisetas e uniformes estampados em DTF."
-      },
-      "sections": [
-        {
-          "heading": {
-            "en": "Wash inside out in cold water",
-            "es": "Lava al revés con agua fría",
-            "pt": "Lave do avesso com água fria"
-          },
-          "text": {
-            "en": "Turn the garment inside out and use cold water to reduce rubbing on the printed surface. Choose the wash cycle the garment label recommends. For team uniforms, share the same instructions with everyone taking a shirt home.",
-            "es": "Voltea la prenda y lávala en agua fría para reducir el roce sobre el estampado. Usa el ciclo indicado en la etiqueta. Comparte estas instrucciones con todo el equipo.",
-            "pt": "Vire a peça do avesso e lave com água fria para reduzir o atrito na estampa. Use o ciclo indicado na etiqueta. Se forem uniformes, compartilhe as instruções com a equipe."
-          }
-        },
-        {
-          "heading": {
-            "en": "Use gentle drying and ironing",
-            "es": "Seca y plancha con cuidado",
-            "pt": "Seque e passe com cuidado"
-          },
-          "text": {
-            "en": "Follow the garment label for drying. Air-dry when practical or use low heat if the label allows it. If the garment can be ironed, turn it inside out and avoid placing the iron directly on the print.",
-            "es": "Sigue la etiqueta para secar. Si puedes, deja secar al aire, o usa calor bajo si la etiqueta lo permite. Plancha del revés y evita el contacto directo de la plancha con el estampado.",
-            "pt": "Siga a etiqueta na secagem. Se possível, seque ao ar ou use temperatura baixa se indicada. Se for passar a peça, vire do avesso e evite encostar o ferro diretamente na estampa."
-          }
-        },
-        {
-          "heading": {
-            "en": "What affects print life",
-            "es": "Qué determina la duración",
-            "pt": "O que influencia a durabilidade"
-          },
-          "text": {
-            "en": "Fabric, wash frequency, abrasion and heat all affect wear. Give us a heads-up if the garment will be washed frequently or used for demanding work so we can discuss a suitable fabric and placement.",
-            "es": "El tejido, los lavados, el roce y el calor influyen en el desgaste. Avísanos si la prenda se lavará a menudo o se usará para trabajos exigentes para que podamos revisar el tejido y la posición.",
-            "pt": "Tecido, frequência de lavagem, atrito e calor influenciam o desgaste. Avise se a peça for lavada com frequência ou usada em trabalho intenso para avaliarmos o tecido e a posição da estampa."
           }
         }
       ]
@@ -390,5 +714,12 @@
     "en": "DTF printing guides",
     "es": "Guías de estampado DTF",
     "pt": "Guias de impressão DTF"
-  }
+  },
+  "blog_slugs": [
+    "what-is-dtf",
+    "dtf-shirt-care",
+    "how-to-wash-dtf-shirts",
+    "prevent-dtf-print-wrinkles",
+    "how-to-wash-polyester"
+  ]
 }

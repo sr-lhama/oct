@@ -8,7 +8,8 @@ from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from lxml import etree, html
 
-from dtf_pages import GUIDES, SERVICE, format_page
+from dtf_pages import BLOG, GUIDES, SERVICE, format_page
+from shutil import copy2
 
 ORIGIN = 'https://orlandocustomtees.com'
 LOCALES = {'en': 'en-US', 'es': 'es', 'pt': 'pt-BR'}
@@ -263,8 +264,18 @@ def build(output, revision):
             description = meta_content(head, 'description') if head.find('meta[@name="description"]') is not None else title
             social_image = '/assets/schools/school-spirit.webp' if filename == 'school-shirts-orlando.html' else SOCIAL_IMAGE
             social_width, social_height = ('830', '465') if filename == 'school-shirts-orlando.html' else ('1200', '630')
+            if filename in BLOG:
+                social_image = '/assets/blog/' + BLOG[filename]['slug'] + '.webp'
+                social_width, social_height = '766', '340'
             social_alt = {'en': 'Orlando Custom Tees custom apparel', 'es': 'Ropa personalizada de Orlando Custom Tees',
                           'pt': 'Vestuário personalizado da Orlando Custom Tees'}[lang]
+            if filename in BLOG:
+                social_alt = BLOG[filename]['title'][lang]
+                add_schema(head, {'@type':'Article', 'headline':BLOG[filename]['title'][lang],
+                                  'description':description, 'image':ORIGIN + social_image,
+                                  'author':{'@type':'Organization','name':'Orlando Custom Tees','url':ORIGIN},
+                                  'publisher':{'@type':'Organization','name':'Orlando Custom Tees','url':ORIGIN},
+                                  'mainEntityOfPage':url,'inLanguage':LOCALES[lang]})
             for key, value in {'og:url': url, 'og:title': title, 'og:description': description,
                                'og:site_name': 'Orlando Custom Tees', 'og:type': 'product' if slug else 'article' if filename in GUIDES else 'website',
                                'og:locale': LOCALES[lang].replace('-', '_') if lang != 'es' else 'es_US',
@@ -301,6 +312,8 @@ def build(output, revision):
                 trail = [(home_labels[lang], canonical_path('index.html', lang))]
                 if slug:
                     trail.append((catalog_labels[lang], canonical_path('apparel.html', lang)))
+                elif filename in BLOG:
+                    trail.append(({'en':'How It Works','es':'Cómo funciona','pt':'Como funciona'}[lang], canonical_path('how-it-works.html', lang)))
                 elif filename in GUIDES:
                     trail.append((lookup('DTF Printing'), canonical_path(SERVICE, lang)))
                 elif filename != 'services.html':
@@ -328,6 +341,12 @@ def build(output, revision):
             robots = head.find('meta[@name="robots"]')
             if filename not in PRIVATE and (robots is None or 'noindex' not in robots.get('content', '')):
                 etree.SubElement(etree.SubElement(sitemap, 'url'), 'loc').text = url
+    # The publisher uploads all build artifacts, including these optimized original blog images.
+    blog_dir = output / 'assets' / 'blog'
+    blog_dir.mkdir(parents=True, exist_ok=True)
+    for guide in BLOG.values():
+        name = guide['slug'] + '.webp'
+        copy2(ROOT / 'assets' / 'blog' / name, blog_dir / name)
     if not homepage_styles:
         raise RuntimeError('No home stylesheets found')
     (output/'css').mkdir(exist_ok=True)
