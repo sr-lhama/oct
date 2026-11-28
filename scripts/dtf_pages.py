@@ -22,8 +22,8 @@ BLOG_CSS = """
 .oct-care-card{display:flex;flex-direction:column;overflow:hidden;background:#fff;border:1px solid #dce7f0;border-radius:20px;box-shadow:0 6px 22px #091a3509;transition:transform .2s ease,box-shadow .2s ease}
 .oct-care-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px #091a3516}
 .oct-care-card:first-child{grid-column:span 2}
-.oct-care-card img{width:100%;aspect-ratio:2.25;object-fit:cover;display:block}
-.oct-care-card:first-child img{aspect-ratio:2.25}
+.oct-care-card > a:first-child{display:block;width:100%;min-width:0}
+.oct-care-card img{display:block;width:100%;height:auto;aspect-ratio:766 / 340;object-fit:contain;object-position:center}
 .oct-care-card-copy{display:flex;flex-direction:column;align-items:flex-start;flex:1;padding:22px}
 .oct-care-card-copy h3{font-size:clamp(20px,2.5vw,25px);line-height:1.18;margin:9px 0}
 .oct-care-card-copy p{margin:0 0 18px}
