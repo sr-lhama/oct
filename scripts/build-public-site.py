@@ -32,7 +32,7 @@ SOCIAL_PROFILES = [
     'https://wa.me/message/BKYBFEAJW4RJP1',
 ]
 VERSIONED = {'site.js', 'language.js', 'garment-catalog.js', 'gildan-64000.js', 'product-banner.js',
-             'site.css', 'dtf-page.css', 'locale-es.json', 'locale-pt.json', 'quote-site.js'}
+             'site.css', 'home-reviews.css', 'home-reviews.js', 'dtf-page.css', 'locale-es.json', 'locale-pt.json', 'quote-site.js'}
 ATTRS = {'alt', 'title', 'aria-label', 'aria-roledescription', 'aria-valuetext', 'placeholder'}
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -347,6 +347,10 @@ def build(output, revision):
     for guide in BLOG.values():
         name = guide['slug'] + '.webp'
         copy2(ROOT / 'assets' / 'blog' / name, blog_dir / name)
+    for relative in ('css/home-reviews.css', 'js/home-reviews.js'):
+        target = output / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        copy2(ROOT / relative, target)
     if not homepage_styles:
         raise RuntimeError('No home stylesheets found')
     (output/'css').mkdir(exist_ok=True)
